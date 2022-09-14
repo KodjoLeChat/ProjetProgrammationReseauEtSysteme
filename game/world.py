@@ -77,10 +77,10 @@ class World:
 
     def load_images(self):
 
-        block = pg.image.load("C3_sprites/C3/Land1a_00002.png")
-        tree1 = pg.image.load("C3_sprites/C3/Land1a_00045.png")
-        tree2 = pg.image.load("C3_sprites/C3/Land1a_00054.png")
-        tree3 = pg.image.load("C3_sprites/C3/Land1a_00059.png")
-        farm = pg.image.load("C3_sprites/C3/Security_00053.png")
+        block = pg.image.load("assets/Land1a_00002.png")
+        tree1 = pg.image.load("assets/Land1a_00045.png")
+        tree2 = pg.image.load("assets/Land1a_00054.png")
+        tree3 = pg.image.load("assets/Land1a_00059.png")
+        farm = pg.image.load("assets/Security_00053.png")
 
         return {"block": block, "tree1": tree1, "tree2": tree2, "tree3": tree3, "farm": farm}
