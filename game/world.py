@@ -73,9 +73,9 @@ class World:
 
     def load_images(self):
 
-        block = pg.image.load("assets/Land1a_00002.png")
-        tree = pg.image.load("assets/Land1a_00045.png")
-        rock = pg.image.load("assets/Citizen01_00047.png")
+        block = pg.image.load("C3_sprites/C3/Land1a_00002.png")
+        tree = pg.image.load("C3_sprites/C3/Land1a_00045.png")
+        rock = pg.image.load("C3_sprites/C3/Citizen01_00047.png")
 
         return {"block": block, "tree": tree, "rock": rock}
 
