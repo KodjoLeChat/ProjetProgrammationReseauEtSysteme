@@ -1,6 +1,7 @@
 
 import pygame as pg
 import random
+from .case import Case
 from .settings import TILE_SIZE
 
 
@@ -60,13 +61,15 @@ class World:
         else:
             tile = ""
 
-        out = {
-            "grid": [grid_x, grid_y],
-            "cart_rect": rect,
-            "iso_poly": iso_poly,
-            "render_pos": [minx, miny],
-            "tile": tile
-        }
+        out = Case([grid_x,grid_y],rect,iso_poly,[minx,miny],tile)
+
+        # out = {
+        #     "grid": [grid_x, grid_y],
+        #     "cart_rect": rect,
+        #     "iso_poly": iso_poly,
+        #     "render_pos": [minx, miny],
+        #     "tile": tile
+        # }
 
         return out
 

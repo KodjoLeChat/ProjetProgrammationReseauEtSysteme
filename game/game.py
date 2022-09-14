@@ -2,9 +2,6 @@ import pygame as pg
 import sys
 from .world import World
 from .settings import TILE_SIZE
-from .utils import draw_text
-from .camera import Camera
-
 
 class Game:
 
@@ -52,10 +49,10 @@ class Game:
                 # rect = pg.Rect(sq[0][0], sq[0][1], TILE_SIZE, TILE_SIZE)
                 # pg.draw.rect(self.screen, (0, 0, 255), rect, 1)
 
-                render_pos =  self.world.world[x][y]["render_pos"]
+                render_pos =  self.world.world[x][y].get_render_pos()
                 #self.screen.blit(self.world.tiles["block"], (render_pos[0] + self.width/2, render_pos[1] + self.height/4))
 
-                tile = self.world.world[x][y]["tile"]
+                tile = self.world.world[x][y].get_tile()
                 if tile != "":
                     self.screen.blit(self.world.tiles[tile],
                                     (render_pos[0] + self.world.grass_tiles.get_width()/2 + self.camera.scroll.x,
