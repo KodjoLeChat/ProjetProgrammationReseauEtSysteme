@@ -13,7 +13,7 @@ class World:
         self.width = width
         self.height = height
 
-        self.grass_tiles = pg.Surface((width, height))
+        self.grass_tiles = pg.Surface((grid_length_x * TILE_SIZE * 2, grid_length_y * TILE_SIZE + 2 * TILE_SIZE)).convert_alpha() #
         self.tiles = self.load_images()
         self.world = self.create_world()
 
@@ -28,8 +28,8 @@ class World:
                 world[grid_x].append(world_tile)
 
                 render_pos = world_tile["render_pos"]
-                self.grass_tiles.blit(self.tiles["block"], (render_pos[0] + self.width/2, render_pos[1] + self.height/4))
-
+                self.grass_tiles.blit(self.tiles["block"], (render_pos[0] + self.grass_tiles.get_width()/2, render_pos[1])) #
+            self.grass_tiles.blit(self.tiles["block"], (render_pos[0] + self.grass_tiles.get_width() / 2, render_pos[1]))
 
         return world
 
@@ -47,12 +47,16 @@ class World:
         minx = min([x for x, y in iso_poly])
         miny = min([y for x, y in iso_poly])
 
-        r = random.randint(1, 80)
+        r = random.randint(1, 1000)
 
-        if r <= 5:
-            tile = "tree"
-        elif r <= 10:
-            tile = "rock"
+        if r <= 50 and r > 5:
+            tile = "tree1"
+        elif r <= 100 and r >= 50:
+            tile = "tree2"
+        elif r <= 150 and r >= 100:
+            tile = "tree3"
+        #elif r <= 1:
+        #    tile = "farm"
         else:
             tile = ""
 
@@ -74,8 +78,9 @@ class World:
     def load_images(self):
 
         block = pg.image.load("C3_sprites/C3/Land1a_00002.png")
-        tree = pg.image.load("C3_sprites/C3/Land1a_00045.png")
-        rock = pg.image.load("C3_sprites/C3/Citizen01_00047.png")
+        tree1 = pg.image.load("C3_sprites/C3/Land1a_00045.png")
+        tree2 = pg.image.load("C3_sprites/C3/Land1a_00054.png")
+        tree3 = pg.image.load("C3_sprites/C3/Land1a_00059.png")
+        farm = pg.image.load("C3_sprites/C3/Security_00053.png")
 
-        return {"block": block, "tree": tree, "rock": rock}
-
+        return {"block": block, "tree1": tree1, "tree2": tree2, "tree3": tree3, "farm": farm}
