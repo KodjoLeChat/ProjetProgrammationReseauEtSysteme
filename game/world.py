@@ -8,7 +8,8 @@ from .settings import TILE_SIZE
 
 class World:
 
-    def __init__(self, grid_length_x, grid_length_y, width, height):
+    def __init__(self, hud, grid_length_x, grid_length_y, width, height):
+        self.hud = hud
         self.grid_length_x = grid_length_x
         self.grid_length_y = grid_length_y
         self.width = width
@@ -73,9 +74,16 @@ class World:
     def load_images(self):
 
         block = pg.image.load("C3_sprites/C3/Land1a_00002.png")
+<<<<<<< HEAD
         tree1 = pg.image.load("C3_sprites/C3/Land1a_00045.png")
         tree2 = pg.image.load("C3_sprites/C3/Land1a_00054.png")
         tree3 = pg.image.load("C3_sprites/C3/Land1a_00059.png")
         farm = pg.image.load("C3_sprites/C3/Security_00053.png")
+=======
+        tree = pg.image.load("C3_sprites/C3/Land1a_00040.png")
+        rock = pg.image.load("C3_sprites/C3/Citizen01_00090.png")
+
+        return {"block": block, "tree": tree, "rock": rock}
+>>>>>>> 115adc2 (creation de HUD)
 
         return {"block": block, "tree1": tree1, "tree2": tree2, "tree3": tree3, "farm": farm}

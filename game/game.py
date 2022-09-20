@@ -3,8 +3,13 @@ import pygame as pg
 from .utils import draw_text
 from .world import World
 from .settings import TILE_SIZE
+<<<<<<< HEAD
 from game.controller.camera import Camera
 from .controller.keyboard import keyboard
+=======
+from .hud import Hud
+
+>>>>>>> 115adc2 (creation de HUD)
 
 class Game:
 
@@ -22,6 +27,15 @@ class Game:
         self.camera = Camera(self.width, self.height)
 
 
+<<<<<<< HEAD
+=======
+        # hud
+        self.hud = Hud(self.width, self.height)
+
+        # world
+        self.world = World(self.hud, 50, 50, self.width, self.height)
+
+>>>>>>> 115adc2 (creation de HUD)
 
     def run(self):
         self.playing = True
@@ -33,6 +47,7 @@ class Game:
 
 
     def update(self):
+<<<<<<< HEAD
         self.camera.update()
 
     def get_state(self):
@@ -40,9 +55,13 @@ class Game:
 
     def set_state(self,state):
         self.state = state
+=======
+        self.hud.update()
+>>>>>>> 115adc2 (creation de HUD)
 
     def draw(self):
         self.screen.fill((0, 0, 0))
+       
 
         self.screen.blit(self.world.grass_tiles, (self.camera.scroll.x, self.camera.scroll.y))
 
@@ -66,6 +85,7 @@ class Game:
                 # p = [(x + self.width/2, y + self.height/4) for x, y in p]
                 # pg.draw.polygon(self.screen, (255, 0, 0), p, 1)
 
+<<<<<<< HEAD
         draw_text(
             self.screen,
             'fps={}'.format(round(self.clock.get_fps())),
@@ -73,5 +93,9 @@ class Game:
             (255, 255, 255),
             (10, 10)
         )
+=======
+        self.hud.draw(self.screen)
+
+>>>>>>> 115adc2 (creation de HUD)
 
         pg.display.flip()
