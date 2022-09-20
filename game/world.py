@@ -63,14 +63,6 @@ class World:
 
         out = Case([grid_x,grid_y],rect,iso_poly,[minx,miny],tile)
 
-        # out = {
-        #     "grid": [grid_x, grid_y],
-        #     "cart_rect": rect,
-        #     "iso_poly": iso_poly,
-        #     "render_pos": [minx, miny],
-        #     "tile": tile
-        # }
-
         return out
 
     def cart_to_iso(self, x, y):
