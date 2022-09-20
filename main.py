@@ -10,7 +10,7 @@ def main():
 
     pg.init()
     pg.mixer.init()
-    screen = pg.display.set_mode((0, 0), pg.FULLSCREEN)
+    screen = pg.display.set_mode((900, 700))
     clock = pg.time.Clock()
 
     # implement menus

@@ -1,17 +1,19 @@
 import pygame as pg
-import sys
 
 from .utils import draw_text
 from .world import World
 from .settings import TILE_SIZE
-from .camera import Camera
+from game.controller.camera import Camera
+from .controller.keyboard import keyboard
 
 class Game:
 
     def __init__(self, screen, clock):
+        self.keyboard = keyboard(self)
         self.screen = screen
         self.clock = clock
         self.width, self.height = self.screen.get_size()
+        self.state = 2
 
         # world
         self.world = World(65, 65, self.width, self.height)
@@ -19,26 +21,25 @@ class Game:
         # camera
         self.camera = Camera(self.width, self.height)
 
+
+
     def run(self):
         self.playing = True
         while self.playing:
             self.clock.tick(60)
-            self.events()
+            self.keyboard.notify()
             self.update()
             self.draw()
 
-    def events(self):
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                pg.quit()
-                sys.exit()
-            if event.type == pg.KEYDOWN:
-                if event.key == pg.K_ESCAPE:
-                    pg.quit()
-                    sys.exit()
 
     def update(self):
         self.camera.update()
+
+    def get_state(self):
+        return self.state
+
+    def set_state(self,state):
+        self.state = state
 
     def draw(self):
         self.screen.fill((0, 0, 0))
