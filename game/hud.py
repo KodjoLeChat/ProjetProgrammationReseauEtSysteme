@@ -10,12 +10,23 @@ class Hud:
         self.width = width
         self.height = height
 
-        self.hudbase = pg.image.load("C3_sprites/C3/paneling_00017.png")
-       
+        self.hud_colour = (198, 155, 93, 175)
+
         # building hud
-        self.build_surface = pg.Surface((width * 0.2, height), pg.SRCALPHA)
-        self.build_rect = self.build_surface.get_rect(topleft=(self.width, self.height*3))
+        self.build_surface = pg.Surface((width, height), pg.SRCALPHA)
+        self.hudbase = pg.image.load("C3_sprites/C3/paneling_00017.png")
+        self.build_rect = self.build_surface.get_rect(topleft=(self.width * 0.84, self.height * 0.74))
         self.build_surface.blit(self.hudbase, [0,0])
+
+        # resouces hud
+        self.resouces_surface = pg.Surface((width, height * 0.025), pg.SRCALPHA)
+        self.resources_rect = self.resouces_surface.get_rect(topleft=(0, 0))
+        self.resouces_surface.fill(self.hud_colour)
+
+        # select hud
+        self.select_surface = pg.Surface((width * 0.3, height * 0.2), pg.SRCALPHA)
+        self.select_rect = self.select_surface.get_rect(topleft=(self.width * 0.35, self.height * 0.79))
+        self.select_surface.fill(self.hud_colour)
 
         self.images = self.load_images()
         self.tiles = self.create_build_hud()
@@ -24,8 +35,9 @@ class Hud:
 
     def create_build_hud(self):
 
-        render_pos = [self.width * 0.84 + 10, self.height * 0.74 + 10]
-        object_width = self.build_surface.get_width() // 5
+        render_pos = [self.width * 0.901, self.height * 0.343 ]
+        object_width = self.build_surface.get_width() // 35
+
 
         tiles = []
 
@@ -45,7 +57,7 @@ class Hud:
                 }
             )
 
-            render_pos[0] += image_scale.get_width() + 10
+            render_pos[0] += image_scale.get_width() + 8
 
         return tiles
 
@@ -64,9 +76,17 @@ class Hud:
 
     def draw(self, screen):
 
+        if self.selected_tile is not None:
+            img = self.selected_tile["image"].copy()
+            img.set_alpha(100)
+            screen.blit(img, pg.mouse.get_pos())
+
         # build hud
         screen.blit(self.build_surface, (self.width * 0.895, 20))
-
+        
+        # resouce hud
+        screen.blit(self.resouces_surface, (0, 0))
+        
         for tile in self.tiles:
             screen.blit(tile["icon"], tile["rect"])
 
@@ -74,23 +94,19 @@ class Hud:
         pos = self.width 
         for resource in ["wood:", "stone:", "gold:"]:
             draw_text(screen, resource, 30, (255, 255, 255), (pos, 0))
-            pos += 100
+            pos += 10
 
     def load_images(self):
 
         # read images
-        building1 = pg.image.load("C3_sprites/C3/Citizen01_00022.png")
-        building2 = pg.image.load("C3_sprites/C3/Citizen01_00002.png")
-        tree = pg.image.load("C3_sprites/C3/Citizen01_00032.png")
-        rock = pg.image.load("C3_sprites/C3/Citizen01_00042.png")
-        side = pg.image.load("C3_sprites/C3/paneling_00097.png")
-        sideMouse = pg.image.load("C3_sprites/C3/paneling_00098.png")
+        building1 = pg.image.load("C3_sprites/C3/paneling_00123.png")
+        building2 = pg.image.load("C3_sprites/C3/paneling_00131.png")
+        tree = pg.image.load("C3_sprites/C3/paneling_00135.png")
 
         images = {
             "building1": building1,
             "building2": building2,
-            "tree": tree,
-            "rock": rock
+            "tree": tree
         }
 
         return images
