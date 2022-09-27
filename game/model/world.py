@@ -1,7 +1,7 @@
 import pygame as pg
 import random
-from .case import Case
-from .settings import TILE_SIZE
+from game.model.case import Case
+from game.model.settings import TILE_SIZE
 
 
 
@@ -162,6 +162,7 @@ class World:
         building2 = pg.image.load("C3_sprites/C3/paneling_00131.png").convert_alpha()
         tree = pg.image.load("C3_sprites/C3/paneling_00135.png").convert_alpha()
 
+<<<<<<< HEAD:game/world.py
         images = {
             "building1": building1,
             "building2": building2,
@@ -189,3 +190,9 @@ class World:
             return True
         else:
             return False
+=======
+        return {"block": block, "tree1": tree1, "tree2": tree2, "tree3": tree3, "farm": farm}
+
+    def get_case(self,i,j):
+        return self.world[i][j]
+>>>>>>> 8eb67b0d1c7e75f03802f60c1b49ab0e14acd6c7:game/model/world.py
