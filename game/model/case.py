@@ -24,3 +24,7 @@ class Case:
 
     def get_entities(self):
         return self.entites
+
+
+    def set_tile(self,tile):
+        self.tile = tile

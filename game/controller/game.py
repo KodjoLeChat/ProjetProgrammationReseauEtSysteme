@@ -5,6 +5,8 @@ from game.model.world import World
 from game.model.settings import TILE_SIZE
 from game.controller.camera import Camera
 from game.controller.keyboard import keyboard
+from game.model.Building import Building
+from game.controller.mouse import Mouse
 
 class Game:
 
@@ -22,6 +24,12 @@ class Game:
         # camera
         self.camera = Camera(self.width, self.height)
 
+        # mouse
+        self.mouse = Mouse(self.width, self.height,self.world)
+
+        #Building pour tester / deviendra le hud
+        self.build = Building(self.width,self.height)
+
 
 
     def run(self):
@@ -36,6 +44,7 @@ class Game:
 
     def update(self):
         self.camera.update()
+        self.mouse.update_clicking_hud()
 
     def get_state(self):
         return self.state
@@ -67,6 +76,8 @@ class Game:
                 # p = self.world.world[x][y]["iso_poly"]
                 # p = [(x + self.width/2, y + self.height/4) for x, y in p]
                 # pg.draw.polygon(self.screen, (255, 0, 0), p, 1)
+
+        self.build.draw(self.screen)
 
         draw_text(
             self.screen,
