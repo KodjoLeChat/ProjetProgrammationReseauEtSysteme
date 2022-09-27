@@ -1,6 +1,6 @@
 from turtle import back, screensize
 import pygame as pg
-from .utils import draw_text
+from game.view.utils import draw_text
 
 
 class Hud:
