@@ -79,3 +79,6 @@ class World:
         farm = pg.image.load("C3_sprites/C3/Security_00053.png")
 
         return {"block": block, "tree1": tree1, "tree2": tree2, "tree3": tree3, "farm": farm}
+
+    def get_case(self,i,j):
+        return self.world[i][j]

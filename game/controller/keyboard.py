@@ -10,6 +10,7 @@ class keyboard:
     def notify(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                self.game.set_playing(False)
                 pygame.quit()
             elif self.game.get_state() == 1:
                 self.key_down_menu()
@@ -23,6 +24,7 @@ class keyboard:
         """
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
+                self.game.set_playing(False)
                 pygame.quit()
             self.pressed[event.key] = True
         elif event.type == pygame.KEYUP:

@@ -25,6 +25,8 @@ def main():
         while playing:
             # game loop here
             game.run()
+            playing = False
+        running = False
 
 if __name__ == "__main__":
     main()

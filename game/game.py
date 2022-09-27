@@ -14,6 +14,7 @@ class Game:
         self.clock = clock
         self.width, self.height = self.screen.get_size()
         self.state = 2
+        self.playing = True
 
         # world
         self.world = World(65, 65, self.width, self.height)
@@ -24,13 +25,14 @@ class Game:
 
 
     def run(self):
-        self.playing = True
         while self.playing:
             self.clock.tick(60)
+            self.draw()
             self.keyboard.notify()
             self.update()
-            self.draw()
 
+    def set_playing(self,bool):
+        self.playing = bool
 
     def update(self):
         self.camera.update()
