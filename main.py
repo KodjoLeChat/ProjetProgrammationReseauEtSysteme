@@ -1,6 +1,6 @@
 
 import pygame as pg
-from game.game import Game
+from game.controller.game import Game
 
 
 def main():
@@ -25,6 +25,8 @@ def main():
         while playing:
             # game loop here
             game.run()
+            playing = False
+        running = False
 
 if __name__ == "__main__":
     main()
