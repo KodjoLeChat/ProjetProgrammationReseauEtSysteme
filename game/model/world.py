@@ -1,8 +1,8 @@
 
 import pygame as pg
 import random
-from .case import Case
-from .settings import TILE_SIZE
+from game.model.case import Case
+from game.model.settings import TILE_SIZE
 
 
 

@@ -1,10 +1,10 @@
 import pygame as pg
 
-from .utils import draw_text
-from .world import World
-from .settings import TILE_SIZE
+from game.view.utils import draw_text
+from game.model.world import World
+from game.model.settings import TILE_SIZE
 from game.controller.camera import Camera
-from .controller.keyboard import keyboard
+from game.controller.keyboard import keyboard
 
 class Game:
 
