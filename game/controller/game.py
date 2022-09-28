@@ -35,16 +35,17 @@ class Game:
     def run(self):
         while self.playing:
             self.clock.tick(60)
-            self.draw()
+
             self.keyboard.notify()
             self.update()
+            self.draw()
 
     def set_playing(self,bool):
         self.playing = bool
 
     def update(self):
         self.camera.update()
-        self.mouse.update_clicking_hud()
+        self.mouse.update_clicking_selecting()
 
     def get_state(self):
         return self.state
@@ -64,20 +65,21 @@ class Game:
                 # rect = pg.Rect(sq[0][0], sq[0][1], TILE_SIZE, TILE_SIZE)
                 # pg.draw.rect(self.screen, (0, 0, 255), rect, 1)
 
-                render_pos =  self.world.world[x][y].get_render_pos()
+                render_pos =  self.world.world[x][y].get_case_rect().topleft
                 #self.screen.blit(self.world.tiles["block"], (render_pos[0] + self.width/2, render_pos[1] + self.height/4))
 
                 tile = self.world.world[x][y].get_tile()
                 if tile != "":
-                    self.screen.blit(self.world.tiles[tile],
+                    self.screen.blit(self.world.images[tile],
                                     (render_pos[0] + self.world.grass_tiles.get_width()/2 + self.camera.scroll.x,
-                                     render_pos[1] - (self.world.tiles[tile].get_height() - TILE_SIZE) + self.camera.scroll.y))
+                                     render_pos[1] - (self.world.images[tile].get_height() - TILE_SIZE) + self.camera.scroll.y))
 
                 # p = self.world.world[x][y]["iso_poly"]
                 # p = [(x + self.width/2, y + self.height/4) for x, y in p]
                 # pg.draw.polygon(self.screen, (255, 0, 0), p, 1)
 
-        self.build.draw(self.screen)
+        #self.build.draw(self.screen)
+        self.screen.blit(self.mouse.mouse_image,self.mouse.image_rect)
 
         draw_text(
             self.screen,
