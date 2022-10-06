@@ -64,11 +64,11 @@ class Game:
                 # sq = self.world.world[x][y]["cart_rect"]
                 # rect = pg.Rect(sq[0][0], sq[0][1], TILE_SIZE, TILE_SIZE)
                 # pg.draw.rect(self.screen, (0, 0, 255), rect, 1)
-
-                render_pos =  self.world.world[x][y].get_case_rect().topleft
+                case = self.world.world[x][y]
+                render_pos = case.get_case_rect().topleft
                 #self.screen.blit(self.world.tiles["block"], (render_pos[0] + self.width/2, render_pos[1] + self.height/4))
 
-                tile = self.world.world[x][y].get_tile()
+                tile = case.get_tile()
                 if tile != "":
                     self.screen.blit(self.world.images[tile],
                                     (render_pos[0] + self.world.grass_tiles.get_width()/2 + self.camera.scroll.x,
