@@ -3,13 +3,10 @@ import pygame as pg
 from .utils import draw_text
 from .world import World
 from .settings import TILE_SIZE
-<<<<<<< HEAD
 from game.controller.camera import Camera
 from .controller.keyboard import keyboard
-=======
 from .hud import Hud
 
->>>>>>> 115adc2 (creation de HUD)
 
 class Game:
 
@@ -20,22 +17,16 @@ class Game:
         self.width, self.height = self.screen.get_size()
         self.state = 2
 
+        # hud
+        self.hud = Hud(self.width, self.height)
+        
         # world
-        self.world = World(65, 65, self.width, self.height)
+        self.world = World(self.hud, 65, 65, self.width, self.height)
 
         # camera
         self.camera = Camera(self.width, self.height)
 
 
-<<<<<<< HEAD
-=======
-        # hud
-        self.hud = Hud(self.width, self.height)
-
-        # world
-        self.world = World(self.hud, 50, 50, self.width, self.height)
-
->>>>>>> 115adc2 (creation de HUD)
 
     def run(self):
         self.playing = True
@@ -47,45 +38,20 @@ class Game:
 
 
     def update(self):
-<<<<<<< HEAD
         self.camera.update()
+        self.hud.update()
+        self.world.update(self.camera)
 
     def get_state(self):
         return self.state
 
     def set_state(self,state):
         self.state = state
-=======
-        self.hud.update()
->>>>>>> 115adc2 (creation de HUD)
+       
 
     def draw(self):
         self.screen.fill((0, 0, 0))
-       
-
-        self.screen.blit(self.world.grass_tiles, (self.camera.scroll.x, self.camera.scroll.y))
-
-        for x in range(self.world.grid_length_x):
-            for y in range(self.world.grid_length_y):
-
-                # sq = self.world.world[x][y]["cart_rect"]
-                # rect = pg.Rect(sq[0][0], sq[0][1], TILE_SIZE, TILE_SIZE)
-                # pg.draw.rect(self.screen, (0, 0, 255), rect, 1)
-
-                render_pos =  self.world.world[x][y].get_render_pos()
-                #self.screen.blit(self.world.tiles["block"], (render_pos[0] + self.width/2, render_pos[1] + self.height/4))
-
-                tile = self.world.world[x][y].get_tile()
-                if tile != "":
-                    self.screen.blit(self.world.tiles[tile],
-                                    (render_pos[0] + self.world.grass_tiles.get_width()/2 + self.camera.scroll.x,
-                                     render_pos[1] - (self.world.tiles[tile].get_height() - TILE_SIZE) + self.camera.scroll.y))
-
-                # p = self.world.world[x][y]["iso_poly"]
-                # p = [(x + self.width/2, y + self.height/4) for x, y in p]
-                # pg.draw.polygon(self.screen, (255, 0, 0), p, 1)
-
-<<<<<<< HEAD
+        self.world.draw(self.screen, self.camera)
         draw_text(
             self.screen,
             'fps={}'.format(round(self.clock.get_fps())),
@@ -93,9 +59,7 @@ class Game:
             (255, 255, 255),
             (10, 10)
         )
-=======
         self.hud.draw(self.screen)
 
->>>>>>> 115adc2 (creation de HUD)
 
         pg.display.flip()
