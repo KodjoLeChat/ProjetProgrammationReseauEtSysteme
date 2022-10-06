@@ -1,6 +1,6 @@
 import pygame as pg
 import pygame.display
-from Button import Button
+from game.view.Button import Button
 
 class Menu():
     def __init__(self, text_buttons, L_center, H_center, delta_H):
@@ -54,11 +54,11 @@ def exit_function(display):
     running = True
     QUIT = Button(None, pos=(520, 250), text_input="QUIT", font=get_font(25),
                   base_color="#964B00", hovering_color="Grey", delta_H=0, menu_button=False)
-    background = pg.image.load("C3_sprites/C3/bigpeople_00008.png")
+    background = pg.image.load("../../C3_sprites/C3/bigpeople_00008.png")
     background = pygame.transform.scale(background, (360, 180))
 
-    back_symbol = pg.image.load("C3_sprites/C3/Picture2_00009.png")
-    exit_symbol = pg.image.load("C3_sprites/C3/paneling_00239.png")
+    back_symbol = pg.image.load("../../C3_sprites/C3/Picture2_00009.png")
+    exit_symbol = pg.image.load("../../C3_sprites/C3/paneling_00239.png")
 
     back_button = Button(back_symbol, pos=(480, 300), text_input="", font=get_font(25),
                   base_color="#964B00", hovering_color="Grey", delta_H=0, menu_button=False)

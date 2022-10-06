@@ -1,8 +1,5 @@
-import pygame as pg
-from game.settings import *
-from game.game import Game
-from menu import *
-
+from game.view.menu import *
+from game.model.settings import *
 from game.controller.game import Game
 
 
