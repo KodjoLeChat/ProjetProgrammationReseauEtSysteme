@@ -49,7 +49,7 @@ class Game:
         self.camera.update()
         # self.mouse.update_clicking_selecting()
         self.hud.update()
-        self.world.update(self.camera) #CLARIFICATION
+        self.world.update(self.camera)
 
     def get_state(self):
         return self.state
