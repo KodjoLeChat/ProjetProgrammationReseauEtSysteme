@@ -68,10 +68,9 @@ class Hud:
 
         if mouse_action[2]:
             self.selected_tile = None
-
-        for tile in self.tiles:
-            if tile["rect"].collidepoint(mouse_pos):
-                if mouse_action[0]:
+        elif mouse_action[0]:
+            for tile in self.tiles:
+                if tile["rect"].collidepoint(mouse_pos):
                     self.selected_tile = tile
 
     def draw(self, screen):

@@ -1,11 +1,11 @@
 import pygame
 
+
 class keyboard:
 
-    def __init__(self,game):
+    def __init__(self, game):
         self.game = game
         self.pressed = {}
-
 
     def notify(self):
         for event in pygame.event.get():
@@ -17,8 +17,7 @@ class keyboard:
             elif self.game.get_state() == 2:
                 self.key_down_playing(event)
 
-
-    def key_down_playing(self,event):
+    def key_down_playing(self, event):
         """
         Gère les évenements pendant le jeu
         """
