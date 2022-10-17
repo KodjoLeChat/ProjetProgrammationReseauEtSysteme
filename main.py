@@ -5,9 +5,6 @@ from game.controller.game import Game
 
 def main():
 
-    running = True
-    playing = False
-
     pg.init()
     pg.mixer.init()
     screen = pg.display.set_mode((900, 700))
@@ -20,7 +17,7 @@ def main():
     # implement game
     game = Game(screen, clock)
 
-    while running:
+    while game.get_playing():
 
         # start menu goes here
         menu.display()
@@ -30,7 +27,9 @@ def main():
                 running = exit_function(menu.DISPLAY)
             case "Start new career":
                 playing = True
-        while playing:
+                game.set_state(True)
+
+        while game.get_state():
             # game loop here
             game.run()
 

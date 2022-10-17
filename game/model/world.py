@@ -10,7 +10,7 @@ from game.model.settings import TILE_SIZE
 
 class World:
 
-    def __init__(self, hud, grid_length_x, grid_length_y, width, height):
+    def __init__(self, hud, grid_length_x, grid_length_y, width, height, keyboard):
         self.hud = hud
         self.grid_length_x = grid_length_x
         self.grid_length_y = grid_length_y
@@ -18,6 +18,8 @@ class World:
         self.height = height
         self.selected_on = False
         self.selection = None
+        self.rect_selection = None
+        self.keyboard = keyboard
 
         self.grass_tiles = pg.Surface(
             (grid_length_x * TILE_SIZE * 2, grid_length_y * TILE_SIZE + 2 * TILE_SIZE)).convert_alpha()  #
@@ -28,36 +30,37 @@ class World:
 
     def update(self, camera, screen):
         mouse_pos = pg.mouse.get_pos()
-        mouse_action = pg.mouse.get_pressed()
+        mouse_action = self.keyboard.get_keyboard_input()
         self.temp_tile = None
 
-        if mouse_action[0]:
+        if mouse_action.get(pygame.MOUSEBUTTONDOWN):
             if not self.selected_on:
                 self.selected_on = True
                 self.selection = SelectionRect(screen, mouse_pos)
-        elif mouse_action[2]:
-            if self.selected_on:
-                rect = self.selection.updateRect(mouse_pos)
 
-        elif mouse_action[1]:
+        elif not mouse_action.get(pygame.MOUSEBUTTONDOWN):
             if self.selected_on:
                 self.selected_on = False
-                rect = self.selection.updateRect(mouse_pos)
+                self.rect_selection = self.selection.updateRect(mouse_pos)
+                print("Final selection rectangle:",  self.rect_selection)
+
+        if mouse_action.get(pygame.MOUSEMOTION):
+            if self.selected_on:
+                self.rect_selection = self.selection.updateRect(mouse_pos)
+                print("rect intermediate :",  self.rect_selection)
+                self.selection.draw(screen)
+
+
+
         if self.hud.selected_tile is not None:
             grid_pos = self.mouse_to_grid(mouse_pos[0], mouse_pos[1], camera.scroll)
             if self.can_place_tile(grid_pos):
-
-                if mouse_action[0]:
-                    for event in pg.event.get():
-                        if event.type == pg.MOUSEMOTION:
-                            new_mouse_pos = pg.mouse.get_pos()
-                            selection_rect = self.draw_selection(mouse_pos, new_mouse_pos, screen)
 
                 img = self.hud.selected_tile["image"].copy()
                 img.set_alpha(100)
 
                 case = self.world[grid_pos[0]][grid_pos[1]]
-                render_pos = case.get_case_rect().topleft
+                render_pos = case.get_case_rect()[0]
                 iso_poly = case.get_iso_poly()
                 collision = case.get_collision()
 
@@ -68,7 +71,7 @@ class World:
                     "collision": collision
                 }
 
-                if mouse_action[0] and not collision:
+                if mouse_action.get(pygame.MOUSEBUTTONDOWN) and not collision:
                     case.set_tile("farm")
                     case.set_collision(True)
                     self.hud.selected_tile = None
@@ -81,12 +84,15 @@ class World:
         for x in range(self.grid_length_x):
             for y in range(self.grid_length_y):
                 case = self.world[x][y]
-                render_pos = case.get_case_rect().topleft
+                rect_case = case.get_render_pos()
+                if self.rect_selection is not None:
+                    if self.selection.collision(case.get_iso_poly()):
+                        pg.draw.polygon(screen, (255, 255, 255),case.get_iso_poly())
                 tile = case.get_tile()
                 if tile != "":
                     screen.blit(self.images[tile],
-                                (render_pos[0] + self.grass_tiles.get_width() / 2 + camera_scroll_x,
-                                 render_pos[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
+                                (rect_case[0] + self.grass_tiles.get_width() / 2 + camera_scroll_x,
+                                 rect_case[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
 
         if self.temp_tile is not None:
             iso_poly = self.temp_tile["iso_poly"]
@@ -128,14 +134,13 @@ class World:
                 world_tile = self.grid_to_world(grid_x, grid_y)
                 world[grid_x].append(world_tile)
 
-                render_pos = world_tile.get_case_rect().topleft
+                render_pos = world_tile.get_render_pos()
                 self.grass_tiles.blit(self.images["block"],
                                       (render_pos[0] + self.grass_tiles.get_width() / 2, render_pos[1]))
 
         return world
 
     def grid_to_world(self, grid_x, grid_y):
-
         rect = [
             (grid_x * TILE_SIZE, grid_y * TILE_SIZE),
             (grid_x * TILE_SIZE + TILE_SIZE, grid_y * TILE_SIZE),
@@ -144,7 +149,6 @@ class World:
         ]
 
         iso_poly = [self.cart_to_iso(x, y) for x, y in rect]
-
         minx = min([x for x, y in iso_poly])
         miny = min([y for x, y in iso_poly])
 
@@ -160,19 +164,13 @@ class World:
         #    tile = "farm"
         else:
             tile = ""
-
-        case_rect = pg.Rect(0, 0, TILE_SIZE, TILE_SIZE)
-        case_rect.topleft = iso_poly[0]
-        case_rect.topleft = iso_poly[1]
-        case_rect.topleft = iso_poly[2]
-        case_rect.topleft = iso_poly[3]
         collision = False if tile == "" else True
 
-        out = Case([grid_x, grid_y], iso_poly, tile, case_rect, collision)
+        out = Case([grid_x, grid_y], iso_poly, tile,(minx,miny), collision)
 
         return out
 
-    def cart_to_iso(self, x, y):
+    def cart_to_iso(self,x,y):
         iso_x = x - y
         iso_y = (x + y) / 2
         return iso_x, iso_y
@@ -215,8 +213,3 @@ class World:
             return True
         else:
             return False
-
-    def draw_selection(self, top_left, bottom_right, screen):
-        selection_rect = pg.Rect(top_left, (bottom_right[0], bottom_right[1]))
-        pg.draw.rect(screen, (255, 255, 255), selection_rect)
-        return selection_rect
