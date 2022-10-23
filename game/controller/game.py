@@ -65,7 +65,7 @@ class Game:
 
     def draw(self):
         self.screen.fill((0, 0, 0))
-        self.screen.blit(self.world.grass_tiles, (self.camera.scroll.x, self.camera.scroll.y))
+        self.screen.blit(self.world.dim_map, (self.camera.scroll.x, self.camera.scroll.y))
         self.world.draw(self.screen, self.camera)
         draw_text(
             self.screen,
