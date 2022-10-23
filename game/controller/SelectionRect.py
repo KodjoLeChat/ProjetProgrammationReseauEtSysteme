@@ -3,63 +3,32 @@ import math
 
 class SelectionRect:
 
-    def __init__(self, screen, start):
-        self.screen = screen
+    def __init__(self, start):
         self.start = start
-        self.list_grid_pos = [self.start]
+        self.list_grid_pos = {start}
 
 
     def add_grid_pos(self,grid_pos):
-        self.list_grid_pos.append(grid_pos)
+        if grid_pos[0] <= self.start[0] and grid_pos[1] <= self.start[1]:
+            for x in range(grid_pos[0],self.start[0]+1):
+                self.list_grid_pos.add((x,grid_pos[1]))
+            for y in range(grid_pos[1],self.start[1]+1):
+                self.list_grid_pos.add((grid_pos[0],y))
+        elif grid_pos[0] <= self.start[0] and grid_pos[1] >= self.start[1]:
+            for x in range(grid_pos[0],self.start[0]+1):
+                self.list_grid_pos.add((x,grid_pos[1]))
+            for y in range(grid_pos[1],self.start[1]+1,-1):
+                self.list_grid_pos.add((grid_pos[0],y))
+        elif grid_pos[0] >= self.start[0] and grid_pos[1] <= self.start[1]:
+            for x in range(grid_pos[0],self.start[0]+1,-1):
+                self.list_grid_pos.add((x,grid_pos[1]))
+            for y in range(grid_pos[1],self.start[1]+1):
+                self.list_grid_pos.add((grid_pos[0],y))
+        else:
+            for x in range(grid_pos[0], self.start[0]+1,-1):
+                self.list_grid_pos.add((x, grid_pos[1]))
+            for y in range(grid_pos[1], self.start[1]+1,-1):
+                self.list_grid_pos.add((grid_pos[0], y))
+
     def get_list_grid_pos(self):
         return self.list_grid_pos
-
-    def updateRect(self, now):
-        x, y = self.start
-        mx, my = now
-
-        if mx < x:
-            if my < y:  # en haut a gauche
-                self.rect = pygame.Rect(mx, my, x - mx, y - my)
-                self.square = [
-                    (mx, my),
-                    (mx + (x - mx), my),
-                    (mx + (x - mx), my + (y - my)),
-                    (mx, my + (y - my))
-                ]
-            else:  # en bas a gauche
-                self.rect = pygame.Rect(mx, y, x - mx, my - y)
-                self.square = [
-                    (mx, y),
-                    (mx + (x - mx), y),
-                    (mx + (x - mx), y + (my - y)),
-                    (mx, y + (my - y))
-                ]
-        elif my < y:  # en haut à droite
-            self.rect = pygame.Rect(x, my, mx - x, y - my)
-            self.square = [
-                (x, my),
-                (x + (mx - x), my),
-                (x + (mx - x), my + (y - my)),
-                (x, my + (y - my))
-            ]
-        else: # en bas a droite
-            self.rect = pygame.Rect(x, y, mx - x, my - y)
-            self.square = [
-                (x, y),
-                (x + (mx - x), y),
-                (x + (mx - x), y + (my - y)),
-                (x, y + (my - y))
-            ]
-
-
-        #self.square = [self.rect.topleft, self.rect.topright, self.rect.bottomright, self.rect.bottomleft]
-        return self.square
-
-    def draw(self, screen):
-        pygame.draw.polygon(screen, (255, 0, 255), self.square)
-
-    def cart_to_iso(self,x,y):
-        iso_x = x - y
-        iso_y = (x + y) / 2
-        return iso_x, iso_y

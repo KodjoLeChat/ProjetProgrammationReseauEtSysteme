@@ -26,81 +26,48 @@ class World:
         self.images = self.load_images()
         self.world = self.create_world()
 
-        self.temp_tile = None
-
-
-        #TEST
-        self.map_outline = self.create_map_outline()
-        self.origin = self.map_outline[0]
-        self.x_axis = (self.map_outline[1]-self.map_outline[0]) / self.grid_length_x
-        self.y_axis = (self.map_outline[3]-self.map_outline[0]) / self.grid_length_y
-
-        self.point_to_grid = self.inverseMat2x2((self.x_axis, self.y_axis))
-        #FIN TEST
-
-    def inverseMat2x2(self,m):
-        a, b, c, d = m[0].x, m[0].y, m[1].x, m[1].y
-        det = 1 / (a * d - b * c)
-        return [(d * det, -b * det), (-c * det, a * det)]
-    def create_map_outline(self):
-        return [
-            pygame.math.Vector2(0,0),
-            pygame.math.Vector2(self.grid_length_x * TILE_SIZE * 2,0),
-            pygame.math.Vector2(self.grid_length_x * TILE_SIZE * 2,self.grid_length_y * TILE_SIZE + 2 * TILE_SIZE),
-            pygame.math.Vector2(0,self.grid_length_y * TILE_SIZE + 2 * TILE_SIZE)
-        ]
-
-    def transform(self,p, mat2x2):
-        """
-        use x_axis and y_axis to calculate a point in the map as function of the width and height
-        :param point: coord of point on the windows
-        :param mat2x2: see inverseMat2x2 function
-        :return: coord of the point IN the map
-        """
-        x = p[0] * mat2x2[0][0] + p[1] * mat2x2[1][0]
-        y = p[0] * mat2x2[0][1] + p[1] * mat2x2[1][1]
-        return pygame.math.Vector2(x, y)
+        self.temp_tile = []
 
     def update(self, camera, screen):
         mouse_pos = pg.mouse.get_pos()
         mouse_action = self.keyboard.get_keyboard_input()
-        self.temp_tile = None
         if self.hud.selected_tile is not None:
             grid_pos = self.mouse_to_grid(mouse_pos[0], mouse_pos[1], camera.scroll)
-            if mouse_action.get(pygame.MOUSEBUTTONDOWN):
-                if not self.selected_on and self.can_place_tile(grid_pos):
-                    self.selected_on = True
-                    self.selection = SelectionRect(screen, grid_pos)
-                    img = self.hud.selected_tile["image"].copy()
-                    img.set_alpha(100)
 
-            elif not mouse_action.get(pygame.MOUSEBUTTONDOWN):
-                if self.selected_on:
-                    self.selected_on = False
-                    cases = [self.world[x][y] for x,y in self.selection.get_list_grid_pos()]
+            if not self.selected_on and self.can_place_tile(grid_pos):
+                img = self.hud.selected_tile["image"].copy()
+                img.set_alpha(100)
+                if mouse_action.get(pygame.MOUSEBUTTONDOWN):
+                        self.selected_on = True
+                        self.selection = SelectionRect(grid_pos)
+                elif not mouse_action.get(pygame.MOUSEBUTTONDOWN):
+                    if self.selected_on:
+                        self.selected_on = False
+                        cases = [self.world[x][y] for x, y in self.selection.get_list_grid_pos()]
 
+                if mouse_action.get(pygame.MOUSEMOTION):
+                    if self.selected_on and self.can_place_tile(grid_pos):
+                        self.selection.add_grid_pos(grid_pos)
+                        cases = [self.world[x][y] for x, y in self.selection.get_list_grid_pos()]
 
-            if mouse_action.get(pygame.MOUSEMOTION):
-                if self.selected_on and self.can_place_tile(grid_pos):
-                    self.selection.add_grid_pos(grid_pos)
-
-
-                case = self.world[grid_pos[0]][grid_pos[1]]
-                render_pos = case.get_render_pos()
-                iso_poly = case.get_iso_poly()
-                collision = case.get_collision()
-
-                self.temp_tile = {
-                    "image": img,
-                    "render_pos": render_pos,
-                    "iso_poly": iso_poly,
-                    "collision": collision
-                }
-
-                if mouse_action.get(pygame.MOUSEBUTTONDOWN) and not collision:
-                    case.set_tile("farm")
-                    case.set_collision(True)
-                    self.hud.selected_tile = None
+                        # for case in cases:
+                        #     self.temp_tile.append({
+                        #         "image":img,
+                        #         "render_pos":case.get_render_pos(),
+                        #         "iso_poly":case.get_iso_poly(),
+                        #         "collision":case.get_collision()
+                        #     })
+                # case = self.world[grid_pos[0]][grid_pos[1]]
+                # render_pos = case.get_render_pos()
+                # iso_poly = case.get_iso_poly()
+                # collision = case.get_collision()
+                #
+                # self.temp_tile.append({
+                #     "image": img,
+                #     "render_pos": render_pos,
+                #     "iso_poly": iso_poly,
+                #     "collision": collision
+                # })
 
     def draw(self, screen, camera):
         camera_scroll_x = camera.get_scroll().x
@@ -111,33 +78,30 @@ class World:
             for y in range(self.grid_length_y):
                 case = self.world[x][y]
                 rect_case = case.get_render_pos()
-                # if self.selection_grid_pos != None and self.collision(case.get_grid(),self.selection_grid_pos):
-                #     print(case.get_grid())
-                #     print(self.selection_grid_pos)
-                #     case.set_tile("farm")
                 tile = case.get_tile()
                 if tile != "":
                     screen.blit(self.images[tile],
                                 (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
                                  rect_case[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
 
-        if self.temp_tile is not None:
-            iso_poly = self.temp_tile["iso_poly"]
-            iso_poly = [(x + self.dim_map.get_width() / 2 + camera_scroll_x, y + camera_scroll_y) for x, y in
-                        iso_poly]
+        if len(self.temp_tile) != 0:
+            for temp_tile in self.temp_tile:
+                iso_poly = temp_tile["iso_poly"]
+                iso_poly = [(x + self.dim_map.get_width() / 2 + camera_scroll_x, y + camera_scroll_y) for x, y in
+                            iso_poly]
 
-            if self.temp_tile["collision"]:
-                pg.draw.polygon(screen, (255, 0, 0), iso_poly, 3)
-            else:
-                pg.draw.polygon(screen, (255, 255, 255), iso_poly, 3)
-            render_pos = self.temp_tile["render_pos"]
-            screen.blit(
-                self.temp_tile["image"],
-                (
-                    render_pos[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
-                    render_pos[1] - (self.temp_tile["image"].get_height() - TILE_SIZE) + camera_scroll_y
+                if temp_tile["collision"]:
+                    pg.draw.polygon(screen, (255, 0, 0), iso_poly, 3)
+                else:
+                    pg.draw.polygon(screen, (255, 255, 255), iso_poly, 3)
+                render_pos = temp_tile["render_pos"]
+                screen.blit(
+                    temp_tile["image"],
+                    (
+                        render_pos[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
+                        render_pos[1] - (temp_tile["image"].get_height() - TILE_SIZE) + camera_scroll_y
+                    )
                 )
-            )
 
     def mouse_to_grid(self, x, y, scroll):
         # transform to world position (removing camera scroll and offset)
@@ -163,7 +127,7 @@ class World:
 
                 render_pos = world_tile.get_render_pos()
                 self.dim_map.blit(self.images["block"],
-                                      (render_pos[0] + self.dim_map.get_width() / 2, render_pos[1]))
+                                  (render_pos[0] + self.dim_map.get_width() / 2, render_pos[1]))
         return world
 
     def grid_to_world(self, grid_x, grid_y):
@@ -192,11 +156,11 @@ class World:
             tile = ""
         collision = False if tile == "" else True
 
-        out = Case([grid_x, grid_y],rect, iso_poly, tile,(minx,miny), collision)
+        out = Case([grid_x, grid_y], rect, iso_poly, tile, (minx, miny), collision)
 
         return out
 
-    def cart_to_iso(self,x,y):
+    def cart_to_iso(self, x, y):
         iso_x = x - y
         iso_y = (x + y) / 2
         return iso_x, iso_y
