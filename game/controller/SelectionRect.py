@@ -4,10 +4,15 @@ import math
 class SelectionRect:
 
     def __init__(self, screen, start):
-        self.square = None
         self.screen = screen
         self.start = start
-        self.rect = None
+        self.list_grid_pos = [self.start]
+
+
+    def add_grid_pos(self,grid_pos):
+        self.list_grid_pos.append(grid_pos)
+    def get_list_grid_pos(self):
+        return self.list_grid_pos
 
     def updateRect(self, now):
         x, y = self.start

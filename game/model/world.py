@@ -65,49 +65,28 @@ class World:
         mouse_pos = pg.mouse.get_pos()
         mouse_action = self.keyboard.get_keyboard_input()
         self.temp_tile = None
-
-        if mouse_action.get(pygame.MOUSEBUTTONDOWN):
-            if not self.selected_on:
-                self.selected_on = True
-                self.selection = SelectionRect(screen, mouse_pos)
-
-        elif not mouse_action.get(pygame.MOUSEBUTTONDOWN):
-            if self.selected_on:
-                self.selected_on = False
-                selection = self.selection.updateRect(mouse_pos)
-                # self.selection_grid_pos = [self.transform(pygame.math.Vector2(coord) - self.origin, self.point_to_grid) for
-                #                       coord in selection]
-                # self.selection_grid_pos = [(int(x), int(y)) for x, y in self.selection_grid_pos]
-                #self.selection_grid_pos = [self.mouse_to_grid(x, y, camera.scroll) for x, y in selection]
-
-                print("Final selection rectangle:", selection)
-
-        if mouse_action.get(pygame.MOUSEMOTION):
-            if self.selected_on:
-                selection = self.selection.updateRect(mouse_pos)
-                # selection = [self.cart_to_iso(x,y) for x,y in selection]
-                # self.selection_grid_pos = [self.transform(pygame.math.Vector2(coord)-self.origin,self.point_to_grid) for coord in selection]
-                # self.selection_grid_pos = [(int(x), int(y)) for x, y in self.selection_grid_pos]
-                #self.selection_grid_pos = [self.mouse_to_grid(x,y,camera.scroll) for x,y in selection]
-                #print("rect intermediate :",  self.selection_grid_pos)
-
-                for x in range(self.grid_length_x):
-                    for y in range(self.grid_length_y):
-                        case = self.world[x][y]
-                        if self.collision(case.get_iso_poly(),selection):
-                            case.set_tile("farm")
-
-
-
         if self.hud.selected_tile is not None:
             grid_pos = self.mouse_to_grid(mouse_pos[0], mouse_pos[1], camera.scroll)
-            if self.can_place_tile(grid_pos):
+            if mouse_action.get(pygame.MOUSEBUTTONDOWN):
+                if not self.selected_on and self.can_place_tile(grid_pos):
+                    self.selected_on = True
+                    self.selection = SelectionRect(screen, grid_pos)
+                    img = self.hud.selected_tile["image"].copy()
+                    img.set_alpha(100)
 
-                img = self.hud.selected_tile["image"].copy()
-                img.set_alpha(100)
+            elif not mouse_action.get(pygame.MOUSEBUTTONDOWN):
+                if self.selected_on:
+                    self.selected_on = False
+                    cases = [self.world[x][y] for x,y in self.selection.get_list_grid_pos()]
+
+
+            if mouse_action.get(pygame.MOUSEMOTION):
+                if self.selected_on and self.can_place_tile(grid_pos):
+                    self.selection.add_grid_pos(grid_pos)
+
 
                 case = self.world[grid_pos[0]][grid_pos[1]]
-                render_pos = case.render_pos()[0]
+                render_pos = case.get_render_pos()
                 iso_poly = case.get_iso_poly()
                 collision = case.get_collision()
 
@@ -260,10 +239,3 @@ class World:
             return True
         else:
             return False
-
-
-    def collision(self,case_coor,selection):
-        return (case_coor[0][0] < selection[1][0] and
-                case_coor[1][0] > selection[0][0] and
-                case_coor[0][1] < selection[3][1] and
-                case_coor[3][1] > selection[0][1])
