@@ -7,7 +7,6 @@ from game.controller.camera import Camera
 from game.model.hud import Hud
 
 from game.controller.keyboard import keyboard
-from game.controller.mouse import Mouse
 
 class Game:
 
@@ -28,8 +27,6 @@ class Game:
         # camera
         self.camera = Camera(self.width, self.height)
 
-        # mouse
-        self.mouse = Mouse(self.width, self.height,self.world)
 
 
 
@@ -47,7 +44,6 @@ class Game:
 
     def update(self):
         self.camera.update()
-        # self.mouse.update_clicking_selecting()
         self.hud.update()
         self.world.update(self.camera,self.screen)
 

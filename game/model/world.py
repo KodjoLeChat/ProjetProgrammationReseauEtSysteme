@@ -33,41 +33,26 @@ class World:
         mouse_action = self.keyboard.get_keyboard_input()
         if self.hud.selected_tile is not None:
             grid_pos = self.mouse_to_grid(mouse_pos[0], mouse_pos[1], camera.scroll)
+            img = self.hud.selected_tile["image"].copy()
+            img.set_alpha(100)
 
-            if not self.selected_on and self.can_place_tile(grid_pos):
-                img = self.hud.selected_tile["image"].copy()
-                img.set_alpha(100)
-                if mouse_action.get(pygame.MOUSEBUTTONDOWN):
-                        self.selected_on = True
-                        self.selection = SelectionRect(grid_pos)
-                elif not mouse_action.get(pygame.MOUSEBUTTONDOWN):
-                    if self.selected_on:
-                        self.selected_on = False
-                        cases = [self.world[x][y] for x, y in self.selection.get_list_grid_pos()]
+            if mouse_action.get(pygame.MOUSEBUTTONDOWN):
+                if not self.selected_on:
+                    self.selected_on = True
+                    self.selection = SelectionRect(grid_pos)
+            elif not mouse_action.get(pygame.MOUSEBUTTONDOWN):
+                if self.selected_on:
+                    self.selected_on = False
+                    cases = [self.world[x][y] for x, y in self.selection.get_list_grid_pos()]
+                    for case in cases :
+                        case.set_tile("farm")
 
-                if mouse_action.get(pygame.MOUSEMOTION):
-                    if self.selected_on and self.can_place_tile(grid_pos):
-                        self.selection.add_grid_pos(grid_pos)
-                        cases = [self.world[x][y] for x, y in self.selection.get_list_grid_pos()]
-
-                        # for case in cases:
-                        #     self.temp_tile.append({
-                        #         "image":img,
-                        #         "render_pos":case.get_render_pos(),
-                        #         "iso_poly":case.get_iso_poly(),
-                        #         "collision":case.get_collision()
-                        #     })
-                # case = self.world[grid_pos[0]][grid_pos[1]]
-                # render_pos = case.get_render_pos()
-                # iso_poly = case.get_iso_poly()
-                # collision = case.get_collision()
-                #
-                # self.temp_tile.append({
-                #     "image": img,
-                #     "render_pos": render_pos,
-                #     "iso_poly": iso_poly,
-                #     "collision": collision
-                # })
+            if mouse_action.get(pygame.MOUSEMOTION):
+                if self.selected_on :
+                    self.selection.add_grid_pos(grid_pos)
+                    cases = [self.world[x][y] for x, y in self.selection.get_list_grid_pos()]
+                    for case in cases :
+                        case.set_tile("tree1")
 
     def draw(self, screen, camera):
         camera_scroll_x = camera.get_scroll().x
