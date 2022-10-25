@@ -37,3 +37,6 @@ class Camera:
         # update camera scroll
         self.scroll.x += self.dx
         self.scroll.y += self.dy
+
+    def get_scroll(self):
+        return self.scroll
