@@ -26,7 +26,7 @@ class World:
         self.images = self.load_images()
         self.world = self.create_world()
 
-        self.temp_tile = []
+        self.temp_cases = []
 
     def update(self, camera, screen):
         mouse_pos = pg.mouse.get_pos()
@@ -43,16 +43,31 @@ class World:
             elif not mouse_action.get(pygame.MOUSEBUTTONDOWN):
                 if self.selected_on:
                     self.selected_on = False
-                    cases = [self.world[x][y] for x, y in self.selection.get_list_grid_pos()]
-                    for case in cases :
-                        case.set_tile("farm")
+                    self.selection.add_grid_pos(grid_pos)
+                    cases = [self.world[x][y] for x, y in self.selection.get_list_grid_pos() if
+                             0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
+                    for case in cases:
+                        case.set_tile("house")
+                    self.temp_cases = []
 
             if mouse_action.get(pygame.MOUSEMOTION):
-                if self.selected_on :
+                if self.selected_on:
+                    for temps_case in self.temp_cases:
+                        self.world[temps_case["x"]][temps_case["y"]].set_tile(temps_case["image"])
+
                     self.selection.add_grid_pos(grid_pos)
-                    cases = [self.world[x][y] for x, y in self.selection.get_list_grid_pos()]
-                    for case in cases :
-                        case.set_tile("tree1")
+                    for x, y in self.selection.get_list_grid_pos():
+                        if 0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y:
+                            temp = {
+                                "image": self.world[x][y].get_tile(),
+                                "x": x,
+                                "y":y
+                            }
+                            self.temp_cases.append(temp)
+                    cases = [self.world[x][y] for x, y in self.selection.get_list_grid_pos() if
+                             0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
+                    for case in cases:
+                        case.set_tile("dirt")
 
     def draw(self, screen, camera):
         camera_scroll_x = camera.get_scroll().x
@@ -68,26 +83,6 @@ class World:
                     screen.blit(self.images[tile],
                                 (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
                                  rect_case[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
-
-        if len(self.temp_tile) != 0:
-            for temp_tile in self.temp_tile:
-                iso_poly = temp_tile["iso_poly"]
-                iso_poly = [(x + self.dim_map.get_width() / 2 + camera_scroll_x, y + camera_scroll_y) for x, y in
-                            iso_poly]
-
-                if temp_tile["collision"]:
-                    pg.draw.polygon(screen, (255, 0, 0), iso_poly, 3)
-                else:
-                    pg.draw.polygon(screen, (255, 255, 255), iso_poly, 3)
-                render_pos = temp_tile["render_pos"]
-                screen.blit(
-                    temp_tile["image"],
-                    (
-                        render_pos[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
-                        render_pos[1] - (temp_tile["image"].get_height() - TILE_SIZE) + camera_scroll_y
-                    )
-                )
-
     def mouse_to_grid(self, x, y, scroll):
         # transform to world position (removing camera scroll and offset)
         world_x = x - scroll.x - self.dim_map.get_width() / 2
@@ -158,18 +153,24 @@ class World:
         tree3 = pg.image.load("C3_sprites/C3/Land1a_00059.png").convert_alpha()
         farm = pg.image.load("C3_sprites/C3/Security_00053.png").convert_alpha()
         building1 = pg.image.load("C3_sprites/C3/paneling_00123.png").convert_alpha()
+        house = pg.image.load("C3_sprites/C3/Housng1a_00001.png").convert_alpha()
         building2 = pg.image.load("C3_sprites/C3/paneling_00131.png").convert_alpha()
         tree = pg.image.load("C3_sprites/C3/paneling_00135.png").convert_alpha()
+        sign = pg.image.load("C3_sprites/C3/Housng1a_00045.png").convert_alpha()
+        dirt = pg.image.load("C3_sprites/C3/Land2a_00004.png").convert_alpha()
 
         images = {
             "building1": building1,
+            "house": house,
             "building2": building2,
             "tree1": tree1,
             "tree2": tree2,
             "tree3": tree3,
             "farm": farm,
             "tree": tree,
-            "block": block
+            "block": block,
+            "sign": sign,
+            "dirt":dirt
         }
 
         return images
