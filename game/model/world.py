@@ -33,8 +33,7 @@ class World:
         mouse_action = self.keyboard.get_keyboard_input()
         if self.hud.selected_tile is not None:
             grid_pos = self.mouse_to_grid(mouse_pos[0], mouse_pos[1], camera.scroll)
-            img = self.hud.selected_tile["image"].copy()
-            img.set_alpha(100)
+            sprite_name = self.hud.selected_tile["name"]
 
             if mouse_action.get(pygame.MOUSEBUTTONDOWN):
                 if not self.selected_on:
@@ -47,7 +46,7 @@ class World:
                     cases = [self.world[x][y] for x, y in self.selection.get_list_grid_pos() if
                              0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
                     for case in cases:
-                        case.set_tile("house")
+                        case.set_tile(sprite_name)
                     self.temp_cases = []
 
             if mouse_action.get(pygame.MOUSEMOTION):
@@ -67,7 +66,7 @@ class World:
                     cases = [self.world[x][y] for x, y in self.selection.get_list_grid_pos() if
                              0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
                     for case in cases:
-                        case.set_tile("dirt")
+                        case.set_tile("tree1")
 
     def draw(self, screen, camera):
         camera_scroll_x = camera.get_scroll().x
@@ -153,15 +152,14 @@ class World:
         tree3 = pg.image.load("C3_sprites/C3/Land1a_00059.png").convert_alpha()
         farm = pg.image.load("C3_sprites/C3/Security_00053.png").convert_alpha()
         building1 = pg.image.load("C3_sprites/C3/paneling_00123.png").convert_alpha()
-        house = pg.image.load("C3_sprites/C3/Housng1a_00001.png").convert_alpha()
         building2 = pg.image.load("C3_sprites/C3/paneling_00131.png").convert_alpha()
         tree = pg.image.load("C3_sprites/C3/paneling_00135.png").convert_alpha()
         sign = pg.image.load("C3_sprites/C3/Housng1a_00045.png").convert_alpha()
-        dirt = pg.image.load("C3_sprites/C3/Land2a_00004.png").convert_alpha()
+        hud_house_sprite = pg.image.load("C3_sprites/C3/Housng1a_00001.png").convert_alpha()
+        hud_shovel_sprite = pg.image.load("C3_sprites/C3/Land1a_00002.png").convert_alpha()
 
         images = {
             "building1": building1,
-            "house": house,
             "building2": building2,
             "tree1": tree1,
             "tree2": tree2,
@@ -170,7 +168,8 @@ class World:
             "tree": tree,
             "block": block,
             "sign": sign,
-            "dirt":dirt
+            "hud_house_sprite": hud_house_sprite,
+            "hud_shovel_sprite":hud_shovel_sprite
         }
 
         return images
