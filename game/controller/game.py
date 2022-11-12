@@ -2,9 +2,8 @@ import pygame as pg
 
 from game.view.utils import draw_text
 from game.model.world import World
-from game.model.settings import TILE_SIZE
 from game.controller.camera import Camera
-from game.model.hud import Hud
+from game.view.hud import Hud
 
 from game.controller.keyboard import keyboard
 
