@@ -9,6 +9,7 @@ from game.model.hud import Hud
 from game.controller.keyboard import keyboard
 from game.controller.mouse import Mouse
 
+from game.view.menu import *
 class Game:
 
     def __init__(self, screen, clock):
@@ -41,6 +42,8 @@ class Game:
             self.keyboard.notify()
             self.update()
             self.draw()
+
+            barre_function(self.screen)
 
     def set_playing(self,bool):
         self.playing = bool
