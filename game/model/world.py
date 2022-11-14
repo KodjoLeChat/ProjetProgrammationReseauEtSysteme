@@ -60,9 +60,10 @@ class World:
                             temp = {
                                 "image": self.world[x][y].get_tile(),
                                 "x": x,
-                                "y":y
+                                "y": y
                             }
-                            self.temp_cases.append(temp)
+                            if temp not in self.temp_cases:
+                                self.temp_cases.append(temp)
                     cases = [self.world[x][y] for x, y in self.selection.get_list_grid_pos() if
                              0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
                     for case in cases:
@@ -82,6 +83,7 @@ class World:
                     screen.blit(self.images[tile],
                                 (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
                                  rect_case[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
+
     def mouse_to_grid(self, x, y, scroll):
         # transform to world position (removing camera scroll and offset)
         world_x = x - scroll.x - self.dim_map.get_width() / 2
@@ -169,7 +171,7 @@ class World:
             "block": block,
             "sign": sign,
             "hud_house_sprite": hud_house_sprite,
-            "hud_shovel_sprite":hud_shovel_sprite
+            "hud_shovel_sprite": hud_shovel_sprite
         }
 
         return images
