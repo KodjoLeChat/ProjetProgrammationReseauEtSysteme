@@ -74,6 +74,7 @@ class World:
                         self.add_temp_case()
                         self.selection_roads.set_image_roads()
                     else:
+                        self.list_grid_pos_selection = set()
                         self.selection.add_grid_pos(grid_pos)
                         self.add_temp_case()
                         cases = [self.world[x][y] for x, y in self.get_list_grid_pos_selection() if
@@ -99,7 +100,6 @@ class World:
                 }
                 if temp not in self.temp_cases:
                     self.temp_cases.append(temp)
-        print(self.temp_cases)
 
     def draw(self, screen, camera):
         camera_scroll_x = camera.get_scroll().x

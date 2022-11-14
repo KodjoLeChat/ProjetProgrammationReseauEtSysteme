@@ -10,6 +10,7 @@ class SelectionRect:
 
 
     def add_grid_pos(self,grid_pos):
+
         if grid_pos[0] <= self.start[0] and grid_pos[1] <= self.start[1]:
             for x in range(grid_pos[0],self.start[0]+1):
                 for y in range(grid_pos[1],self.start[1]+1):
