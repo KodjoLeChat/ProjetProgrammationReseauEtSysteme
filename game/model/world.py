@@ -69,8 +69,8 @@ class World:
                     for temps_case in self.temp_cases:
                         self.world[temps_case["x"]][temps_case["y"]].set_tile(temps_case["image"])
                     if sprite_name == "hud_road_sprite":
-                        self.selection_roads.add_grid_pos(grid_pos)
-                        self.add_temp_case()
+                        temp_list_grid_pos = self.selection_roads.add_grid_pos(grid_pos)
+                        self.add_temp_case(temp_list_grid_pos)
                         self.selection_roads.set_image_roads()
                     else:
                         self.list_grid_pos_selection = set()
@@ -81,8 +81,8 @@ class World:
                         for case in cases:
                             case.set_tile("tree1")
 
-    def add_temp_case(self):
-        for x, y in self.get_list_grid_pos_road():
+    def add_temp_case(self,temp_list):
+        for x, y in temp_list:
             if 0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y:
                 temp = {
                     "image": self.world[x][y].get_tile(),

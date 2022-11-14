@@ -13,29 +13,39 @@ class Road:
         :param grid_pos: position actuelle de la sourie convertie en coordonnée de la map
         :return: None
         """
+        temp_list = set()
         if grid_pos[0] <= self.start[0] and grid_pos[1] <= self.start[1]:  # en haut a gauche
             for x in range(grid_pos[0], self.start[0] + 1):
                 self.world.add_list_grid_pos_road((x, self.start[1]))
+                temp_list.add((x, self.start[1]))
             for y in range(grid_pos[1], self.start[1] + 1):
                 self.world.add_list_grid_pos_road((grid_pos[0], y))
+                temp_list.add((grid_pos[0], y))
 
         elif grid_pos[0] <= self.start[0] and grid_pos[1] >= self.start[1]:  # en haut a droite
             for x in range(grid_pos[0], self.start[0] + 1):
                 self.world.add_list_grid_pos_road((x, grid_pos[1]))
+                temp_list.add((x, grid_pos[1]))
             for y in range(self.start[1], grid_pos[1] + 1):
                 self.world.add_list_grid_pos_road((self.start[0], y))
+                temp_list.add((self.start[0], y))
 
         elif grid_pos[0] >= self.start[0] and grid_pos[1] <= self.start[1]:  # en bas a gauche
             for x in range(self.start[0], grid_pos[0] + 1):
                 self.world.add_list_grid_pos_road((x, grid_pos[1]))
+                temp_list.add((x, grid_pos[1]))
             for y in range(grid_pos[1], self.start[1] + 1):
                 self.world.add_list_grid_pos_road((self.start[0], y))
+                temp_list.add((self.start[0], y))
 
         elif grid_pos[0] >= self.start[0] and grid_pos[1] >= self.start[1]:  # en en bas a droite
             for x in range(self.start[0], grid_pos[0] + 1):
                 self.world.add_list_grid_pos_road((x, self.start[1]))
+                temp_list.add((x, self.start[1]))
             for y in range(self.start[1], grid_pos[1] + 1):
                 self.world.add_list_grid_pos_road((grid_pos[0], y))
+                temp_list.add((grid_pos[0], y))
+        return temp_list
 
     def get_image_key(self, coord):
         """
@@ -99,11 +109,11 @@ class Road:
         if not type["top"] and not type["right"] and type["bottom"] and not type["left"]:
             return "bottom_end"
         # right_end
-        if not type["top"] and type["right"] and not type["bottom"] and not type["left"]:
-            return "right_end"
+        if not type["top"] and not type["right"] and not type["bottom"] and type["left"]:
+            return "left_end"
         # left_end
         else:
-            return "left_end"
+            return "right_end"
 
     def set_image_roads(self):
         """
