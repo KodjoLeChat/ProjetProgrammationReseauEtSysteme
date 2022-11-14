@@ -69,7 +69,6 @@ class World:
                 if self.selected_on:
                     for temps_case in self.temp_cases:
                         self.world[temps_case["x"]][temps_case["y"]].set_tile(temps_case["image"])
-
                     if sprite_name == "road":
                         self.selection_roads.add_grid_pos(grid_pos)
                         self.add_temp_case()
@@ -91,7 +90,6 @@ class World:
         #             "y": y
         #         }
         #         self.temp_cases.append(temp)
-        print(self.get_list_grid_pos_selection())
         for x, y in self.get_list_grid_pos_selection():
             if 0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y:
                 temp = {
@@ -99,7 +97,8 @@ class World:
                     "x": x,
                     "y": y
                 }
-                self.temp_cases.append(temp)
+                if temp not in self.temp_cases:
+                    self.temp_cases.append(temp)
         print(self.temp_cases)
 
     def draw(self, screen, camera):
