@@ -83,15 +83,15 @@ class World:
                             case.set_tile("tree1")
 
     def add_temp_case(self):
-        for x, y in self.get_list_grid_pos_road():
-            if 0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y:
-                temp = {
-                    "image": self.world[x][y].get_tile(),
-                    "x": x,
-                    "y": y
-                }
-                self.temp_cases.append(temp)
-
+        # for x, y in self.get_list_grid_pos_road():
+        #     if 0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y:
+        #         temp = {
+        #             "image": self.world[x][y].get_tile(),
+        #             "x": x,
+        #             "y": y
+        #         }
+        #         self.temp_cases.append(temp)
+        print(self.get_list_grid_pos_selection())
         for x, y in self.get_list_grid_pos_selection():
             if 0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y:
                 temp = {
@@ -100,6 +100,7 @@ class World:
                     "y": y
                 }
                 self.temp_cases.append(temp)
+        print(self.temp_cases)
 
     def draw(self, screen, camera):
         camera_scroll_x = camera.get_scroll().x
