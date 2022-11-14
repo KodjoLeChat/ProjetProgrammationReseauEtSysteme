@@ -26,7 +26,6 @@ class World:
 
         self.keyboard = keyboard
 
-
         self.dim_map = pg.Surface(
             (grid_length_x * TILE_SIZE * 2, grid_length_y * TILE_SIZE + 2 * TILE_SIZE)).convert_alpha()  #
         self.images = self.load_images()
@@ -44,14 +43,14 @@ class World:
             if mouse_action.get(pygame.MOUSEBUTTONDOWN):
                 if not self.selected_on:
                     self.selected_on = True
-                    if sprite_name == "road":
-                        self.selection_roads = Road(grid_pos,self)
+                    if sprite_name == "hud_road_sprite":
+                        self.selection_roads = Road(grid_pos, self)
                     else:
-                        self.selection = SelectionRect(grid_pos,self)
+                        self.selection = SelectionRect(grid_pos, self)
             elif not mouse_action.get(pygame.MOUSEBUTTONDOWN):
                 if self.selected_on:
                     self.selected_on = False
-                    if sprite_name == "road":
+                    if sprite_name == "hud_road_sprite":
                         self.selection_roads.add_grid_pos(grid_pos)
                         self.selection_roads.set_image_roads()
                     else:
@@ -69,7 +68,7 @@ class World:
                 if self.selected_on:
                     for temps_case in self.temp_cases:
                         self.world[temps_case["x"]][temps_case["y"]].set_tile(temps_case["image"])
-                    if sprite_name == "road":
+                    if sprite_name == "hud_road_sprite":
                         self.selection_roads.add_grid_pos(grid_pos)
                         self.add_temp_case()
                         self.selection_roads.set_image_roads()
@@ -83,14 +82,14 @@ class World:
                             case.set_tile("tree1")
 
     def add_temp_case(self):
-        # for x, y in self.get_list_grid_pos_road():
-        #     if 0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y:
-        #         temp = {
-        #             "image": self.world[x][y].get_tile(),
-        #             "x": x,
-        #             "y": y
-        #         }
-        #         self.temp_cases.append(temp)
+        for x, y in self.get_list_grid_pos_road():
+            if 0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y:
+                temp = {
+                    "image": self.world[x][y].get_tile(),
+                    "x": x,
+                    "y": y
+                }
+                self.temp_cases.append(temp)
         for x, y in self.get_list_grid_pos_selection():
             if 0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y:
                 temp = {
@@ -115,6 +114,7 @@ class World:
                     screen.blit(self.images[tile],
                                 (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
                                  rect_case[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
+
     def mouse_to_grid(self, x, y, scroll):
         # transform to world position (removing camera scroll and offset)
         world_x = x - scroll.x - self.dim_map.get_width() / 2
@@ -194,8 +194,8 @@ class World:
             # routes
             "road_hover": pygame.image.load("C3_sprites/C3/Land2a_00044.png").convert_alpha(),
             "top_bottom": pygame.image.load("C3_sprites/C3/Land2a_00094.png").convert_alpha(),
-            "top_end": pygame.image.load("C3_sprites/C3/Land2a_00102.png").convert_alpha(),
-            "bottom_end": pygame.image.load("C3_sprites/C3/Land2a_00104.png").convert_alpha(),
+            "top_end": pygame.image.load("C3_sprites/C3/Land2a_00104.png").convert_alpha(),
+            "bottom_end": pygame.image.load("C3_sprites/C3/Land2a_00102.png").convert_alpha(),
             "right_left": pygame.image.load("C3_sprites/C3/Land2a_00093.png").convert_alpha(),
             "right_end": pygame.image.load("C3_sprites/C3/Land2a_00101.png").convert_alpha(),
             "left_end": pygame.image.load("C3_sprites/C3/Land2a_00101.png").convert_alpha(),
@@ -236,9 +236,9 @@ class World:
     def add_list_grid_pos_road(self, grid_pos_road):
         self.list_grid_pos_road.add(grid_pos_road)
 
-    def add_list_grid_pos_selection(self,grid_pos_selection):
+    def add_list_grid_pos_selection(self, grid_pos_selection):
         self.list_grid_pos_selection.add(grid_pos_selection)
 
-    def set_case_image_by_coord(self,coord,sprite_name):
-        x,y = coord
+    def set_case_image_by_coord(self, coord, sprite_name):
+        x, y = coord
         self.world[x][y].set_tile(sprite_name)

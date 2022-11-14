@@ -45,19 +45,19 @@ class Road:
         """
         x, y = coord
         type = {
-            "top": 0,
-            "right": 0,
-            "bottom": 0,
-            "left": 0
+            "top": False,
+            "right": False,
+            "bottom": False,
+            "left": False
         }
-        if (x + 1, y) in self.list_grid_pos:
-            type["bottom"] = 1
-        if (x - 1, y) in self.list_grid_pos:
-            type["top"] = 1
-        if (x, y + 1) in self.list_grid_pos:
-            type["right"] = 1
-        if (x, y - 1) in self.list_grid_pos:
-            type["left"] = 1
+        if (x + 1, y) in self.world.get_list_grid_pos_road():
+            type["bottom"] = True
+        if (x - 1, y) in self.world.get_list_grid_pos_road():
+            type["top"] = True
+        if (x, y + 1) in self.world.get_list_grid_pos_road():
+            type["left"] = True
+        if (x, y - 1) in self.world.get_list_grid_pos_road():
+            type["right"] = True
         # ligne top bottom
         if type["top"] and type["bottom"] and not type["right"] and not type["left"]:
             return "top_bottom"
@@ -102,7 +102,7 @@ class Road:
         if not type["top"] and type["right"] and not type["bottom"] and not type["left"]:
             return "right_end"
         # left_end
-        if not type["top"] and not type["right"] and not type["bottom"] and type["left"]:
+        else:
             return "left_end"
 
     def set_image_roads(self):
