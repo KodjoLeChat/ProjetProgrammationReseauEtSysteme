@@ -36,8 +36,9 @@ class World:
     def update(self, camera):
         mouse_pos = pg.mouse.get_pos()
         mouse_action = self.keyboard.get_keyboard_input()
-        if self.hud.selected_tile is not None:
-            grid_pos = self.mouse_to_grid(mouse_pos[0], mouse_pos[1], camera.scroll)
+        grid_pos = self.mouse_to_grid(mouse_pos[0], mouse_pos[1], camera.scroll)
+        if self.hud.selected_tile is not None and (0 <= grid_pos[0] <= self.grid_length_x-1) and (
+                 0 <= grid_pos[1] <= self.grid_length_y-1):
             sprite_name = self.hud.selected_tile["name"]
 
             if mouse_action.get(pygame.MOUSEBUTTONDOWN):
@@ -69,9 +70,11 @@ class World:
                     for temps_case in self.temp_cases:
                         self.world[temps_case["x"]][temps_case["y"]].set_tile(temps_case["image"])
                     if sprite_name == "hud_road_sprite":
-                        temp_list_grid_pos = self.selection_roads.add_grid_pos(grid_pos)
-                        self.add_temp_case(temp_list_grid_pos)
+                        temps_coord = self.selection_roads.add_grid_pos(grid_pos)
+                        self.add_temp_case()
                         self.selection_roads.set_image_roads()
+                        self.list_grid_pos_road.difference_update(temps_coord)
+
                     else:
                         self.list_grid_pos_selection = set()
                         self.selection.add_grid_pos(grid_pos)
@@ -81,9 +84,13 @@ class World:
                         for case in cases:
                             case.set_tile("tree1")
 
-    def add_temp_case(self,temp_list):
-        for x, y in temp_list:
-            if 0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y:
+    def add_temp_case(self):
+        """
+        ajoute des coordonnées dans la liste des case temporaire pour faire la selection et leurs restituer
+        leurs bon sprites
+        :return:
+        """
+        for x, y in self.get_list_grid_pos_road():
                 temp = {
                     "image": self.world[x][y].get_tile(),
                     "x": x,
@@ -91,7 +98,6 @@ class World:
                 }
                 self.temp_cases.append(temp)
         for x, y in self.get_list_grid_pos_selection():
-            if 0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y:
                 temp = {
                     "image": self.world[x][y].get_tile(),
                     "x": x,
