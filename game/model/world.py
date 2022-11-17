@@ -1,94 +1,95 @@
-
 import pygame as pg
 import random
+from game.controller.SelectionRect import SelectionRect
+
+import pygame.event
+
 from game.model.case import Case
 from game.model.settings import TILE_SIZE
 
 
-
 class World:
 
-    def __init__(self, hud, grid_length_x, grid_length_y, width, height):
+    def __init__(self, hud, grid_length_x, grid_length_y, width, height, keyboard):
         self.hud = hud
         self.grid_length_x = grid_length_x
         self.grid_length_y = grid_length_y
         self.width = width
         self.height = height
+        self.selected_on = False
+        self.selection = None
+        self.selection_grid_pos = []
+        self.keyboard = keyboard
 
-        self.grass_tiles = pg.Surface((grid_length_x * TILE_SIZE * 2, grid_length_y * TILE_SIZE + 2 * TILE_SIZE)).convert_alpha() #
+        self.dim_map = pg.Surface(
+            (grid_length_x * TILE_SIZE * 2, grid_length_y * TILE_SIZE + 2 * TILE_SIZE)).convert_alpha()  #
         self.images = self.load_images()
         self.world = self.create_world()
 
-        self.temp_tile = None
+        self.temp_cases = []
 
-
-    def update(self, camera):
-
+    def update(self, camera, screen):
         mouse_pos = pg.mouse.get_pos()
-        mouse_action = pg.mouse.get_pressed()
-
-        self.temp_tile = None
+        mouse_action = self.keyboard.get_keyboard_input()
         if self.hud.selected_tile is not None:
-
             grid_pos = self.mouse_to_grid(mouse_pos[0], mouse_pos[1], camera.scroll)
+            sprite_name = self.hud.selected_tile["name"]
 
-            if self.can_place_tile(grid_pos):
-                img = self.hud.selected_tile["image"].copy()
-                img.set_alpha(100)
+            if mouse_action.get(pygame.MOUSEBUTTONDOWN):
+                if not self.selected_on:
+                    self.selected_on = True
+                    self.selection = SelectionRect(grid_pos)
+            elif not mouse_action.get(pygame.MOUSEBUTTONDOWN):
+                if self.selected_on:
+                    self.selected_on = False
+                    self.selection.add_grid_pos(grid_pos)
+                    cases = [self.world[x][y] for x, y in self.selection.get_list_grid_pos() if
+                             0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
+                    for case in cases:
+                        case.set_tile(sprite_name)
+                    self.temp_cases = []
 
-                case = self.world[grid_pos[0]][grid_pos[1]]
-                render_pos = case.get_case_rect().topleft
-                iso_poly = case.get_iso_poly()
-                collision = case.get_collision()
+            if mouse_action.get(pygame.MOUSEMOTION):
+                if self.selected_on:
+                    for temps_case in self.temp_cases:
+                        self.world[temps_case["x"]][temps_case["y"]].set_tile(temps_case["image"])
 
-                self.temp_tile = {
-                    "image": img,
-                    "render_pos": render_pos,
-                    "iso_poly": iso_poly,
-                    "collision": collision
-                }
-
-                if mouse_action[0] and not collision:
-                    case.set_tile(self.hud.selected_tile["name"])
-                    case.set_collision(True)
-                    self.hud.selected_tile = None
+                    self.selection.add_grid_pos(grid_pos)
+                    for x, y in self.selection.get_list_grid_pos():
+                        if 0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y:
+                            temp = {
+                                "image": self.world[x][y].get_tile(),
+                                "x": x,
+                                "y": y
+                            }
+                            if temp not in self.temp_cases:
+                                self.temp_cases.append(temp)
+                    cases = [self.world[x][y] for x, y in self.selection.get_list_grid_pos() if
+                             0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
+                    for case in cases:
+                        case.set_tile("tree1")
 
     def draw(self, screen, camera):
-
-        screen.blit(self.grass_tiles, (camera.scroll.x, camera.scroll.y))
+        camera_scroll_x = camera.get_scroll().x
+        camera_scroll_y = camera.get_scroll().y
+        screen.blit(self.dim_map, (camera_scroll_x, camera_scroll_y))
 
         for x in range(self.grid_length_x):
             for y in range(self.grid_length_y):
                 case = self.world[x][y]
-                render_pos = case.get_case_rect().topleft
+                rect_case = case.get_render_pos()
                 tile = case.get_tile()
                 if tile != "":
                     screen.blit(self.images[tile],
-                                (render_pos[0] + self.grass_tiles.get_width()/2 + camera.scroll.x,
-                                render_pos[1] - (self.images[tile].get_height() - TILE_SIZE) + camera.scroll.y))
-
-        if self.temp_tile is not None:
-            iso_poly = self.temp_tile["iso_poly"]
-            iso_poly = [(x + self.grass_tiles.get_width()/2 + camera.scroll.x, y + camera.scroll.y) for x, y in iso_poly]
-            if self.temp_tile["collision"]:
-                pg.draw.polygon(screen, (255, 0, 0), iso_poly, 3)
-            else:
-                pg.draw.polygon(screen, (255, 255, 255), iso_poly, 3)
-            render_pos = self.temp_tile["render_pos"]
-            screen.blit(
-                self.temp_tile["image"],
-                (
-                    render_pos[0] + self.grass_tiles.get_width()/2 + camera.scroll.x,
-                    render_pos[1] - (self.temp_tile["image"].get_height() - TILE_SIZE) + camera.scroll.y
-                )
-            )
+                                (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
+                                 rect_case[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
 
     def mouse_to_grid(self, x, y, scroll):
         # transform to world position (removing camera scroll and offset)
-        world_x = x - scroll.x - self.grass_tiles.get_width()/2
+        world_x = x - scroll.x - self.dim_map.get_width() / 2
         world_y = y - scroll.y
         # transform to cart (inverse of cart_to_iso)
-        cart_y = (2*world_y - world_x)/2
+        cart_y = (2 * world_y - world_x) / 2
         cart_x = cart_y + world_x
         # transform to grid coordinates
         grid_x = int(cart_x // TILE_SIZE)
@@ -105,13 +106,12 @@ class World:
                 world_tile = self.grid_to_world(grid_x, grid_y)
                 world[grid_x].append(world_tile)
 
-                render_pos = world_tile.get_case_rect().topleft
-                self.grass_tiles.blit(self.images["block"], (render_pos[0] + self.grass_tiles.get_width()/2, render_pos[1]))
-
+                render_pos = world_tile.get_render_pos()
+                self.dim_map.blit(self.images["block"],
+                                  (render_pos[0] + self.dim_map.get_width() / 2, render_pos[1]))
         return world
 
     def grid_to_world(self, grid_x, grid_y):
-
         rect = [
             (grid_x * TILE_SIZE, grid_y * TILE_SIZE),
             (grid_x * TILE_SIZE + TILE_SIZE, grid_y * TILE_SIZE),
@@ -123,7 +123,6 @@ class World:
 
         minx = min([x for x, y in iso_poly])
         miny = min([y for x, y in iso_poly])
-
         r = random.randint(1, 1000)
 
         if r <= 50 and r > 5:
@@ -132,25 +131,19 @@ class World:
             tile = "tree2"
         elif r <= 150 and r >= 100:
             tile = "tree3"
-        #elif r <= 1:
+        # elif r <= 1:
         #    tile = "farm"
         else:
             tile = ""
-
-        case_rect = pg.Rect(0,0,TILE_SIZE,TILE_SIZE)
-        case_rect.topleft = iso_poly[0]
-        case_rect.topleft = iso_poly[1]
-        case_rect.topleft = iso_poly[2]
-        case_rect.topleft = iso_poly[3]
         collision = False if tile == "" else True
 
-        out = Case([grid_x,grid_y],iso_poly,tile,case_rect,collision)
+        out = Case([grid_x, grid_y], rect, iso_poly, tile, (minx, miny), collision)
 
         return out
 
     def cart_to_iso(self, x, y):
         iso_x = x - y
-        iso_y = (x + y)/2
+        iso_y = (x + y) / 2
         return iso_x, iso_y
 
     def load_images(self):
@@ -163,6 +156,9 @@ class World:
         building1 = pg.image.load("C3_sprites/C3/paneling_00123.png").convert_alpha()
         building2 = pg.image.load("C3_sprites/C3/paneling_00131.png").convert_alpha()
         tree = pg.image.load("C3_sprites/C3/paneling_00135.png").convert_alpha()
+        sign = pg.image.load("C3_sprites/C3/Housng1a_00045.png").convert_alpha()
+        hud_house_sprite = pg.image.load("C3_sprites/C3/Housng1a_00001.png").convert_alpha()
+        hud_shovel_sprite = pg.image.load("C3_sprites/C3/Land1a_00002.png").convert_alpha()
 
         images = {
             "building1": building1,
@@ -172,12 +168,15 @@ class World:
             "tree3": tree3,
             "farm": farm,
             "tree": tree,
-            "block": block
+            "block": block,
+            "sign": sign,
+            "hud_house_sprite": hud_house_sprite,
+            "hud_shovel_sprite": hud_shovel_sprite
         }
 
         return images
 
-    def get_case(self,i,j):
+    def get_case(self, i, j):
         return self.world[i][j]
 
     def can_place_tile(self, grid_pos):
