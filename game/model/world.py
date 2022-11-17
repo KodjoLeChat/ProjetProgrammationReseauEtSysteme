@@ -56,10 +56,12 @@ class World:
                         self.selection_roads.set_image_roads()
                     else:
                         self.selection.add_grid_pos(grid_pos)
-                        cases = [self.world[x][y] for x, y in self.get_list_grid_pos_selection() if
-                                 0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
-                        for case in cases:
-                            case.set_tile(sprite_name)
+                        if sprite_name == "hud_shovel_sprite":
+                            self.list_grid_pos_road.difference_update(self.list_grid_pos_selection)
+                            self.change_case_sprite_by_image_name(sprite_name)
+                        else:
+                            self.change_case_sprite_by_image_name(sprite_name)
+
 
                     self.temp_cases = []
                     self.list_grid_pos_selection = set()
@@ -69,6 +71,7 @@ class World:
                 if self.selected_on:
                     for temps_case in self.temp_cases:
                         self.world[temps_case["x"]][temps_case["y"]].set_tile(temps_case["image"])
+
                     if sprite_name == "hud_road_sprite":
                         temps_coord = self.selection_roads.add_grid_pos(grid_pos)
                         self.add_temp_case()
@@ -79,10 +82,7 @@ class World:
                         self.list_grid_pos_selection = set()
                         self.selection.add_grid_pos(grid_pos)
                         self.add_temp_case()
-                        cases = [self.world[x][y] for x, y in self.get_list_grid_pos_selection() if
-                                 0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
-                        for case in cases:
-                            case.set_tile("tree1")
+                        self.change_case_sprite_by_image_name("tree1")
 
     def add_temp_case(self):
         """
@@ -248,3 +248,10 @@ class World:
     def set_case_image_by_coord(self, coord, sprite_name):
         x, y = coord
         self.world[x][y].set_tile(sprite_name)
+
+
+    def change_case_sprite_by_image_name(self,image_name):
+        cases = [self.world[x][y] for x, y in self.get_list_grid_pos_selection() if
+                 0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
+        for case in cases:
+            case.set_tile(image_name)
