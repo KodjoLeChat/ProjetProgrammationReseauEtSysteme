@@ -44,7 +44,7 @@ class Game:
     def update(self):
         self.camera.update()
         self.hud.update()
-        self.world.update(self.camera,self.screen)
+        self.world.update(self.camera)
 
     def get_state(self):
         return self.state

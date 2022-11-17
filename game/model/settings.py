@@ -2,7 +2,7 @@ TILE_SIZE = 25
 L_center = 520
 H_center = 250
 delta_H = 30
-
+ROAD_TYPE = "default"
 # Menu Principal:
 text_buttons_menuP =["ROMULUS", "Start_new_career","Load_saved_game_","Exit"]
 images_menuP = [None, None, None, None, None]
