@@ -160,11 +160,12 @@ class Hud:
 
         return image
 
-     def get_sprite_by_hud_tile(self,image_name):
-            match image_name:
-                case "house":
-                    return pg.image.load("C3_sprites/C3/paneling_00123.png")
-                case "shovel":
-                    return pg.image.load("C3_sprites/C3/paneling_00131.png")
-                case "road":
-                    return pg.image.load("C3_sprites/C3/paneling_00135.png")
+
+    def get_sprite_by_hud_tile(self,image_name):
+        match image_name:
+            case "house":
+                return pg.image.load("C3_sprites/C3/paneling_00123.png")
+            case "shovel":
+                return pg.image.load("C3_sprites/C3/paneling_00131.png")
+            case "road":
+                return pg.image.load("C3_sprites/C3/paneling_00135.png")
