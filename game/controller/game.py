@@ -27,9 +27,6 @@ class Game:
         self.camera = Camera(self.width, self.height)
 
 
-
-
-
     def run(self):
         while self.playing:
             self.clock.tick(60)
@@ -57,6 +54,7 @@ class Game:
 
     def set_state(self,state):
         self.state = state
+       
 
     def draw(self):
         self.screen.fill((0, 0, 0))
@@ -70,5 +68,3 @@ class Game:
             (10, 10)
         )
         self.hud.draw(self.screen)
-
-

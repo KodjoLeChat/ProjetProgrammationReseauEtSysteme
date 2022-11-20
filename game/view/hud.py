@@ -13,10 +13,9 @@ class Hud:
         self.hud_colour = (198, 155, 93, 175)
 
         # building hud
-        self.build_surface = pg.Surface((width, height), pg.SRCALPHA)
         self.hudbase = pg.image.load("C3_sprites/C3/paneling_00017.png")
-        self.build_rect = self.build_surface.get_rect(topleft=(self.width * 0.84, self.height * 0.74))
-        self.build_surface.blit(self.hudbase, [0, 0])
+        self.build_surface = pg.Surface((self.hudbase.get_width(), self.hudbase.get_height()), pg.SRCALPHA)
+        self.build_surface.blit(self.hudbase, [0,0])
 
         # resouces hud
         self.resouces_surface = pg.Surface((width, height * 0.025), pg.SRCALPHA)
@@ -24,9 +23,9 @@ class Hud:
         self.resouces_surface.fill(self.hud_colour)
 
         # select hud
-        self.select_surface = pg.Surface((width * 0.3, height * 0.2), pg.SRCALPHA)
-        self.select_rect = self.select_surface.get_rect(topleft=(self.width * 0.35, self.height * 0.79))
-        self.select_surface.fill(self.hud_colour)
+        # self.select_surface = pg.Surface((width * 0.3, height * 0.2), pg.SRCALPHA)
+        # self.select_rect = self.select_surface.get_rect(topleft=(self.width * 0.35, self.height * 0.79))
+        # self.select_surface.fill(self.hud_colour)
 
         self.images = {"house":"hud_house_sprite",
                        "shovel":"hud_shovel_sprite",
@@ -38,10 +37,11 @@ class Hud:
 
     def create_build_hud(self):
 
-        render_pos = [self.width * 0.901, self.height * 0.343]
-        object_width = self.build_surface.get_width() // 35
+        render_pos = [self.width * 0.903, self.height * 0.344 ]
+        object_width = self.build_surface.get_width() // 4
 
         tiles = []
+        count = 0
 
         for image_name, sprite_name in self.images.items():
             pos = render_pos.copy()
@@ -57,7 +57,12 @@ class Hud:
                 }
             )
 
-            render_pos[0] += image_scale.get_width() + 8
+            count += 1
+            render_pos[0] += image_scale.get_width() + 10
+
+            if count%3 == 0:
+                render_pos[0] = self.width * 0.903
+                render_pos[1] += image_scale.get_height() + 10
 
         return tiles
 
@@ -89,20 +94,54 @@ class Hud:
         for tile in self.tiles:
             screen.blit(tile["icon"], tile["rect"])
 
-        # resources
-        pos = self.width
-        for resource in ["wood:", "stone:", "gold:"]:
-            draw_text(screen, resource, 30, (255, 255, 255), (pos, 0))
-            pos += 10
+    def load_images(self):
 
-    def get_sprite_by_hud_tile(self,image_name):
-        match image_name:
-            case "house":
-                return pg.image.load("C3_sprites/C3/paneling_00123.png")
-            case "shovel":
-                return pg.image.load("C3_sprites/C3/paneling_00131.png")
-            case "road":
-                return pg.image.load("C3_sprites/C3/paneling_00135.png")
+        # read images
+        p_house1 = pg.image.load("C3_sprites/C3/paneling_00123.png")
+        p_house2 = pg.image.load("C3_sprites/C3/paneling_00124.png")
+        p_road1 = pg.image.load("C3_sprites/C3/paneling_00131.png")
+        p_road2 = pg.image.load("C3_sprites/C3/paneling_00132.png")
+        p_grass1 = pg.image.load("C3_sprites/C3/paneling_00135.png")
+        p_grass2 = pg.image.load("C3_sprites/C3/paneling_00136.png")
+        p_govern1 = pg.image.load("C3_sprites/C3/paneling_00127.png")
+        p_hospital1 = pg.image.load("C3_sprites/C3/paneling_00166.png")
+        p_rain1 = pg.image.load("C3_sprites/C3/paneling_00154.png")
+        p_book1 = pg.image.load("C3_sprites/C3/paneling_00150.png")
+        p_ghost1 = pg.image.load("C3_sprites/C3/paneling_00146.png")
+        p_gov1 = pg.image.load("C3_sprites/C3/paneling_00142.png")
+        p_pass1 = pg.image.load("C3_sprites/C3/paneling_00170.png")
+        p_warn1 = pg.image.load("C3_sprites/C3/paneling_00162.png")
+        p_cancel1 = pg.image.load("C3_sprites/C3/paneling_00158.png")
+        p_hous1 = pg.image.load("C3_sprites/C3/paneling_00174.png")
+        p_redbook1 = pg.image.load("C3_sprites/C3/paneling_00118.png")
+        p_post1 = pg.image.load("C3_sprites/C3/paneling_00122.png")
+
+
+        # images = {
+        #     "p_house": {"mouse_off": p_house1, "mouse_on": p_house2},
+        #     "p_road": {"mouse_on": p_road1, "mouse_on": p_road2},
+        #     "p_grass": {"mouse_on": p_grass1, "mouse_on": p_grass2}
+        # }
+
+        images = {
+            "p_house": p_house1,
+            "p_road": p_road1,
+            "p_grass": p_grass1,
+            "p_govern": p_govern1,
+            "p_hospital1" : p_hospital1,
+            "p_rain1" : p_rain1,
+            "p_book1" : p_book1,
+            "p_ghost1": p_ghost1,
+            "p_gov": p_gov1,
+            "p_pass1" : p_pass1,
+            "p_warn1": p_warn1,
+            "p_cancel1": p_cancel1,
+            "p_house1" : p_hous1,
+            "p_redbook1": p_redbook1,
+            "p_post1": p_post1
+        }
+
+        return images
 
     def scale_image(self, image, w=None, h=None):
 
@@ -120,3 +159,12 @@ class Hud:
             image = pg.transform.scale(image, (int(w), int(h)))
 
         return image
+
+     def get_sprite_by_hud_tile(self,image_name):
+            match image_name:
+                case "house":
+                    return pg.image.load("C3_sprites/C3/paneling_00123.png")
+                case "shovel":
+                    return pg.image.load("C3_sprites/C3/paneling_00131.png")
+                case "road":
+                    return pg.image.load("C3_sprites/C3/paneling_00135.png")

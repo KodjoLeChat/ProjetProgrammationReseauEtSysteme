@@ -149,6 +149,7 @@ class World:
         return world
 
     def grid_to_world(self, grid_x, grid_y):
+        
         rect = [
             (grid_x * TILE_SIZE, grid_y * TILE_SIZE),
             (grid_x * TILE_SIZE + TILE_SIZE, grid_y * TILE_SIZE),
