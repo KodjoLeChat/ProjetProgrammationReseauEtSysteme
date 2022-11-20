@@ -116,6 +116,7 @@ class World:
                 case = self.world[x][y]
                 rect_case = case.get_render_pos()
                 tile = case.get_tile()
+
                 if tile != "":
                     screen.blit(self.images[tile],
                                 (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
@@ -149,6 +150,7 @@ class World:
         return world
 
     def grid_to_world(self, grid_x, grid_y):
+        
         rect = [
             (grid_x * TILE_SIZE, grid_y * TILE_SIZE),
             (grid_x * TILE_SIZE + TILE_SIZE, grid_y * TILE_SIZE),

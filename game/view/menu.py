@@ -14,14 +14,14 @@ class Menu():
     H_center
     delta_H
     '''
-    def __init__(self, text_buttons, init_pos):
+    def __init__(self, text_buttons, init_pos,screen):
         self.text_buttons = text_buttons
         self.buttons = []
 
         self.init_pos = init_pos
         self.background = pg.image.load("C3_sprites/C3/0_fired_00001.png")
 
-        self.screen = pygame.display.set_mode((1080, 720))
+        self.screen = screen
         self.max_l = 0
 
 
@@ -38,7 +38,7 @@ class Menu():
             i += 1
 
     def set(self):
-        self.background = pygame.transform.scale(self.background, (1080, 720))
+        self.background = pygame.transform.scale(self.background, self.screen.get_size())
         # Button
         self.create_buttons()
 
