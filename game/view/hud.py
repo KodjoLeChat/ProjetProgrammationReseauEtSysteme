@@ -29,7 +29,19 @@ class Hud:
 
         self.images = {"house":"hud_house_sprite",
                        "shovel":"hud_shovel_sprite",
-                       "road":"hud_road_sprite"}
+                       "road":"hud_road_sprite",
+                       "well":"hud_well_sprite",
+                       "hospital":"hud_hospital_sprite",
+                       "temple" : "hus_temple_sprite",
+                       "book": "hus_book_sprite",
+                       "face": "hus_face_sprite",
+                       "senate": "hus_senate_sprite",
+                       "hammer": "hus_hammer_sprite",
+                       "cross": "hus_cross_sprite",
+                       "sword": "hus_sword_sprite",
+                       "char": "hus_char_sprite",
+                       "parchemin": "hus_parchemin_sprite",
+                       }
 
         self.tiles = self.create_build_hud()
 
@@ -94,55 +106,6 @@ class Hud:
         for tile in self.tiles:
             screen.blit(tile["icon"], tile["rect"])
 
-    def load_images(self):
-
-        # read images
-        p_house1 = pg.image.load("C3_sprites/C3/paneling_00123.png")
-        p_house2 = pg.image.load("C3_sprites/C3/paneling_00124.png")
-        p_road1 = pg.image.load("C3_sprites/C3/paneling_00131.png")
-        p_road2 = pg.image.load("C3_sprites/C3/paneling_00132.png")
-        p_grass1 = pg.image.load("C3_sprites/C3/paneling_00135.png")
-        p_grass2 = pg.image.load("C3_sprites/C3/paneling_00136.png")
-        p_govern1 = pg.image.load("C3_sprites/C3/paneling_00127.png")
-        p_hospital1 = pg.image.load("C3_sprites/C3/paneling_00166.png")
-        p_rain1 = pg.image.load("C3_sprites/C3/paneling_00154.png")
-        p_book1 = pg.image.load("C3_sprites/C3/paneling_00150.png")
-        p_ghost1 = pg.image.load("C3_sprites/C3/paneling_00146.png")
-        p_gov1 = pg.image.load("C3_sprites/C3/paneling_00142.png")
-        p_pass1 = pg.image.load("C3_sprites/C3/paneling_00170.png")
-        p_warn1 = pg.image.load("C3_sprites/C3/paneling_00162.png")
-        p_cancel1 = pg.image.load("C3_sprites/C3/paneling_00158.png")
-        p_hous1 = pg.image.load("C3_sprites/C3/paneling_00174.png")
-        p_redbook1 = pg.image.load("C3_sprites/C3/paneling_00118.png")
-        p_post1 = pg.image.load("C3_sprites/C3/paneling_00122.png")
-
-
-        # images = {
-        #     "p_house": {"mouse_off": p_house1, "mouse_on": p_house2},
-        #     "p_road": {"mouse_on": p_road1, "mouse_on": p_road2},
-        #     "p_grass": {"mouse_on": p_grass1, "mouse_on": p_grass2}
-        # }
-
-        images = {
-            "p_house": p_house1,
-            "p_road": p_road1,
-            "p_grass": p_grass1,
-            "p_govern": p_govern1,
-            "p_hospital1" : p_hospital1,
-            "p_rain1" : p_rain1,
-            "p_book1" : p_book1,
-            "p_ghost1": p_ghost1,
-            "p_gov": p_gov1,
-            "p_pass1" : p_pass1,
-            "p_warn1": p_warn1,
-            "p_cancel1": p_cancel1,
-            "p_house1" : p_hous1,
-            "p_redbook1": p_redbook1,
-            "p_post1": p_post1
-        }
-
-        return images
-
     def scale_image(self, image, w=None, h=None):
 
         if (w == None) and (h == None):
@@ -169,3 +132,33 @@ class Hud:
                 return pg.image.load("C3_sprites/C3/paneling_00131.png")
             case "road":
                 return pg.image.load("C3_sprites/C3/paneling_00135.png")
+            case "well":
+                return pg.image.load("C3_sprites/C3/paneling_00127.png")
+            case "hospital":
+                return pg.image.load("C3_sprites/C3/paneling_00166.png")
+            case "temple":
+                return pg.image.load("C3_sprites/C3/paneling_00154.png")
+            case "book":
+                return pg.image.load("C3_sprites/C3/paneling_00150.png")
+            case "face":
+                return pg.image.load("C3_sprites/C3/paneling_00146.png")
+            case "senate":
+                return pg.image.load("C3_sprites/C3/paneling_00142.png")
+            case "hammer":
+                return pg.image.load("C3_sprites/C3/paneling_00170.png")
+            case "cross":
+                return pg.image.load("C3_sprites/C3/paneling_00174.png")
+            case "bell":
+                return pg.image.load("C3_sprites/C3/paneling_00122.png")
+            case "sword":
+                return pg.image.load("C3_sprites/C3/paneling_00162.png")
+            case "char":
+                return pg.image.load("C3_sprites/C3/paneling_00158.png")
+            case "parchemin":
+                return pg.image.load("C3_sprites/C3/paneling_00118.png")
+
+
+
+
+
+

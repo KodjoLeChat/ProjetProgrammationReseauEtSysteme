@@ -16,7 +16,7 @@ class keyboard:
         """
         Gère les évenements pendant le jeu
         """
-        if event.type == pygame.QUIT:
+        if event.type == pygame.QUIT or event.type == pygame.K_ESCAPE:
             self.quit_game()
         elif event.type == pygame.KEYDOWN:
             self.pressed[event.key] = True

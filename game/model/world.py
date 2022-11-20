@@ -116,6 +116,7 @@ class World:
                 case = self.world[x][y]
                 rect_case = case.get_render_pos()
                 tile = case.get_tile()
+
                 if tile != "":
                     screen.blit(self.images[tile],
                                 (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
