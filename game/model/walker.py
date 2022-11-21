@@ -29,3 +29,5 @@ class Walker:
             clock.tick(60)
             self.position[1] += j
 
+            #test
+
