@@ -2,7 +2,6 @@ import pygame as pg
 
 from game.view.utils import draw_text
 from game.model.world import World
-from game.model.textShow import TextShow
 from game.model.zoom import Zoom
 from game.model.settings import TILE_SIZE
 from game.model.save import Save
