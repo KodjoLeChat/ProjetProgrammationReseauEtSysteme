@@ -1,4 +1,3 @@
-
 import pygame as pg
 import random
 from game.model.case import Case
@@ -35,37 +34,37 @@ class World(pg.sprite.Group):
 
         self.temp_cases = []
 
-                # camera offset 
+
+        # camera offset
         self.offset = pg.math.Vector2()
         self.half_w = self.width // 2
         self.half_h = self.height // 2
 
-		# camera speed
+        # camera speed
         self.keyboard_speed = 5
         self.mouse_speed = 0.2
 
-		# zoom 
+        # zoom
         self.zoom_scale = 1
-        self.internal_surf_size = (2500,2500)
+        self.internal_surf_size = (2500, 2500)
         self.internal_surf = pg.Surface(self.internal_surf_size, pg.SRCALPHA)
-        self.internal_rect = self.internal_surf.get_rect(center = (self.half_w,self.half_h))
+        self.internal_rect = self.internal_surf.get_rect(center=(self.half_w, self.half_h))
         self.internal_surface_size_vector = pg.math.Vector2(self.internal_surf_size)
         self.internal_offset = pg.math.Vector2()
         self.internal_offset.x = self.internal_surf_size[0] // 2 - self.half_w
         self.internal_offset.y = self.internal_surf_size[1] // 2 - self.half_h
-        
+
         self.count = 0
 
-        #Ressources
-        self.ressources = Ressources(0,0,0,0,0,0)
-
+        # Ressources
+        self.ressources = Ressources(0, 0, 0, 0, 0, 0)
 
     def update(self, camera):
         mouse_pos = pg.mouse.get_pos()
         mouse_action = self.keyboard.get_keyboard_input()
         grid_pos = self.mouse_to_grid(mouse_pos[0], mouse_pos[1], camera.scroll)
-        if self.hud.selected_tile is not None and (0 <= grid_pos[0] <= self.grid_length_x-1) and (
-                 0 <= grid_pos[1] <= self.grid_length_y-1):
+        if self.hud.selected_tile is not None and (0 <= grid_pos[0] <= self.grid_length_x - 1) and (
+                0 <= grid_pos[1] <= self.grid_length_y - 1):
             sprite_name = self.hud.selected_tile["name"]
 
             if mouse_action.get(pg.MOUSEBUTTONDOWN):
@@ -89,16 +88,14 @@ class World(pg.sprite.Group):
                         else:
                             self.change_case_sprite_by_image_name(sprite_name)
 
-
                     self.temp_cases = []
                     self.list_grid_pos_selection = set()
                     self.selection = None
 
             if mouse_action.get(pg.MOUSEMOTION):
+                for temps_case in self.temp_cases:
+                    self.world[temps_case["x"]][temps_case["y"]].set_tile(temps_case["image"])
                 if self.selected_on:
-                    for temps_case in self.temp_cases:
-                        self.world[temps_case["x"]][temps_case["y"]].set_tile(temps_case["image"])
-
                     if sprite_name == "hud_road_sprite":
                         temps_coord = self.selection_roads.add_grid_pos(grid_pos)
                         self.add_temp_case()
@@ -109,22 +106,49 @@ class World(pg.sprite.Group):
                         self.list_grid_pos_selection = set()
                         self.selection.add_grid_pos(grid_pos)
                         self.add_temp_case()
-                        self.change_case_sprite_by_image_name("tree1")
-                      
-    def add_temp_case(self):
+                        self.change_case_sprite_by_image_name("dirt")
+                else:
+                    self.temp_cases = []
+                    self.add_temp_case(grid_pos)
+                    if not self.world[grid_pos[0]][grid_pos[1]].get_collision():
+                        self.world[grid_pos[0]][grid_pos[1]].set_tile("sign")
+                    else:
+                        tile_name = self.world[grid_pos[0]][grid_pos[1]].get_tile()
+                        sprite = self.images[tile_name].copy()
+                        image_copy = pygame.Surface(sprite.get_size())
+                        image_copy.fill((255,0,0))
+                        image_copy.set_alpha(100)
+                        sprite.set_colorkey((255,0,0))
+                        image_copy.blit(sprite,(0,0))
+                        self.images["temp"] = image_copy
+                        self.world[grid_pos[0]][grid_pos[1]].set_tile("temp")
+
+
+
+
+    def add_temp_case(self, coord_Case=None):
         """
         ajoute des coordonnées dans la liste des case temporaire pour faire la selection et leurs restituer
         leurs bon sprites
         :return:
         """
-        for x, y in self.get_list_grid_pos_road():
+        if coord_Case != None:
+            x,y = coord_Case
+            temp = {
+                "image": self.world[x][y].get_tile(),
+                "x": x,
+                "y": y
+            }
+            self.temp_cases.append(temp)
+        else:
+            for x, y in self.get_list_grid_pos_road():
                 temp = {
                     "image": self.world[x][y].get_tile(),
                     "x": x,
                     "y": y
                 }
                 self.temp_cases.append(temp)
-        for x, y in self.get_list_grid_pos_selection():
+            for x, y in self.get_list_grid_pos_selection():
                 temp = {
                     "image": self.world[x][y].get_tile(),
                     "x": x,
@@ -155,7 +179,7 @@ class World(pg.sprite.Group):
         world_x = x - scroll.x - self.dim_map.get_width() / 2
         world_y = y - scroll.y
         # transform to cart (inverse of cart_to_iso)
-        cart_y = (2*world_y - world_x)/2
+        cart_y = (2 * world_y - world_x) / 2
         cart_x = cart_y + world_x
         # transform to grid coordinates
         grid_x = int(cart_x // TILE_SIZE)
@@ -178,7 +202,7 @@ class World(pg.sprite.Group):
         return world
 
     def grid_to_world(self, grid_x, grid_y):
-        
+
         rect = [
             (grid_x * TILE_SIZE, grid_y * TILE_SIZE),
             (grid_x * TILE_SIZE + TILE_SIZE, grid_y * TILE_SIZE),
@@ -210,13 +234,13 @@ class World(pg.sprite.Group):
 
     def cart_to_iso(self, x, y):
         iso_x = x - y
-        iso_y = (x + y)/2
+        iso_y = (x + y) / 2
         return iso_x, iso_y
 
     def load_images(self):
         images = {
             "building1": pg.image.load("C3_sprites/C3/paneling_00123.png").convert_alpha(),
-            "building2": pg.image.load("C3_sprites/C3/paneling_00131.png").convert_alpha(),
+            "building2": pg.image.load("C3_sprites/C3/paneling_00131.png"),
             "tree1": pg.image.load("C3_sprites/C3/Land1a_00045.png").convert_alpha(),
             "tree2": pg.image.load("C3_sprites/C3/Land1a_00054.png").convert_alpha(),
             "tree3": pg.image.load("C3_sprites/C3/Land1a_00059.png").convert_alpha(),
@@ -227,6 +251,7 @@ class World(pg.sprite.Group):
             "hud_house_sprite": pg.image.load("C3_sprites/C3/Housng1a_00001.png").convert_alpha(),
             "hud_shovel_sprite": pg.image.load("C3_sprites/C3/Land1a_00002.png").convert_alpha(),
             "hud_road_sprite": pg.image.load("C3_sprites/C3/Land1a_00003.png").convert_alpha(),
+            "dirt": pg.image.load("C3_sprites/C3/Land2a_00004.png").convert_alpha(),
             # routes
             "road_hover": pygame.image.load("C3_sprites/C3/Land2a_00044.png").convert_alpha(),
             "top_bottom": pygame.image.load("C3_sprites/C3/Land2a_00094.png").convert_alpha(),
@@ -243,7 +268,7 @@ class World(pg.sprite.Group):
             "crossroad_top_bottom_left": pygame.image.load("C3_sprites/C3/Land2a_00107.png").convert_alpha(),
             "crossroad_top_right_left": pygame.image.load("C3_sprites/C3/Land2a_00108.png").convert_alpha(),
             "crossroad_top_right_bottom": pygame.image.load("C3_sprites/C3/Land2a_00109.png").convert_alpha(),
-            "cross": pygame.image.load("C3_sprites/C3/Land2a_00110.png")
+            "cross": pygame.image.load("C3_sprites/C3/Land2a_00110.png").convert_alpha()
         }
 
         return images
@@ -262,7 +287,7 @@ class World(pg.sprite.Group):
             return True
         else:
             return False
-        
+
     def get_list_grid_pos_road(self):
         return self.list_grid_pos_road
 
@@ -279,13 +304,12 @@ class World(pg.sprite.Group):
         x, y = coord
         self.world[x][y].set_tile(sprite_name)
 
-
-    def change_case_sprite_by_image_name(self,image_name):
+    def change_case_sprite_by_image_name(self, image_name):
         cases = [self.world[x][y] for x, y in self.get_list_grid_pos_selection() if
                  0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
         for case in cases:
             case.set_tile(image_name)
-            
+
     def __str__(self):
         return f"food: {self.ressources.food} water: {self.ressources.water} pence: {self.ressources.pence} dinars: {self.ressources.dinars} workers: {self.ressources.workers} Population: {self.ressources.population}"
 
