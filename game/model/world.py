@@ -1,15 +1,17 @@
+
 import pygame as pg
 import random
-from game.controller.SelectionRect import SelectionRect
-from game.model.Road import Road
-
-import pygame.event
-
 from game.model.case import Case
 from game.model.settings import TILE_SIZE
+from game.model.Ressources import Ressources
+from game.controller.SelectionRect import SelectionRect
+from game.model.road import Road
+import pygame.event
+import json
+import time
 
 
-class World:
+class World(pg.sprite.Group):
 
     def __init__(self, hud, grid_length_x, grid_length_y, width, height, keyboard):
         self.hud = hud
@@ -33,6 +35,31 @@ class World:
 
         self.temp_cases = []
 
+                # camera offset 
+        self.offset = pg.math.Vector2()
+        self.half_w = self.width // 2
+        self.half_h = self.height // 2
+
+		# camera speed
+        self.keyboard_speed = 5
+        self.mouse_speed = 0.2
+
+		# zoom 
+        self.zoom_scale = 1
+        self.internal_surf_size = (2500,2500)
+        self.internal_surf = pg.Surface(self.internal_surf_size, pg.SRCALPHA)
+        self.internal_rect = self.internal_surf.get_rect(center = (self.half_w,self.half_h))
+        self.internal_surface_size_vector = pg.math.Vector2(self.internal_surf_size)
+        self.internal_offset = pg.math.Vector2()
+        self.internal_offset.x = self.internal_surf_size[0] // 2 - self.half_w
+        self.internal_offset.y = self.internal_surf_size[1] // 2 - self.half_h
+        
+        self.count = 0
+
+        #Ressources
+        self.ressources = Ressources(0,0,0,0,0,0)
+
+
     def update(self, camera):
         mouse_pos = pg.mouse.get_pos()
         mouse_action = self.keyboard.get_keyboard_input()
@@ -41,14 +68,14 @@ class World:
                  0 <= grid_pos[1] <= self.grid_length_y-1):
             sprite_name = self.hud.selected_tile["name"]
 
-            if mouse_action.get(pygame.MOUSEBUTTONDOWN):
+            if mouse_action.get(pg.MOUSEBUTTONDOWN):
                 if not self.selected_on:
                     self.selected_on = True
                     if sprite_name == "hud_road_sprite":
                         self.selection_roads = Road(grid_pos, self)
                     else:
                         self.selection = SelectionRect(grid_pos, self)
-            elif not mouse_action.get(pygame.MOUSEBUTTONDOWN):
+            elif not mouse_action.get(pg.MOUSEBUTTONDOWN):
                 if self.selected_on:
                     self.selected_on = False
                     if sprite_name == "hud_road_sprite":
@@ -67,7 +94,7 @@ class World:
                     self.list_grid_pos_selection = set()
                     self.selection = None
 
-            if mouse_action.get(pygame.MOUSEMOTION):
+            if mouse_action.get(pg.MOUSEMOTION):
                 if self.selected_on:
                     for temps_case in self.temp_cases:
                         self.world[temps_case["x"]][temps_case["y"]].set_tile(temps_case["image"])
@@ -83,7 +110,7 @@ class World:
                         self.selection.add_grid_pos(grid_pos)
                         self.add_temp_case()
                         self.change_case_sprite_by_image_name("tree1")
-
+                      
     def add_temp_case(self):
         """
         ajoute des coordonnées dans la liste des case temporaire pour faire la selection et leurs restituer
@@ -106,6 +133,7 @@ class World:
                 if temp not in self.temp_cases:
                     self.temp_cases.append(temp)
 
+
     def draw(self, screen, camera):
         camera_scroll_x = camera.get_scroll().x
         camera_scroll_y = camera.get_scroll().y
@@ -127,7 +155,7 @@ class World:
         world_x = x - scroll.x - self.dim_map.get_width() / 2
         world_y = y - scroll.y
         # transform to cart (inverse of cart_to_iso)
-        cart_y = (2 * world_y - world_x) / 2
+        cart_y = (2*world_y - world_x)/2
         cart_x = cart_y + world_x
         # transform to grid coordinates
         grid_x = int(cart_x // TILE_SIZE)
@@ -182,7 +210,7 @@ class World:
 
     def cart_to_iso(self, x, y):
         iso_x = x - y
-        iso_y = (x + y) / 2
+        iso_y = (x + y)/2
         return iso_x, iso_y
 
     def load_images(self):
@@ -234,7 +262,7 @@ class World:
             return True
         else:
             return False
-
+        
     def get_list_grid_pos_road(self):
         return self.list_grid_pos_road
 
@@ -257,3 +285,16 @@ class World:
                  0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
         for case in cases:
             case.set_tile(image_name)
+            
+    def __str__(self):
+        return f"food: {self.ressources.food} water: {self.ressources.water} pence: {self.ressources.pence} dinars: {self.ressources.dinars} workers: {self.ressources.workers} Population: {self.ressources.population}"
+
+    def can_get_fire(self):
+        '''get every sprite of the map'''
+        for i in range(self.grid_length_x):
+            for j in range(self.grid_length_y):
+                continue
+                '''if self.world[i][j].on_fire == True:
+                    self.world[i][j].fire = Fire(self.world[i][j].get_case_rect().topleft)
+                    self.world[i][j].fire.update()
+                    self.world[i][j].fire.draw(self.screen) '''
