@@ -38,6 +38,7 @@ class Hud:
                        "senate": "hus_senate_sprite",
                        "hammer": "hus_hammer_sprite",
                        "cross": "hus_cross_sprite",
+                       "bell": "hus_bell_sprite",
                        "sword": "hus_sword_sprite",
                        "char": "hus_char_sprite",
                        "parchemin": "hus_parchemin_sprite",
@@ -147,14 +148,12 @@ class Hud:
             case "hammer":
                 return pg.image.load("C3_sprites/C3/paneling_00170.png")
             case "cross":
+                return pg.image.load("C3_sprites/C3/paneling_00162.png")
+            case "parchemin":
+                return pg.image.load("C3_sprites/C3/paneling_00158.png")
+            case "sword":
                 return pg.image.load("C3_sprites/C3/paneling_00174.png")
+            case "char":
+                return pg.image.load("C3_sprites/C3/paneling_00118.png")
             case "bell":
                 return pg.image.load("C3_sprites/C3/paneling_00122.png")
-            case "sword":
-                return pg.image.load("C3_sprites/C3/paneling_00162.png")
-            case "char":
-                return pg.image.load("C3_sprites/C3/paneling_00158.png")
-            case "parchemin":
-                return pg.image.load("C3_sprites/C3/paneling_00118.png")
-                
-
