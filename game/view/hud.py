@@ -102,10 +102,20 @@ class Hud:
         screen.blit(self.build_surface, (self.width * 0.895, 20))
 
         # resouce hud
-        screen.blit(self.resouces_surface, (0, 0))
+        pos_up_hud = 0
+        while pos_up_hud < self.width:
+            screen.blit(self.resouces_surface, (pos_up_hud, 0))
+            pos_up_hud += self.resources_rect.get_width()
+            
 
         for tile in self.tiles:
             screen.blit(tile["icon"], tile["rect"])
+
+        # resources
+        pos = self.width * 0.1
+        for resource in ["wood:", "stone:", "gold:"]:
+            draw_text(screen, resource, 30, (255, 255, 255), (pos, self.height * 0.002))
+            pos += self.width * 0.2
 
     def scale_image(self, image, w=None, h=None):
 
