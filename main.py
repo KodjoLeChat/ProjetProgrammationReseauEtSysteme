@@ -2,7 +2,6 @@ from game.view.menu import *
 from game.model.settings import *
 from game.controller.game import Game
 from game.view.utils import *
-
 def main():
 
     running = True
@@ -11,11 +10,11 @@ def main():
 
     pg.init()
     pg.mixer.init()
-    screen = pg.display.set_mode((900, 700))
+    screen = pg.display.set_mode((0,0),pg.FULLSCREEN)
     clock = pg.time.Clock()
 
     # implement menus
-    menu = Menu(text_buttons_menuP, init_pos)
+    menu = Menu(text_buttons_menuP, init_pos,screen)
     menu.set()
 
     # implement game
