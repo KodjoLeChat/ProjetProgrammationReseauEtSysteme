@@ -156,9 +156,5 @@ class Hud:
                 return pg.image.load("C3_sprites/C3/paneling_00158.png")
             case "parchemin":
                 return pg.image.load("C3_sprites/C3/paneling_00118.png")
-
-
-
-
-
+                
 
