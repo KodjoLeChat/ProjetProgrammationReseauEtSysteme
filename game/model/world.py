@@ -114,13 +114,9 @@ class World(pg.sprite.Group):
                         self.world[grid_pos[0]][grid_pos[1]].set_tile("sign")
                     else:
                         tile_name = self.world[grid_pos[0]][grid_pos[1]].get_tile()
-                        sprite = self.images[tile_name].copy()
-                        image_copy = pygame.Surface(sprite.get_size())
-                        image_copy.fill((255,0,0))
-                        image_copy.set_alpha(100)
-                        sprite.set_colorkey((255,0,0))
-                        image_copy.blit(sprite,(0,0))
-                        self.images["temp"] = image_copy
+                        mask = pygame.mask.from_surface(self.images[tile_name])
+                        new_surface = mask.to_surface(setcolor=(255,0,0,200), unsetcolor=(0,0,0,0))
+                        self.images["temp"] = new_surface
                         self.world[grid_pos[0]][grid_pos[1]].set_tile("temp")
 
 
