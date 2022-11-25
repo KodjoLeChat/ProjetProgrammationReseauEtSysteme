@@ -56,26 +56,9 @@ class Game:
             pg.display.flip()
 
     def update(self):
-        if self.keyboard.wantToPause != True:
-            #print(self.ressources.__str__())
-            if self.keyboard.wantToZoom == True:
-                self.zoom.zoom_in()
-                self.zoom.update()
-                self.zoom.draw(self.screen)
-            
-            self.time.update(self.keyboard.test)
-            self.camera.update()
-            self.hud.update()
-            self.world.update(self.camera) #CLARIFICATION
-            #self.textShow.update(self.world)
-            if self.keyboard.wantToSave == True:
-                print("OK !")
-                self.save.save()
-                self.keyboard.wantToSave = False
-            if self.keyboard.wantToLoad == True:
-                print("OK !")
-                self.save.load()
-                self.keyboard.wantToLoad = False
+        self.camera.update()
+        self.hud.update()
+        self.world.update(self.camera)
 
     def get_state(self):
         return self.state
