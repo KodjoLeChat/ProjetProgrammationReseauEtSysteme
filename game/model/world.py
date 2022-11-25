@@ -23,7 +23,7 @@ class World(pg.sprite.Group):
         self.list_grid_pos_selection = set()
 
         self.selection_roads = None
-        self.list_grid_pos_road = list()
+        self.list_grid_pos_road = set()
 
         self.keyboard = keyboard
 
@@ -68,7 +68,7 @@ class World(pg.sprite.Group):
             sprite_name = self.hud.selected_tile["name"]
 
             if mouse_action.get(pg.MOUSEBUTTONDOWN):
-                if not self.selected_on:
+                if not self.selected_on and not self.world[grid_pos[0]][grid_pos[1]].get_collision():
                     self.selected_on = True
                     if sprite_name == "hud_road_sprite":
                         self.selection_roads = Road(grid_pos, self)
@@ -83,7 +83,7 @@ class World(pg.sprite.Group):
                     else:
                         self.selection.add_grid_pos(grid_pos)
                         if sprite_name == "hud_shovel_sprite":
-                            self.list_grid_pos_road = [x for x in self.list_grid_pos_road if x not in self.list_grid_pos_selection]
+                            self.list_grid_pos_road.difference_update(self.list_grid_pos_selection)
                             self.change_case_sprite_by_image_name(sprite_name)
                         else:
                             self.change_case_sprite_by_image_name(sprite_name)
@@ -100,7 +100,7 @@ class World(pg.sprite.Group):
                         temps_coord = self.selection_roads.add_grid_pos(grid_pos)
                         self.add_temp_case()
                         self.selection_roads.set_image_roads()
-                        self.list_grid_pos_road = [x for x in self.list_grid_pos_road if x not in temps_coord]
+                        self.list_grid_pos_road.difference_update(temps_coord)
                     elif sprite_name == "hud_shovel_sprite":
                         self.list_grid_pos_selection = set()
                         self.selection.add_grid_pos(grid_pos)
@@ -296,7 +296,7 @@ class World(pg.sprite.Group):
         return self.list_grid_pos_selection
 
     def add_list_grid_pos_road(self, grid_pos_road):
-        self.list_grid_pos_road.append(grid_pos_road)
+        self.list_grid_pos_road.add(grid_pos_road)
 
     def add_list_grid_pos_selection(self, grid_pos_selection):
         self.list_grid_pos_selection.add(grid_pos_selection)

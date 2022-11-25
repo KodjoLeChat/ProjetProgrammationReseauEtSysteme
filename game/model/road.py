@@ -13,38 +13,38 @@ class Road:
         :param grid_pos: position actuelle de la sourie convertie en coordonnée de la map
         :return: None
         """
-        temp_list = list()
+        temp_list = set()
         if grid_pos[0] <= self.start[0] and grid_pos[1] <= self.start[1]:  # en haut a gauche
             for x in range(grid_pos[0], self.start[0] + 1):
                 self.world.add_list_grid_pos_road((x, self.start[1]))
-                temp_list.append((x, self.start[1]))
+                temp_list.add((x, self.start[1]))
             for y in range(grid_pos[1], self.start[1] + 1):
                 self.world.add_list_grid_pos_road((grid_pos[0], y))
-                temp_list.append((grid_pos[0], y))
+                temp_list.add((grid_pos[0], y))
 
         elif grid_pos[0] <= self.start[0] and grid_pos[1] >= self.start[1]:  # en haut a droite
             for x in range(grid_pos[0], self.start[0] + 1):
                 self.world.add_list_grid_pos_road((x, grid_pos[1]))
-                temp_list.append((x, grid_pos[1]))
+                temp_list.add((x, grid_pos[1]))
             for y in range(self.start[1], grid_pos[1] + 1):
                 self.world.add_list_grid_pos_road((self.start[0], y))
-                temp_list.append((self.start[0], y))
+                temp_list.add((self.start[0], y))
 
         elif grid_pos[0] >= self.start[0] and grid_pos[1] <= self.start[1]:  # en bas a gauche
             for x in range(self.start[0], grid_pos[0] + 1):
                 self.world.add_list_grid_pos_road((x, grid_pos[1]))
-                temp_list.append((x, grid_pos[1]))
+                temp_list.add((x, grid_pos[1]))
             for y in range(grid_pos[1], self.start[1] + 1):
                 self.world.add_list_grid_pos_road((self.start[0], y))
-                temp_list.append((self.start[0], y))
+                temp_list.add((self.start[0], y))
 
         elif grid_pos[0] >= self.start[0] and grid_pos[1] >= self.start[1]:  # en en bas a droite
             for x in range(self.start[0], grid_pos[0] + 1):
                 self.world.add_list_grid_pos_road((x, self.start[1]))
-                temp_list.append((x, self.start[1]))
+                temp_list.add((x, self.start[1]))
             for y in range(self.start[1], grid_pos[1] + 1):
                 self.world.add_list_grid_pos_road((grid_pos[0], y))
-                temp_list.append((grid_pos[0], y))
+                temp_list.add((grid_pos[0], y))
         return temp_list
 
     def get_image_key(self, coord):
@@ -101,7 +101,6 @@ class Road:
         # cross
         if type["top"] and type["right"] and type["bottom"] and type["left"]:
             return "cross"
-
         # top_end
         if type["top"] and not type["right"] and not type["bottom"] and not type["left"]:
             return "top_end"
@@ -110,10 +109,13 @@ class Road:
             return "bottom_end"
         # right_end
         if not type["top"] and not type["right"] and not type["bottom"] and type["left"]:
-            return "left_end"
-        # left_end
-        else:
             return "right_end"
+        # left_end
+        if not type["top"] and not type["right"] and not type["bottom"] and type["left"]:
+            return "left_end"
+
+        if not type["top"] and not type["right"] and not type["bottom"] and not type["left"]:
+            return "left_end"
 
     def set_image_roads(self):
         """
@@ -122,4 +124,5 @@ class Road:
         """
         for coord in self.world.get_list_grid_pos_road():
             sprite_name = self.get_image_key(coord)
+            print(sprite_name)
             self.world.set_case_image_by_coord(coord, sprite_name)
