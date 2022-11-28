@@ -1,10 +1,11 @@
+import pygame
 import pygame as pg
 
 from game.view.utils import draw_text
 from game.controller.worldController import WorldController
 from game.model.zoom import Zoom
 from game.model.settings import TILE_SIZE
-from game.model.save import Save
+from game.model.save import saveGame
 from game.controller.keyboard import keyboard
 from game.controller.camera import Camera
 from game.view.hud import Hud
@@ -19,7 +20,7 @@ class Game:
         self.screen = screen
         self.clock = clock
         #self.width, self.height = (self.screen.get_size())
-        self.width, self.height = (1000,800)
+        self.width, self.height = (800,1000)
         self.state = False
         self.playing = True
 
@@ -51,6 +52,8 @@ class Game:
         self.camera.update()
         self.hud.update()
         self.worldController.update(self.camera)
+        if self.keyboard.get_keyboard_input().get(pygame.K_KP_ENTER):
+            saveGame()
 
     def get_state(self):
         return self.state

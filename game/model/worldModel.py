@@ -3,7 +3,6 @@ from game.model.case import Case
 from game.model.Ressources import Ressources
 import pygame.event
 
-
 class WorldModel:
 
     def __init__(self, world):

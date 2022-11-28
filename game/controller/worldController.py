@@ -156,10 +156,6 @@ class WorldController:
                 case = self.worldModel.get_case(x, y)
                 rect_case = case.get_render_pos()
                 tile = case.get_tile()
-                if tile == "":
-                    case.set_collision(False)
-                else:
-                    case.set_collision(True)
                 if tile != "":
                     screen.blit(self.images[tile],
                                 (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
@@ -207,8 +203,10 @@ class WorldController:
                         if sprite_name == "hud_shovel_sprite":
                             self.worldModel.diff_update_road(self.worldModel.get_list_grid_pos_selection())
                             self.change_case_sprite_by_image_name(sprite_name)
+                            self.change_cases_collision(False)
                         else:
                             self.change_case_sprite_by_image_name(sprite_name)
+                            self.change_cases_collision(True)
 
                     self.temp_cases = []
                     self.worldModel.set_list_grid_pos_selection(set())
@@ -295,3 +293,12 @@ class WorldController:
                  0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
         for case in cases:
             case.set_tile(image_name)
+
+    def change_cases_collision(self,collision):
+        cases = [self.worldModel.get_case(x, y) for x, y in self.worldModel.get_list_grid_pos_selection() if
+                 0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
+        for case in cases:
+            case.set_collision(collision)
+
+    def get_world_model(self):
+        return self.worldModel;
