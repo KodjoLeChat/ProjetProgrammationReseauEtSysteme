@@ -2,10 +2,10 @@ from game.model.settings import *
 
 
 class Road:
-    def __init__(self, start, world):
+    def __init__(self, start, worldModel):
         self.type = ROAD_TYPE
         self.start = start
-        self.world = world
+        self.worldModel = worldModel
 
     def add_grid_pos(self, grid_pos):
         """
@@ -16,34 +16,34 @@ class Road:
         temp_list = set()
         if grid_pos[0] <= self.start[0] and grid_pos[1] <= self.start[1]:  # en haut a gauche
             for x in range(grid_pos[0], self.start[0] + 1):
-                self.world.add_list_grid_pos_road((x, self.start[1]))
+                self.worldModel.add_list_grid_pos_road((x, self.start[1]))
                 temp_list.add((x, self.start[1]))
             for y in range(grid_pos[1], self.start[1] + 1):
-                self.world.add_list_grid_pos_road((grid_pos[0], y))
+                self.worldModel.add_list_grid_pos_road((grid_pos[0], y))
                 temp_list.add((grid_pos[0], y))
 
         elif grid_pos[0] <= self.start[0] and grid_pos[1] >= self.start[1]:  # en haut a droite
             for x in range(grid_pos[0], self.start[0] + 1):
-                self.world.add_list_grid_pos_road((x, grid_pos[1]))
+                self.worldModel.add_list_grid_pos_road((x, grid_pos[1]))
                 temp_list.add((x, grid_pos[1]))
             for y in range(self.start[1], grid_pos[1] + 1):
-                self.world.add_list_grid_pos_road((self.start[0], y))
+                self.worldModel.add_list_grid_pos_road((self.start[0], y))
                 temp_list.add((self.start[0], y))
 
         elif grid_pos[0] >= self.start[0] and grid_pos[1] <= self.start[1]:  # en bas a gauche
             for x in range(self.start[0], grid_pos[0] + 1):
-                self.world.add_list_grid_pos_road((x, grid_pos[1]))
+                self.worldModel.add_list_grid_pos_road((x, grid_pos[1]))
                 temp_list.add((x, grid_pos[1]))
             for y in range(grid_pos[1], self.start[1] + 1):
-                self.world.add_list_grid_pos_road((self.start[0], y))
+                self.worldModel.add_list_grid_pos_road((self.start[0], y))
                 temp_list.add((self.start[0], y))
 
         elif grid_pos[0] >= self.start[0] and grid_pos[1] >= self.start[1]:  # en en bas a droite
             for x in range(self.start[0], grid_pos[0] + 1):
-                self.world.add_list_grid_pos_road((x, self.start[1]))
+                self.worldModel.add_list_grid_pos_road((x, self.start[1]))
                 temp_list.add((x, self.start[1]))
             for y in range(self.start[1], grid_pos[1] + 1):
-                self.world.add_list_grid_pos_road((grid_pos[0], y))
+                self.worldModel.add_list_grid_pos_road((grid_pos[0], y))
                 temp_list.add((grid_pos[0], y))
         return temp_list
 
@@ -60,13 +60,13 @@ class Road:
             "bottom": False,
             "left": False
         }
-        if (x + 1, y) in self.world.get_list_grid_pos_road():
+        if (x + 1, y) in self.worldModel.get_list_grid_pos_road():
             type["bottom"] = True
-        if (x - 1, y) in self.world.get_list_grid_pos_road():
+        if (x - 1, y) in self.worldModel.get_list_grid_pos_road():
             type["top"] = True
-        if (x, y + 1) in self.world.get_list_grid_pos_road():
+        if (x, y + 1) in self.worldModel.get_list_grid_pos_road():
             type["left"] = True
-        if (x, y - 1) in self.world.get_list_grid_pos_road():
+        if (x, y - 1) in self.worldModel.get_list_grid_pos_road():
             type["right"] = True
         # ligne top bottom
         if type["top"] and type["bottom"] and not type["right"] and not type["left"]:
@@ -116,13 +116,14 @@ class Road:
 
         if not type["top"] and not type["right"] and not type["bottom"] and not type["left"]:
             return "left_end"
+        else :
+            return "left_end"
 
     def set_image_roads(self):
         """
         changes les sprites des cases avec une route en fonction de leurs voisin direct (virage/intersection/ligne/ect...)
         :return:
         """
-        for coord in self.world.get_list_grid_pos_road():
+        for coord in self.worldModel.get_list_grid_pos_road():
             sprite_name = self.get_image_key(coord)
-            print(sprite_name)
-            self.world.set_case_image_by_coord(coord, sprite_name)
+            self.worldModel.set_case_image_by_coord(coord, sprite_name)

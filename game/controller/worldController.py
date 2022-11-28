@@ -157,9 +157,9 @@ class WorldController:
                 rect_case = case.get_render_pos()
                 tile = case.get_tile()
                 if tile == "":
-                    case.set_collision(True)
-                else:
                     case.set_collision(False)
+                else:
+                    case.set_collision(True)
                 if tile != "":
                     screen.blit(self.images[tile],
                                 (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
