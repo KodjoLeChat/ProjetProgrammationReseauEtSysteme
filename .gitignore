@@ -3,3 +3,4 @@ game/__pycache__
 */*/__pycache__
 */__pycache__
 ./save.json
+/worldSave

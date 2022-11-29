@@ -5,6 +5,7 @@ from game.model.road import Road
 from game.controller.SelectionRect import SelectionRect
 from game.model.case import Case
 from game.model.worldModel import WorldModel
+import pickle
 
 
 def load_images():
@@ -95,7 +96,13 @@ class WorldController:
         # create world
         self.dim_map = pg.Surface(
             (grid_length_x * TILE_SIZE * 2, grid_length_y * TILE_SIZE + 2 * TILE_SIZE)).convert_alpha()
+
         self.worldModel = WorldModel(self.create_world())
+        #world Model object
+        with open('worldSave') as f1:
+            self.worldModel = pickle.load(f1)
+
+
 
         # selection autre que route
         self.selected_on = False

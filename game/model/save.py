@@ -1,9 +1,13 @@
 import pickle
 from game.controller.worldController import WorldController
 
-def saveGame():
-    outfile = open("worldSave","wb")
-    worldModel = WorldController.get_world_model()
-    pickle.dump(worldModel,"worldSave")
-    outfile.close()
 
+class Save:
+
+    def __init__(self, modelWorld):
+        self.modelWorld = modelWorld
+
+    def saveGame(self):
+        with open("worldSave", "wb") as f1:
+            pickle.dump(self.modelWorld, f1)
+        f1.close()
