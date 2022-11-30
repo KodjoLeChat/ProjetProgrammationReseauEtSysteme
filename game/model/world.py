@@ -1,7 +1,10 @@
 import pygame as pg
 import random
+import time
 from game.controller.SelectionRect import SelectionRect
 from game.model.Road import Road
+
+from game.controller.walker import Migrant
 
 import pygame.event
 
@@ -23,7 +26,7 @@ class World:
 
         self.selection_roads = None
         self.list_grid_pos_road = set()
-        self.collision_matrix = self.create_collision_matrix()
+        #self.collision_matrix = self.create_collision_matrix()
 
         #self.workers = [[None for x in range(grid_length_x)] for y in range(grid_length_y)]
 
@@ -42,6 +45,9 @@ class World:
 
 
     def update(self, camera):
+
+        self.update_walkers()
+
         mouse_pos = pg.mouse.get_pos()
         mouse_action = self.keyboard.get_keyboard_input()
         grid_pos = self.mouse_to_grid(mouse_pos[0], mouse_pos[1], camera.scroll)
@@ -69,7 +75,11 @@ class World:
                             self.change_case_sprite_by_image_name(sprite_name)
                         else:
                             self.change_case_sprite_by_image_name(sprite_name)
+                            for x,y in self.list_grid_pos_selection:
+                                case = self.get_case(x,y)
 
+                                self.walkers.append(Migrant(self,case.get_render_pos()[0] ,case.get_render_pos()[1]))
+                                print(self.walkers[0].pos_x)
 
                     self.temp_cases = []
                     self.list_grid_pos_selection = set()
@@ -130,26 +140,26 @@ class World:
                                 (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
                                  rect_case[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
 
-        self.update_walkers()
         self.draw_walkers(screen, camera_scroll_x, camera_scroll_y)
 
     def update_walkers(self):
-        for walker in self.walkers:
-            walker.move()
+        pass
+        # for walker in self.walkers:
+        #     walker.move_to_home()
 
     def draw_walkers(self, screen, camera_scroll_x, camera_scroll_y):
 
         for walker in self.walkers:
-            screen.blit(self.images["walker"], walker.position[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
-                        walker.position[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
+            screen.blit(self.images["walker"], walker.pos_x + self.dim_map.get_width() / 2 + camera_scroll_x,
+                        walker.pos_y - (self.images["walker"].get_height() - TILE_SIZE) + camera_scroll_y)
 
-    def create_collision_matrix(self, (pos_x, pos_y), (dest_x, dest_y)):
-        collision_matrix = [[1 for x in range(abs(dest_x - pos_x))] for y in range(abs(dest_y - pos_y))]
-        for x in range(abs(dest_x - pos_x))):
-            for y in range(abs(dest_y - pos_y))):
-                if self.world[x][y]["collision"]:
-                    collision_matrix[y][x] = 0
-        return collision_matrix
+    # def create_collision_matrix(self, pos_x, pos_y, dest_x, dest_y):
+    #     collision_matrix = [[1 for x in range(abs(dest_x - pos_x))] for y in range(abs(dest_y - pos_y))]
+    #     for x in range(abs(dest_x - pos_x))):
+    #         for y in range(abs(dest_y - pos_y))):
+    #             if self.world[x][y]["collision"]:
+    #                 collision_matrix[y][x] = 0
+    #     return collision_matrix
 
     def mouse_to_grid(self, x, y, scroll):
         # transform to world position (removing camera scroll and offset)
@@ -211,8 +221,7 @@ class World:
 
 
 
-    def create_walker(self):
-        if
+
     def cart_to_iso(self, x, y):
         iso_x = x - y
         iso_y = (x + y) / 2
@@ -249,7 +258,7 @@ class World:
             "crossroad_top_right_left": pygame.image.load("C3_sprites/C3/Land2a_00108.png").convert_alpha(),
             "crossroad_top_right_bottom": pygame.image.load("C3_sprites/C3/Land2a_00109.png").convert_alpha(),
             "cross": pygame.image.load("C3_sprites/C3/Land2a_00110.png"),
-            "walker": pygame.image.load("C3_sprites/C3/...")
+            "walker": pygame.image.load("C3_sprites/C3/Security_00053.png")
         }
 
         return images
