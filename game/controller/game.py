@@ -10,6 +10,7 @@ from game.controller.camera import Camera
 from game.view.hud import Hud
 from game.model.timer import Timer
 from game.controller.keyboard import keyboard
+from game.model.fire import Fire
 
 class Game:
 
@@ -36,6 +37,9 @@ class Game:
         # save
         self.save = Save(self.world)
         
+        # Fire
+        self.fire = Fire(self.world)
+
         # zoom
         self.zoom = Zoom(self.width, self.height)
         
@@ -64,6 +68,10 @@ class Game:
                 self.zoom.draw(self.screen)
             
             self.time.update(self.keyboard.test)
+            '''check every 15 seconds and cal self.fire.update using self.time'''
+            if self.time.time_multiple():
+                self.fire.update()
+
             self.camera.update()
             self.hud.update()
             self.world.update(self.camera) #CLARIFICATION

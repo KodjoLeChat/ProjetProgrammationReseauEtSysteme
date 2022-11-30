@@ -34,6 +34,9 @@ class World(pg.sprite.Group):
 
         self.temp_cases = []
 
+        self.data = []
+
+
 
         # camera offset
         self.offset = pg.math.Vector2()
@@ -58,6 +61,9 @@ class World(pg.sprite.Group):
 
         # Ressources
         self.ressources = Ressources(0, 0, 0, 0, 0, 0)
+
+
+
 
     def update(self, camera):
         mouse_pos = pg.mouse.get_pos()
@@ -92,6 +98,7 @@ class World(pg.sprite.Group):
                     self.list_grid_pos_selection = set()
                     self.selection = None
 
+
             if mouse_action.get(pg.MOUSEMOTION):
                 for temps_case in self.temp_cases:
                     self.world[temps_case["x"]][temps_case["y"]].set_tile(temps_case["image"])
@@ -118,6 +125,7 @@ class World(pg.sprite.Group):
                         new_surface = mask.to_surface(setcolor=(255,0,0,200), unsetcolor=(0,0,0,0))
                         self.images["temp"] = new_surface
                         self.world[grid_pos[0]][grid_pos[1]].set_tile("temp")
+        
 
 
 
@@ -136,6 +144,9 @@ class World(pg.sprite.Group):
                 "y": y
             }
             self.temp_cases.append(temp)
+
+            self.data.append(temp)
+
         else:
             for x, y in self.get_list_grid_pos_road():
                 temp = {
@@ -150,6 +161,7 @@ class World(pg.sprite.Group):
                     "x": x,
                     "y": y
                 }
+
                 if temp not in self.temp_cases:
                     self.temp_cases.append(temp)
 
@@ -264,7 +276,8 @@ class World(pg.sprite.Group):
             "crossroad_top_bottom_left": pygame.image.load("C3_sprites/C3/Land2a_00107.png").convert_alpha(),
             "crossroad_top_right_left": pygame.image.load("C3_sprites/C3/Land2a_00108.png").convert_alpha(),
             "crossroad_top_right_bottom": pygame.image.load("C3_sprites/C3/Land2a_00109.png").convert_alpha(),
-            "cross": pygame.image.load("C3_sprites/C3/Land2a_00110.png").convert_alpha()
+            "cross": pygame.image.load("C3_sprites/C3/Land2a_00110.png").convert_alpha(),
+            "fire": pygame.image.load('C3_sprites/C3/Land2a_00190.png').convert_alpha()
         }
 
         return images
@@ -305,6 +318,9 @@ class World(pg.sprite.Group):
                  0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
         for case in cases:
             case.set_tile(image_name)
+            if (image_name == 'hud_house_sprite'):
+                self.ressources.sub_dinars(10)
+
 
     def __str__(self):
         return f"food: {self.ressources.food} water: {self.ressources.water} pence: {self.ressources.pence} dinars: {self.ressources.dinars} workers: {self.ressources.workers} Population: {self.ressources.population}"
