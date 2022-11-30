@@ -61,7 +61,6 @@ class Game:
 
     def update(self):
         if self.keyboard.wantToPause != True:
-            #print(self.ressources.__str__())
             if self.keyboard.wantToZoom == True:
                 self.zoom.zoom_in()
                 self.zoom.update()
@@ -84,6 +83,8 @@ class Game:
                 print("OK !")
                 self.save.load()
                 self.keyboard.wantToLoad = False
+        else:
+            self.time.pause()
 
     def get_state(self):
         return self.state
