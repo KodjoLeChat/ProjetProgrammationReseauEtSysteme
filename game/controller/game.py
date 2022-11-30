@@ -43,6 +43,9 @@ class Game:
         self.hud.update()
         self.world.update(self.camera)
 
+    def walkers_update(self):
+        self.world.walkers
+
     def get_state(self):
         return self.state
 
