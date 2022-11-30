@@ -1,3 +1,4 @@
+import pygame
 import pygame as pg
 import random
 from game.model.settings import TILE_SIZE
@@ -17,7 +18,7 @@ def load_images():
         "tree3": pg.image.load("C3_sprites/C3/Land1a_00059.png").convert_alpha(),
         "farm": pg.image.load("C3_sprites/C3/Security_00053.png").convert_alpha(),
         "tree": pg.image.load("C3_sprites/C3/paneling_00135.png").convert_alpha(),
-        "block": pg.image.load("C3_sprites/C3/Land1a_00002.png").convert_alpha(),
+        "grass": pg.image.load("C3_sprites/C3/Land1a_00002.png").convert_alpha(),
         "sign": pg.image.load("C3_sprites/C3/Housng1a_00045.png").convert_alpha(),
         "hud_house_sprite": pg.image.load("C3_sprites/C3/Housng1a_00001.png").convert_alpha(),
         "hud_shovel_sprite": pg.image.load("C3_sprites/C3/Land1a_00002.png").convert_alpha(),
@@ -74,8 +75,8 @@ def grid_to_world(grid_x, grid_y):
     # elif r <= 1:
     #    tile = "farm"
     else:
-        tile = ""
-    collision = False if tile == "" else True
+        tile = "grass"
+    collision = False if tile == "grass" else True
 
     out = Case([grid_x, grid_y], rect, iso_poly, tile, (minx, miny), collision)
 
@@ -99,9 +100,8 @@ class WorldController:
 
         self.worldModel = WorldModel(self.create_world())
         #world Model object
-        with open('worldSave') as f1:
-            self.worldModel = pickle.load(f1)
-
+        f1 = open('worldSave','rb')
+        self.worldModel = pickle.load(f1)
 
 
         # selection autre que route
@@ -149,7 +149,7 @@ class WorldController:
                 world[grid_x].append(world_tile)
 
                 render_pos = world_tile.get_render_pos()
-                self.dim_map.blit(self.images["block"],
+                self.dim_map.blit(self.images["grass"],
                                   (render_pos[0] + self.dim_map.get_width() / 2, render_pos[1]))
         return world
 
@@ -251,6 +251,8 @@ class WorldController:
                         new_surface = mask.to_surface(setcolor=(255, 0, 0, 200), unsetcolor=(0, 0, 0, 0))
                         self.images["temp"] = new_surface
                         self.worldModel.get_case(grid_pos[0], grid_pos[1]).set_tile("temp")
+        if mouse_action.get(pygame.K_KP_ENTER):
+            self.saveWord()
 
     def add_temp_case(self, coord_Case=None):
         """
@@ -309,3 +311,8 @@ class WorldController:
 
     def get_world_model(self):
         return self.worldModel;
+
+    def saveWord(self):
+        with open("worldSave", "wb") as f1:
+            pickle.dump(self.worldModel, f1)
+        f1.close()

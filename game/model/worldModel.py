@@ -10,7 +10,7 @@ class WorldModel:
         self.world = world
 
         # Ressources
-        self.ressources = Ressources(0, 0, 0, 0, 0, 0)
+        #self.ressources = Ressources(0, 0, 0, 0, 0, 0)
 
         # list coords Routes
         self.list_grid_pos_road = set()

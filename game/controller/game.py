@@ -5,7 +5,6 @@ from game.view.utils import draw_text
 from game.controller.worldController import WorldController
 from game.model.zoom import Zoom
 from game.model.settings import TILE_SIZE
-from game.model.save import Save
 from game.controller.keyboard import keyboard
 from game.controller.camera import Camera
 from game.view.hud import Hud
@@ -31,10 +30,6 @@ class Game:
         # world
         self.worldController = WorldController(self.hud, 65, 65, self.width, self.height, self.keyboard)
 
-
-        #save
-        self.save = Save(self.worldController.get_world_model())
-
         # camera
         self.camera = Camera(self.width, self.height)
 
@@ -57,8 +52,6 @@ class Game:
         self.camera.update()
         self.hud.update()
         self.worldController.update(self.camera)
-        if self.keyboard.get_keyboard_input().get(pygame.K_KP_ENTER):
-            self.save.saveGame()
 
     def get_state(self):
         return self.state
