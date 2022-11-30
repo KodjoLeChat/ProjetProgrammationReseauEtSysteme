@@ -139,6 +139,8 @@ class World:
                     screen.blit(self.images[tile],
                                 (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
                                  rect_case[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
+                    print((rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x))
+                    print((rect_case[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
 
         self.draw_walkers(screen, camera_scroll_x, camera_scroll_y)
 
