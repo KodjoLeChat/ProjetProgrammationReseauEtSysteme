@@ -100,8 +100,8 @@ class WorldController:
 
         self.worldModel = WorldModel(self.create_world())
         #world Model object
-        f1 = open('worldSave','rb')
-        self.worldModel = pickle.load(f1)
+        # f1 = open('worldSave','rb')
+        # self.worldModel = pickle.load(f1)
 
 
         # selection autre que route
