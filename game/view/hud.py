@@ -1,6 +1,7 @@
 from turtle import back, screensize
 import pygame as pg
 from game.view.utils import draw_text
+from game.model.world import __str__
 
 
 class Hud:
@@ -19,8 +20,8 @@ class Hud:
 
         # resouces hud
         self.resouces_surface = pg.Surface((width, height * 0.025), pg.SRCALPHA)
-        self.resources_rect = self.resouces_surface.get_rect(topleft=(0, 0))
-        self.resouces_surface.fill(self.hud_colour)
+        self.resources_rect = pg.image.load("C3_sprites/C3/paneling_00010.png")
+        self.resouces_surface.blit(self.resources_rect, [0, 0])
 
         # select hud
         # self.select_surface = pg.Surface((width * 0.3, height * 0.2), pg.SRCALPHA)
