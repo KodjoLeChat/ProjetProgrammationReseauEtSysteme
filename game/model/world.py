@@ -145,7 +145,6 @@ class World(pg.sprite.Group):
             }
             self.temp_cases.append(temp)
 
-            self.data.append(temp)
 
         else:
             for x, y in self.get_list_grid_pos_road():
@@ -161,6 +160,7 @@ class World(pg.sprite.Group):
                     "x": x,
                     "y": y
                 }
+                self.data.append(temp)
 
                 if temp not in self.temp_cases:
                     self.temp_cases.append(temp)

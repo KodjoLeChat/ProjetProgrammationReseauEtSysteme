@@ -23,7 +23,7 @@ class Timer:
         self.start_time = time.time()
 
     def time_multiple(self):
-        if self.time % 10 == 0:
+        if self.time % 100 == 0:
             self.temp = self.time
             return True
         else:

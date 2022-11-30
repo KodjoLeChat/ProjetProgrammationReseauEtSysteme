@@ -12,11 +12,11 @@ class Fire:
         self.world = world
 
 
+
     def update(self):
         if self.world.data:
-            for i in self.world.data:
-                x = i["x"]
-                y = i["y"]
-                print('attention')
-                if random.randint(0,100) < 99:
+                i = random.randint(0, len(self.world.data)-1)
+                x = self.world.data[i]["x"]
+                y = self.world.data[i]["y"]
+                if random.randint(0,100) < 50:
                     self.world.world[x][y].set_tile('fire')
