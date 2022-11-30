@@ -8,7 +8,6 @@ from game.model.settings import TILE_SIZE
 from game.controller.keyboard import keyboard
 from game.controller.camera import Camera
 from game.view.hud import Hud
-from game.model.timer import Timer
 from game.controller.keyboard import keyboard
 
 
@@ -32,9 +31,6 @@ class Game:
 
         # camera
         self.camera = Camera(self.width, self.height)
-
-        # time
-        self.time = Timer()
 
         # zoom
         self.zoom = Zoom(self.width, self.height)
