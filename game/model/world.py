@@ -139,21 +139,19 @@ class World:
                     screen.blit(self.images[tile],
                                 (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
                                  rect_case[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
-                    print((rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x))
-                    print((rect_case[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
+
 
         self.draw_walkers(screen, camera_scroll_x, camera_scroll_y)
 
     def update_walkers(self):
-        pass
-        # for walker in self.walkers:
-        #     walker.move_to_home()
+        for walker in self.walkers:
+            walker.move_to_home()
 
     def draw_walkers(self, screen, camera_scroll_x, camera_scroll_y):
 
         for walker in self.walkers:
-            screen.blit(self.images["walker"], walker.pos_x + self.dim_map.get_width() / 2 + camera_scroll_x,
-                        walker.pos_y - (self.images["walker"].get_height() - TILE_SIZE) + camera_scroll_y)
+            screen.blit(self.images["walker"], (walker.pos_x + self.dim_map.get_width() / 2 + camera_scroll_x,
+                        walker.pos_y - (self.images["walker"].get_height() - TILE_SIZE) + camera_scroll_y))
 
     # def create_collision_matrix(self, pos_x, pos_y, dest_x, dest_y):
     #     collision_matrix = [[1 for x in range(abs(dest_x - pos_x))] for y in range(abs(dest_y - pos_y))]
@@ -260,7 +258,7 @@ class World:
             "crossroad_top_right_left": pygame.image.load("C3_sprites/C3/Land2a_00108.png").convert_alpha(),
             "crossroad_top_right_bottom": pygame.image.load("C3_sprites/C3/Land2a_00109.png").convert_alpha(),
             "cross": pygame.image.load("C3_sprites/C3/Land2a_00110.png"),
-            "walker": pygame.image.load("C3_sprites/C3/Security_00053.png")
+            "walker": pygame.image.load("C3_sprites/C3/citizen02_00024.png")
         }
 
         return images
