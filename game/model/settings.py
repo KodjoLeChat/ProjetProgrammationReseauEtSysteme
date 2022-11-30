@@ -4,8 +4,8 @@ TILE_SIZE = 25
 
 delta_H = 30
 ROAD_TYPE = "default"
-#screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-screen = pygame.display.set_mode((1000,800))
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+# screen = pygame.display.set_mode((1000,800))
 WIDHT, HEIGHT = screen.get_size()
 # Menu Principal:
 text_buttons_menuP = ["ROMULUS", "Start_new_career", "Load_saved_game_", "Exit"]

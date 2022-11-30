@@ -1,7 +1,7 @@
 from turtle import back, screensize
 import pygame as pg
 from game.view.utils import draw_text
-from game.model.world import __str__
+from game.model.worldModel import __str__
 
 
 class Hud:
