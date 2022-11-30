@@ -48,12 +48,12 @@ class keyboard:
                 if self.test < 1:
                     print("ok tu changes le tps")
                     self.test += 0.1
-            elif event.key == pygame.K_DOWN:
+            if event.key == pygame.K_DOWN:
                 if self.test > 0:
                     print("ok tu changes le tps")
                     if self.test > 1:
                        self.test -= 1
-                    if self.test <= 1:
+                    if self.test <= 1 & self.test > 0:
                        self.test -= 0.1
             '''get KEY S EVENT AND TURN TRUE WANTTOSAVE'''
             if event.key == pygame.K_s:
