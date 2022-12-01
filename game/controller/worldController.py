@@ -5,8 +5,15 @@ from game.model.settings import TILE_SIZE
 from game.model.road import Road
 from game.controller.SelectionRect import SelectionRect
 from game.model.case import Case
+from game.controller.walker import Migrant
 from game.model.worldModel import WorldModel
 import pickle
+
+
+def cart_to_iso(x, y):
+    iso_x = x - y
+    iso_y = (x + y) / 2
+    return iso_x, iso_y
 
 
 def load_images():
@@ -24,6 +31,8 @@ def load_images():
         "hud_shovel_sprite": pg.image.load("C3_sprites/C3/Land1a_00002.png").convert_alpha(),
         "hud_road_sprite": pg.image.load("C3_sprites/C3/Land1a_00003.png").convert_alpha(),
         "dirt": pg.image.load("C3_sprites/C3/Land2a_00004.png").convert_alpha(),
+        "walker": pygame.image.load("C3_sprites/C3/citizen02_00024.png").convert_alpha(),
+
         # routes
         "road_hover": pg.image.load("C3_sprites/C3/Land2a_00044.png").convert_alpha(),
         "top_bottom": pg.image.load("C3_sprites/C3/Land2a_00094.png").convert_alpha(),
@@ -46,43 +55,6 @@ def load_images():
     return images
 
 
-def cart_to_iso(x, y):
-    iso_x = x - y
-    iso_y = (x + y) / 2
-    return iso_x, iso_y
-
-
-def grid_to_world(grid_x, grid_y):
-    rect = [
-        (grid_x * TILE_SIZE, grid_y * TILE_SIZE),
-        (grid_x * TILE_SIZE + TILE_SIZE, grid_y * TILE_SIZE),
-        (grid_x * TILE_SIZE + TILE_SIZE, grid_y * TILE_SIZE + TILE_SIZE),
-        (grid_x * TILE_SIZE, grid_y * TILE_SIZE + TILE_SIZE)
-    ]
-
-    iso_poly = [cart_to_iso(x, y) for x, y in rect]
-
-    minx = min([x for x, y in iso_poly])
-    miny = min([y for x, y in iso_poly])
-    r = random.randint(1, 1000)
-
-    if 50 >= r > 5:
-        tile = "tree1"
-    elif 100 >= r >= 50:
-        tile = "tree2"
-    elif 150 >= r >= 100:
-        tile = "tree3"
-    # elif r <= 1:
-    #    tile = "farm"
-    else:
-        tile = "grass"
-    collision = False if tile == "grass" else True
-
-    out = Case([grid_x, grid_y], rect, iso_poly, tile, (minx, miny), collision)
-
-    return out
-
-
 class WorldController:
     def __init__(self, hud, grid_length_x, grid_length_y, width, height, keyboard):
         self.hud = hud
@@ -99,10 +71,9 @@ class WorldController:
             (grid_length_x * TILE_SIZE * 2, grid_length_y * TILE_SIZE + 2 * TILE_SIZE)).convert_alpha()
 
         self.worldModel = WorldModel(self.create_world())
-        #world Model object
+        # world Model object
         # f1 = open('worldSave','rb')
         # self.worldModel = pickle.load(f1)
-
 
         # selection autre que route
         self.selected_on = False
@@ -113,11 +84,10 @@ class WorldController:
 
         # temporary case for selection
         self.temp_cases = []
+        self.walkers = []
 
         # keyboard
         self.keyboard = keyboard
-
-
 
         # camera offset
         self.offset = pg.math.Vector2()
@@ -145,7 +115,7 @@ class WorldController:
         for grid_x in range(self.grid_length_x):
             world.append([])
             for grid_y in range(self.grid_length_y):
-                world_tile = grid_to_world(grid_x, grid_y)
+                world_tile = self.grid_to_world(grid_x, grid_y)
                 world[grid_x].append(world_tile)
 
                 render_pos = world_tile.get_render_pos()
@@ -167,6 +137,16 @@ class WorldController:
                     screen.blit(self.images[tile],
                                 (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
                                  rect_case[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
+        self.draw_walkers(screen, camera_scroll_x, camera_scroll_y)
+    def update_walkers(self):
+        for walker in self.walkers:
+            walker.move_to_home()
+
+    def draw_walkers(self, screen, camera_scroll_x, camera_scroll_y):
+        for walker in self.walkers:
+            screen.blit(self.images["walker"], (walker.pos_x + self.dim_map.get_width() / 2 + camera_scroll_x,
+                                                walker.pos_y - (self.images[
+                                                                    "walker"].get_height() - TILE_SIZE) + camera_scroll_y))
 
     def mouse_to_grid(self, x, y, scroll):
         # transform to world position (removing camera scroll and offset)
@@ -181,6 +161,7 @@ class WorldController:
         return grid_x, grid_y
 
     def update(self, camera):
+        self.update_walkers()
         mouse_pos = pg.mouse.get_pos()
         mouse_action = self.keyboard.get_keyboard_input()
         grid_pos = self.mouse_to_grid(mouse_pos[0], mouse_pos[1], camera.scroll)
@@ -214,6 +195,12 @@ class WorldController:
                         else:
                             self.change_case_sprite_by_image_name(sprite_name)
                             self.change_cases_collision(True)
+                            for x, y in self.worldModel.get_list_grid_pos_selection():
+                                case = self.worldModel.get_case(x, y)
+                                self.walkers.append(
+                                    Migrant(self.worldModel, case.get_render_pos()[0], case.get_render_pos()[1],
+                                            self.images["walker"]))
+                                print(self.walkers[0].pos_x)
 
                     self.temp_cases = []
                     self.worldModel.set_list_grid_pos_selection(set())
@@ -253,6 +240,36 @@ class WorldController:
                         self.worldModel.get_case(grid_pos[0], grid_pos[1]).set_tile("temp")
         if mouse_action.get(pygame.K_KP_ENTER):
             self.saveWord()
+
+    def grid_to_world(self, grid_x, grid_y):
+        rect = [
+            (grid_x * TILE_SIZE, grid_y * TILE_SIZE),
+            (grid_x * TILE_SIZE + TILE_SIZE, grid_y * TILE_SIZE),
+            (grid_x * TILE_SIZE + TILE_SIZE, grid_y * TILE_SIZE + TILE_SIZE),
+            (grid_x * TILE_SIZE, grid_y * TILE_SIZE + TILE_SIZE)
+        ]
+
+        iso_poly = [cart_to_iso(x, y) for x, y in rect]
+
+        minx = min([x for x, y in iso_poly])
+        miny = min([y for x, y in iso_poly])
+        r = random.randint(1, 1000)
+
+        if 50 >= r > 5:
+            tile = "tree1"
+        elif 100 >= r >= 50:
+            tile = "tree2"
+        elif 150 >= r >= 100:
+            tile = "tree3"
+        # elif r <= 1:
+        #    tile = "farm"
+        else:
+            tile = "grass"
+        collision = False if tile == "grass" else True
+
+        out = Case([grid_x, grid_y], rect, iso_poly, tile, (minx, miny), collision)
+
+        return out
 
     def add_temp_case(self, coord_Case=None):
         """
@@ -303,7 +320,7 @@ class WorldController:
         for case in cases:
             case.set_tile(image_name)
 
-    def change_cases_collision(self,collision):
+    def change_cases_collision(self, collision):
         cases = [self.worldModel.get_case(x, y) for x, y in self.worldModel.get_list_grid_pos_selection() if
                  0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
         for case in cases:
@@ -316,3 +333,6 @@ class WorldController:
         with open("worldSave", "wb") as f1:
             pickle.dump(self.worldModel, f1)
         f1.close()
+
+    def get_world_model(self):
+        return self.worldModel
