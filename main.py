@@ -12,6 +12,7 @@ def main():
     pg.mixer.init()
     clock = pg.time.Clock()
 
+
     # implement menus
     menu = Menu(text_buttons_menuP, init_pos,screen)
     menu.set()
