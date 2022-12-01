@@ -1,4 +1,3 @@
-import pygame
 import pygame as pg
 
 from game.view.utils import draw_text
@@ -8,8 +7,8 @@ from game.model.settings import TILE_SIZE
 from game.controller.keyboard import keyboard
 from game.controller.camera import Camera
 from game.view.hud import Hud
-from game.controller.keyboard import keyboard
 
+from game.controller.keyboard import keyboard
 
 class Game:
 
@@ -17,11 +16,9 @@ class Game:
         self.keyboard = keyboard(self)
         self.screen = screen
         self.clock = clock
-        #self.width, self.height = (self.screen.get_size())
-        self.width, self.height = (800,1000)
+        self.width, self.height = self.screen.get_size()
         self.state = False
         self.playing = True
-
 
         # hud
         self.hud = Hud(self.width, self.height)
@@ -32,8 +29,6 @@ class Game:
         # camera
         self.camera = Camera(self.width, self.height)
 
-        # zoom
-        self.zoom = Zoom(self.width, self.height)
 
     # build
     def run(self):
@@ -48,6 +43,9 @@ class Game:
         self.camera.update()
         self.hud.update()
         self.worldController.update(self.camera)
+
+    def walkers_update(self):
+        self.world.walkers
 
     def get_state(self):
         return self.state
@@ -67,7 +65,7 @@ class Game:
         self.worldController.draw(self.screen, self.camera)
         draw_text(
             self.screen,
-            '{}'.format((self.worldController.__str__())),
+            'fps={}'.format(round(self.clock.get_fps())),
             25,
             (255, 255, 255),
             (10, 10)
