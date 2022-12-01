@@ -6,6 +6,8 @@ from game.model.road import Road
 from game.controller.SelectionRect import SelectionRect
 from game.model.case import Case
 from game.model.worldModel import WorldModel
+from game.model.House import House
+from game.controller.BuildingController import BuildingController
 import pickle
 
 
@@ -99,10 +101,9 @@ class WorldController:
             (grid_length_x * TILE_SIZE * 2, grid_length_y * TILE_SIZE + 2 * TILE_SIZE)).convert_alpha()
 
         self.worldModel = WorldModel(self.create_world())
-        #world Model object
+        # world Model object
         # f1 = open('worldSave','rb')
         # self.worldModel = pickle.load(f1)
-
 
         # selection autre que route
         self.selected_on = False
@@ -117,8 +118,6 @@ class WorldController:
         # keyboard
         self.keyboard = keyboard
 
-
-
         # camera offset
         self.offset = pg.math.Vector2()
         self.half_w = self.width // 2
@@ -127,6 +126,9 @@ class WorldController:
         # camera speed
         self.keyboard_speed = 5
         self.mouse_speed = 0.2
+
+        #building Controlleur
+        self.buildingController = BuildingController()
 
         # zoom
         self.zoom_scale = 1
@@ -210,9 +212,11 @@ class WorldController:
                         if sprite_name == "hud_shovel_sprite":
                             self.worldModel.diff_update_road(self.worldModel.get_list_grid_pos_selection())
                             self.change_case_sprite_by_image_name(sprite_name)
+                            self.update_case(sprite_name)
                             self.change_cases_collision(False)
-                        else:
+                        elif sprite_name == "hud_house_sprite":
                             self.change_case_sprite_by_image_name(sprite_name)
+                            self.update_case(sprite_name)
                             self.change_cases_collision(True)
 
                     self.temp_cases = []
@@ -301,9 +305,32 @@ class WorldController:
         cases = [self.worldModel.get_case(x, y) for x, y in self.worldModel.get_list_grid_pos_selection() if
                  0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
         for case in cases:
-            case.set_tile(image_name)
+            if not case.get_collision() and image_name != "hud_shovel_sprite":
+                case.set_tile(image_name)
+            elif image_name == "hud_shovel_sprite":
+                case.set_tile(image_name)
 
-    def change_cases_collision(self,collision):
+
+    def update_case(self,sprite_name):
+        """
+        Met à jour les cases pour leurs ajouter/supprimer un building
+        :param sprite_name: le nom du sprite selectionner pour savoir s'il faut supprimer ou ajouter un building aux cases
+        :return: None
+        """
+        cases = [self.worldModel.get_case(x, y) for x, y in self.worldModel.get_list_grid_pos_selection() if
+                 0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
+        if sprite_name == "hud_house_sprite":
+            for case in cases:
+                if not case.get_collision():
+                    house = House()
+                    self.buildingController.add_listBuildingModel(house)
+                    case.set_building(house)
+        elif sprite_name == "hud_shovel_sprite":
+            for case in cases:
+                case.set_building(None)
+
+
+    def change_cases_collision(self, collision):
         cases = [self.worldModel.get_case(x, y) for x, y in self.worldModel.get_list_grid_pos_selection() if
                  0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
         for case in cases:

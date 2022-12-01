@@ -27,6 +27,3 @@ class SelectionRect:
             for x in range(self.start[0], grid_pos[0] + 1):
                 for y in range(self.start[1], grid_pos[1] + 1):
                     self.worldModel.add_list_grid_pos_selection((x, y))
-
-    def get_list_grid_pos(self):
-        return self.list_grid_pos
