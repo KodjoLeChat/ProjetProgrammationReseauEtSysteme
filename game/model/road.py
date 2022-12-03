@@ -117,7 +117,7 @@ class Road:
         if not type["top"] and not type["right"] and not type["bottom"] and not type["left"]:
             return "left_end"
         else :
-            return "left_end"
+            return "right_left"
 
     def set_image_roads(self):
         """

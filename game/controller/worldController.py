@@ -190,6 +190,9 @@ class WorldController:
                 0 <= grid_pos[1] <= self.grid_length_y - 1):
             sprite_name = self.hud.selected_tile["name"]
 
+            for temps_case in self.temp_cases:
+                self.worldModel.get_case(temps_case["x"], temps_case["y"]).set_tile(temps_case["image"])
+
             if mouse_action.get(pg.MOUSEBUTTONDOWN):
                 if not self.selected_on:
                     if sprite_name == "hud_road_sprite" and not self.worldModel.get_case(grid_pos[0], grid_pos[1]).get_collision():
@@ -229,8 +232,7 @@ class WorldController:
                     self.selection_roads = None
 
             if mouse_action.get(pg.MOUSEMOTION) and mouse_action.get(pg.MOUSEBUTTONDOWN):
-                for temps_case in self.temp_cases:
-                    self.worldModel.get_case(temps_case["x"], temps_case["y"]).set_tile(temps_case["image"])
+
                 if self.selected_on:
                     if sprite_name == "hud_road_sprite":
                         temps_coord = self.selection_roads.add_grid_pos(grid_pos)
@@ -247,17 +249,18 @@ class WorldController:
                         self.change_case_sprite_by_image_name("sign", temps_coord)
                         self.worldModel.diff_update_building(temps_coord)
 
+            elif mouse_action.get(pg.MOUSEMOTION) and not mouse_action.get(pg.MOUSEBUTTONDOWN):
+                self.temp_cases = []
+                self.add_temp_case(grid_pos)
+                if not self.worldModel.get_case(grid_pos[0], grid_pos[1]).get_collision():
+                    self.worldModel.get_case(grid_pos[0], grid_pos[1]).set_tile("sign")
                 else:
-                    self.temp_cases = []
-                    self.add_temp_case(grid_pos)
-                    if not self.worldModel.get_case(grid_pos[0], grid_pos[1]).get_collision():
-                        self.worldModel.get_case(grid_pos[0], grid_pos[1]).set_tile("sign")
-                    else:
-                        tile_name = self.worldModel.get_case(grid_pos[0], grid_pos[1]).get_tile()
-                        mask = pg.mask.from_surface(self.images[tile_name])
-                        new_surface = mask.to_surface(setcolor=(255, 0, 0, 200), unsetcolor=(0, 0, 0, 0))
-                        self.images["temp"] = new_surface
-                        self.worldModel.get_case(grid_pos[0], grid_pos[1]).set_tile("temp")
+                    tile_name = self.worldModel.get_case(grid_pos[0], grid_pos[1]).get_tile()
+                    mask = pg.mask.from_surface(self.images[tile_name])
+                    new_surface = mask.to_surface(setcolor=(255, 0, 0, 200), unsetcolor=(0, 0, 0, 0))
+                    self.images["temp"] = new_surface
+                    self.worldModel.get_case(grid_pos[0], grid_pos[1]).set_tile("temp")
+
         if mouse_action.get(pygame.K_KP_ENTER):
             self.saveWord()
 
@@ -267,7 +270,8 @@ class WorldController:
         leurs bon sprites
         :return:
         """
-        if type(temps_coord) == tuple():
+        print(type(temps_coord))
+        if type(temps_coord) == tuple:
             x, y = temps_coord
             temp = {
                 "image": self.worldModel.get_case(x, y).get_tile(),
