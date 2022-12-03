@@ -210,6 +210,7 @@ class WorldController:
                     self.selected_on = False
                     if sprite_name == "hud_road_sprite":
                         cases = self.selection_roads.add_grid_pos(grid_pos)
+                        self.worldModel.set_list_grid_pos_road(cases)
                         self.selection_roads.set_image_roads()
                         self.change_cases_collision(True,cases)
                     else:
@@ -237,6 +238,7 @@ class WorldController:
                     if sprite_name == "hud_road_sprite":
                         temps_coord = self.selection_roads.add_grid_pos(grid_pos)
                         self.add_temp_case(temps_coord)
+                        self.worldModel.add_list_grid_pos_road(temps_coord)
                         self.selection_roads.set_image_roads()
                         self.worldModel.diff_update_road(temps_coord)
                     elif sprite_name == "hud_shovel_sprite":
@@ -270,7 +272,6 @@ class WorldController:
         leurs bon sprites
         :return:
         """
-        print(type(temps_coord))
         if type(temps_coord) == tuple:
             x, y = temps_coord
             temp = {
