@@ -6,7 +6,7 @@ from game.model.settings import GRID_WIDTH, GRID_LENGTH
 
 
 class WorldModel:
-
+    
     def __init__(self, world):
         # World
         self.world = world
