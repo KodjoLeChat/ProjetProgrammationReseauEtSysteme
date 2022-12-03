@@ -4,6 +4,7 @@ import pygame as pg
 from game.view.utils import draw_text
 from game.controller.worldController import WorldController
 from game.model.zoom import Zoom
+from game.model.settings import GRID_LENGTH, GRID_WIDTH
 from game.model.settings import TILE_SIZE
 from game.controller.keyboard import keyboard
 from game.controller.camera import Camera
@@ -17,17 +18,17 @@ class Game:
         self.keyboard = keyboard(self)
         self.screen = screen
         self.clock = clock
-        #self.width, self.height = (self.screen.get_size())
-        self.width, self.height = (800,1000)
+        self.width, self.height = (self.screen.get_size())
+        #self.width, self.height = (800, 1000)
         self.state = False
         self.playing = True
-
 
         # hud
         self.hud = Hud(self.width, self.height)
 
         # world
-        self.worldController = WorldController(self.hud, 65, 65, self.width, self.height, self.keyboard)
+        self.worldController = WorldController(self.hud, GRID_LENGTH, GRID_WIDTH, self.width, self.height,
+                                               self.keyboard)
 
         # camera
         self.camera = Camera(self.width, self.height)

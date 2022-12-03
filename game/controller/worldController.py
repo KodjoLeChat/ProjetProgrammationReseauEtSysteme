@@ -3,11 +3,10 @@ import pygame as pg
 import random
 from game.model.settings import TILE_SIZE
 from game.model.road import Road
-from game.controller.SelectionRect import SelectionRect
+from game.controller.SelectionBuilding import SelectionBuilding
 from game.model.case import Case
 from game.model.worldModel import WorldModel
 from game.model.House import House
-from game.controller.BuildingController import BuildingController
 import pickle
 
 
@@ -105,9 +104,13 @@ class WorldController:
         # f1 = open('worldSave','rb')
         # self.worldModel = pickle.load(f1)
 
-        # selection autre que route
+        # selection building
+        self.selection_building = None
         self.selected_on = False
         self.selection = None
+
+        # selection shovel
+        self.selection_shovel = None
 
         # selection road
         self.selection_roads = None
@@ -126,9 +129,6 @@ class WorldController:
         # camera speed
         self.keyboard_speed = 5
         self.mouse_speed = 0.2
-
-        #building Controlleur
-        self.buildingController = BuildingController()
 
         # zoom
         self.zoom_scale = 1
@@ -192,57 +192,60 @@ class WorldController:
 
             if mouse_action.get(pg.MOUSEBUTTONDOWN):
                 if not self.selected_on:
-                    if not self.worldModel.get_case(grid_pos[0], grid_pos[1]).get_collision():
+                    if sprite_name == "hud_road_sprite" and not self.worldModel.get_case(grid_pos[0], grid_pos[1]).get_collision():
+                        self.selection_roads = Road(grid_pos, self.worldModel)
                         self.selected_on = True
-                        if sprite_name == "hud_road_sprite":
-                            self.selection_roads = Road(grid_pos, self.worldModel)
-                        else:
-                            self.selection = SelectionRect(grid_pos, self.worldModel)
+                    elif sprite_name == "hud_house_sprite" and not self.worldModel.get_case(grid_pos[0], grid_pos[1]).get_collision():
+                        self.selection_building = SelectionBuilding(grid_pos, self.worldModel)
+                        self.selected_on = True
                     elif sprite_name == "hud_shovel_sprite":
+                        self.selection_shovel = SelectionBuilding(grid_pos, self.worldModel)
                         self.selected_on = True
-                        self.selection = SelectionRect(grid_pos, self.worldModel)
+
             elif not mouse_action.get(pg.MOUSEBUTTONDOWN):
                 if self.selected_on:
                     self.selected_on = False
                     if sprite_name == "hud_road_sprite":
-                        self.selection_roads.add_grid_pos(grid_pos)
+                        cases = self.selection_roads.add_grid_pos(grid_pos)
                         self.selection_roads.set_image_roads()
+                        self.change_cases_collision(True,cases)
                     else:
-                        self.selection.add_grid_pos(grid_pos)
                         if sprite_name == "hud_shovel_sprite":
-                            self.worldModel.diff_update_road(self.worldModel.get_list_grid_pos_selection())
-                            self.change_case_sprite_by_image_name(sprite_name)
+                            case_to_delete = self.selection_shovel.add_grid_pos_to_erase(grid_pos)
+                            self.worldModel.diff_update_road(case_to_delete)
+                            self.worldModel.diff_update_building(case_to_delete)
+                            self.change_case_sprite_by_image_name(sprite_name, case_to_delete)
                             self.update_case(sprite_name)
-                            self.change_cases_collision(False)
+                            self.change_cases_collision(False,case_to_delete)
                         elif sprite_name == "hud_house_sprite":
-                            self.change_case_sprite_by_image_name(sprite_name)
+                            cases = self.selection_building.add_grid_pos(grid_pos)
+                            self.change_case_sprite_by_image_name(sprite_name, cases)
+                            self.change_cases_collision(True, cases)
                             self.update_case(sprite_name)
-                            self.change_cases_collision(True)
 
                     self.temp_cases = []
-                    self.worldModel.set_list_grid_pos_selection(set())
-                    self.selection = None
+                    self.selection_building = None
+                    self.selection_shovel = None
+                    self.selection_roads = None
 
-            if mouse_action.get(pg.MOUSEMOTION):
+            if mouse_action.get(pg.MOUSEMOTION) and mouse_action.get(pg.MOUSEBUTTONDOWN):
                 for temps_case in self.temp_cases:
                     self.worldModel.get_case(temps_case["x"], temps_case["y"]).set_tile(temps_case["image"])
                 if self.selected_on:
                     if sprite_name == "hud_road_sprite":
                         temps_coord = self.selection_roads.add_grid_pos(grid_pos)
-                        self.add_temp_case()
+                        self.add_temp_case(temps_coord)
                         self.selection_roads.set_image_roads()
-
                         self.worldModel.diff_update_road(temps_coord)
                     elif sprite_name == "hud_shovel_sprite":
-                        self.worldModel.set_list_grid_pos_selection(set())
-                        self.selection.add_grid_pos(grid_pos)
-                        self.add_temp_case()
-                        self.change_case_sprite_by_image_name("dirt")
+                        temps_coord = self.selection_shovel.add_grid_pos_to_erase(grid_pos)
+                        self.add_temp_case(temps_coord)
+                        self.change_case_sprite_by_image_name("dirt", temps_coord)
                     else:
-                        self.worldModel.set_list_grid_pos_selection(set())
-                        self.selection.add_grid_pos(grid_pos)
-                        self.add_temp_case()
-                        self.change_case_sprite_by_image_name("sign")
+                        temps_coord = self.selection_building.add_grid_pos(grid_pos)
+                        self.add_temp_case(temps_coord)
+                        self.change_case_sprite_by_image_name("sign", temps_coord)
+                        self.worldModel.diff_update_building(temps_coord)
 
                 else:
                     self.temp_cases = []
@@ -258,14 +261,14 @@ class WorldController:
         if mouse_action.get(pygame.K_KP_ENTER):
             self.saveWord()
 
-    def add_temp_case(self, coord_Case=None):
+    def add_temp_case(self, temps_coord):
         """
         ajoute des coordonnées dans la liste des case temporaire pour faire la selection et leurs restituer
         leurs bon sprites
         :return:
         """
-        if coord_Case is not None:
-            x, y = coord_Case
+        if type(temps_coord) == tuple():
+            x, y = temps_coord
             temp = {
                 "image": self.worldModel.get_case(x, y).get_tile(),
                 "x": x,
@@ -273,14 +276,7 @@ class WorldController:
             }
             self.temp_cases.append(temp)
         else:
-            for x, y in self.worldModel.get_list_grid_pos_road():
-                temp = {
-                    "image": self.worldModel.get_case(x, y).get_tile(),
-                    "x": x,
-                    "y": y
-                }
-                self.temp_cases.append(temp)
-            for x, y in self.worldModel.get_list_grid_pos_selection():
+            for x, y in temps_coord:
                 temp = {
                     "image": self.worldModel.get_case(x, y).get_tile(),
                     "x": x,
@@ -301,43 +297,44 @@ class WorldController:
         else:
             return False
 
-    def change_case_sprite_by_image_name(self, image_name):
-        cases = [self.worldModel.get_case(x, y) for x, y in self.worldModel.get_list_grid_pos_selection() if
-                 0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
+    def change_case_sprite_by_image_name(self, image_name, list_cases):
+        cases = [self.worldModel.get_case(x, y) for x, y in list_cases]
         for case in cases:
-            if not case.get_collision() and image_name != "hud_shovel_sprite":
+            if image_name != "hud_shovel_sprite":
                 case.set_tile(image_name)
             elif image_name == "hud_shovel_sprite":
                 case.set_tile(image_name)
 
-
-    def update_case(self,sprite_name):
+    def update_case(self, sprite_name):
         """
-        Met à jour les cases pour leurs ajouter/supprimer un building
-        :param sprite_name: le nom du sprite selectionner pour savoir s'il faut supprimer ou ajouter un building aux cases
-        :return: None
+        Met à jour les cases pour leurs ajouter/supprimer un building :param sprite_name: le nom du sprite
+        selectionner pour savoir s'il faut supprimer ou ajouter un building aux cases :return: None
         """
-        cases = [self.worldModel.get_case(x, y) for x, y in self.worldModel.get_list_grid_pos_selection() if
-                 0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
-        if sprite_name == "hud_house_sprite":
-            for case in cases:
+        cases = [self.worldModel.get_case(x, y) for x, y in self.worldModel.get_list_grid_pos_building()]
+        for case in cases:
+            self.update_building(case)
+            if sprite_name == "hud_house_sprite":
                 if not case.get_collision():
                     house = House()
-                    self.buildingController.add_listBuildingModel(house)
                     case.set_building(house)
-        elif sprite_name == "hud_shovel_sprite":
-            for case in cases:
+            elif sprite_name == "hud_shovel_sprite":
                 case.set_building(None)
 
+    def update_building(self, case):
+        """
+        Update les buildings
+        :param case: demande la case sur laquel est le building
+        :return: None
+        """
+        if case.get_building():
+            case.get_building().add_damage(5)
 
-    def change_cases_collision(self, collision):
-        cases = [self.worldModel.get_case(x, y) for x, y in self.worldModel.get_list_grid_pos_selection() if
-                 0 <= x <= self.grid_length_x and 0 <= y <= self.grid_length_y]
+    def change_cases_collision(self, collision, coord_cases):
+        cases = [self.worldModel.get_case(x, y) for x, y in coord_cases]
         for case in cases:
             case.set_collision(collision)
-
     def get_world_model(self):
-        return self.worldModel;
+        return self.worldModel
 
     def saveWord(self):
         with open("worldSave", "wb") as f1:
