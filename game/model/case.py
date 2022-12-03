@@ -7,6 +7,7 @@ class Case:
         self.entites = []
         self.render_pos = render_pos
         self.collision = collision
+        self.building = None
 
     def get_grid(self):
         return self.grid
@@ -28,8 +29,14 @@ class Case:
     def get_iso_poly(self):
         return self.iso_poly
 
+    def get_building(self):
+        return self.building
+
     def set_collision(self,value):
         self.collision = value
 
     def set_tile(self, tile):
         self.tile = tile
+
+    def set_building(self,building):
+        self.building = building
