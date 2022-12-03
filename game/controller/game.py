@@ -17,8 +17,8 @@ class Game:
         self.keyboard = keyboard(self)
         self.screen = screen
         self.clock = clock
-        #self.width, self.height = (self.screen.get_size())
-        self.width, self.height = (800,1000)
+        self.width, self.height = (self.screen.get_size())
+        #self.width, self.height = (800,1000)
         self.state = False
         self.playing = True
 

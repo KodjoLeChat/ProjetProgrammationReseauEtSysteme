@@ -13,15 +13,18 @@ class Hud:
 
         self.hud_colour = (198, 155, 93, 175)
 
+        # resouces top
+        self.resources_rect = pg.image.load("C3_sprites/C3/paneling_00010.png")
+        self.resouces_surface = pg.Surface((width, self.resources_rect.get_height()), pg.SRCALPHA)
+        self.resouces_surface.blit(self.resources_rect, [0, 0])
+
         # building hud
         self.hudbase = pg.image.load("C3_sprites/C3/paneling_00017.png")
-        self.build_surface = pg.Surface((self.hudbase.get_width(), self.hudbase.get_height()), pg.SRCALPHA)
+        self.hudbase_below = pg.image.load("C3_sprites/C3/paneling_00018.png")
+        self.hudbase_mid = pg.image.load("C3_sprites/C3/paneling_00519.png")
+        self.build_surface = pg.Surface((self.hudbase.get_width(), self.height), pg.SRCALPHA)
         self.build_surface.blit(self.hudbase, [0,0])
-
-        # resouces hud
-        self.resouces_surface = pg.Surface((width, height * 0.025), pg.SRCALPHA)
-        self.resources_rect = pg.image.load("C3_sprites/C3/paneling_00010.png")
-        self.resouces_surface.blit(self.resources_rect, [0, 0])
+        self.build_surface.blit(self.hudbase_below, [0, self.height - self.hudbase_below.get_height() - self.resources_rect.get_height()])
 
         # select hud
         # self.select_surface = pg.Surface((width * 0.3, height * 0.2), pg.SRCALPHA)
@@ -39,11 +42,18 @@ class Hud:
                        "senate": "hus_senate_sprite",
                        "hammer": "hus_hammer_sprite",
                        "cross": "hus_cross_sprite",
-                       "bell": "hus_bell_sprite",
+                       "parchemin": "hus_parchemin_sprite",
                        "sword": "hus_sword_sprite",
                        "char": "hus_char_sprite",
-                       "parchemin": "hus_parchemin_sprite",
+                       "bell": "hus_bell_sprite",
                        }
+
+        self.info = {
+                    "gov_info": pg.image.load("C3_sprites/C3/paneling_00085.png"),
+                    "dom_info": pg.image.load("C3_sprites/C3/paneling_00088.png"),
+                    "right": pg.image.load("C3_sprites/C3/paneling_00091.png"),
+                    "left": pg.image.load("C3_sprites/C3/paneling_00094.png"),
+                    }
 
         self.tiles = self.create_build_hud()
 
@@ -51,7 +61,7 @@ class Hud:
 
     def create_build_hud(self):
 
-        render_pos = [self.width * 0.903, self.height * 0.344 ]
+        render_pos = [self.width * 0.903, self.resources_rect.get_height() + self.build_surface.get_height()/3.1 ]
         object_width = self.build_surface.get_width() // 4
 
         tiles = []
@@ -98,9 +108,22 @@ class Hud:
             img = self.selected_tile["icon"].copy()
             img.set_alpha(100)
             screen.blit(img, pg.mouse.get_pos())
+        
+        for height_base in range( self.hudbase.get_height(), self.build_surface.get_height() - self.hudbase_below.get_height() - 30, self.hudbase_mid.get_height()):
+            for width_base in range(0, self.build_surface.get_width() - self.hudbase_mid.get_width(), self.hudbase_mid.get_width()):
+                if (width_base == 0):
+                    if(height_base == self.hudbase.get_height()):
+                        self.build_surface.blit(  pg.image.load("C3_sprites/C3/paneling_00479.png") , [ width_base, height_base])
+                    else:
+                        if(height_base == self.hudbase.get_height()):
+                            self.build_surface.blit(  pg.image.load("C3_sprites/C3/paneling_00521.png") , [ width_base, height_base])
+                        else:
+                            self.build_surface.blit(  pg.image.load("C3_sprites/C3/paneling_00500.png") , [ width_base, height_base])
+                else:
+                    self.build_surface.blit(  self.hudbase_mid , [ width_base, height_base])
 
         # build hud
-        screen.blit(self.build_surface, (self.width * 0.895, 20))
+        screen.blit(self.build_surface, (self.width - self.hudbase.get_width(), self.resources_rect.get_height()))
 
         # resouce hud
         pos_up_hud = 0
@@ -138,33 +161,18 @@ class Hud:
 
     def get_sprite_by_hud_tile(self,image_name):
         match image_name:
-            case "house":
-                return pg.image.load("C3_sprites/C3/paneling_00123.png")
-            case "shovel":
-                return pg.image.load("C3_sprites/C3/paneling_00131.png")
-            case "road":
-                return pg.image.load("C3_sprites/C3/paneling_00135.png")
-            case "well":
-                return pg.image.load("C3_sprites/C3/paneling_00127.png")
-            case "hospital":
-                return pg.image.load("C3_sprites/C3/paneling_00166.png")
-            case "temple":
-                return pg.image.load("C3_sprites/C3/paneling_00154.png")
-            case "book":
-                return pg.image.load("C3_sprites/C3/paneling_00150.png")
-            case "face":
-                return pg.image.load("C3_sprites/C3/paneling_00146.png")
-            case "senate":
-                return pg.image.load("C3_sprites/C3/paneling_00142.png")
-            case "hammer":
-                return pg.image.load("C3_sprites/C3/paneling_00170.png")
-            case "cross":
-                return pg.image.load("C3_sprites/C3/paneling_00162.png")
-            case "parchemin":
-                return pg.image.load("C3_sprites/C3/paneling_00158.png")
-            case "sword":
-                return pg.image.load("C3_sprites/C3/paneling_00174.png")
-            case "char":
-                return pg.image.load("C3_sprites/C3/paneling_00118.png")
-            case "bell":
-                return pg.image.load("C3_sprites/C3/paneling_00122.png")
+            case "house": return pg.image.load("C3_sprites/C3/paneling_00123.png")
+            case "shovel": return pg.image.load("C3_sprites/C3/paneling_00131.png")
+            case "road": return pg.image.load("C3_sprites/C3/paneling_00135.png")
+            case "well": return pg.image.load("C3_sprites/C3/paneling_00127.png")
+            case "hospital": return pg.image.load("C3_sprites/C3/paneling_00166.png")
+            case "temple": return pg.image.load("C3_sprites/C3/paneling_00154.png")
+            case "book": return pg.image.load("C3_sprites/C3/paneling_00150.png")
+            case "face": return pg.image.load("C3_sprites/C3/paneling_00146.png")
+            case "senate": return pg.image.load("C3_sprites/C3/paneling_00142.png")
+            case "hammer": return pg.image.load("C3_sprites/C3/paneling_00170.png")
+            case "cross": return pg.image.load("C3_sprites/C3/paneling_00162.png")
+            case "parchemin": return pg.image.load("C3_sprites/C3/paneling_00158.png")
+            case "sword": return pg.image.load("C3_sprites/C3/paneling_00174.png")
+            case "char": return pg.image.load("C3_sprites/C3/paneling_00118.png")
+            case "bell": return pg.image.load("C3_sprites/C3/paneling_00122.png")
