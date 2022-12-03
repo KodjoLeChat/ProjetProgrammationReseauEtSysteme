@@ -18,5 +18,7 @@ class Fire:
                 i = random.randint(0, len(self.world.data)-1)
                 x = self.world.data[i]["x"]
                 y = self.world.data[i]["y"]
-                if random.randint(0,100) < 50:
-                    self.world.world[x][y].set_tile('fire')
+                if self.world.world[x][y].get_tile() == 'hud_house_sprite':
+                    if random.randint(0,100) < 50:
+                        self.world.world[x][y].set_tile('fire')
+
