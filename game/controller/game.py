@@ -18,10 +18,10 @@ class Game:
         self.keyboard = keyboard(self)
         self.screen = screen
         self.clock = clock
-        self.width, self.height = (self.screen.get_size())
-        #self.width, self.height = (800, 1000)
+        self.width, self.height = self.screen.get_size()
         self.state = False
         self.playing = True
+
 
         # hud
         self.hud = Hud(self.width, self.height)
@@ -33,8 +33,6 @@ class Game:
         # camera
         self.camera = Camera(self.width, self.height)
 
-        # zoom
-        self.zoom = Zoom(self.width, self.height)
 
     # build
     def run(self):
@@ -68,7 +66,7 @@ class Game:
         self.worldController.draw(self.screen, self.camera)
         draw_text(
             self.screen,
-            '{}'.format((self.worldController.__str__())),
+            'fps={}'.format(round(self.clock.get_fps())),
             25,
             (255, 255, 255),
             (10, 10)

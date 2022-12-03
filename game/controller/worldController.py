@@ -5,6 +5,7 @@ from game.model.settings import TILE_SIZE
 from game.model.road import Road
 from game.controller.SelectionBuilding import SelectionBuilding
 from game.model.case import Case
+from game.controller.walker import Migrant
 from game.model.worldModel import WorldModel
 from game.model.House import House
 import pickle
@@ -25,6 +26,8 @@ def load_images():
         "hud_shovel_sprite": pg.image.load("C3_sprites/C3/Land1a_00002.png").convert_alpha(),
         "hud_road_sprite": pg.image.load("C3_sprites/C3/Land1a_00003.png").convert_alpha(),
         "dirt": pg.image.load("C3_sprites/C3/Land2a_00004.png").convert_alpha(),
+        "walker": pygame.image.load("C3_sprites/C3/citizen02_00024.png").convert_alpha(),
+
         # routes
         "road_hover": pg.image.load("C3_sprites/C3/Land2a_00044.png").convert_alpha(),
         "top_bottom": pg.image.load("C3_sprites/C3/Land2a_00094.png").convert_alpha(),
@@ -100,7 +103,7 @@ class WorldController:
             (grid_length_x * TILE_SIZE * 2, grid_length_y * TILE_SIZE + 2 * TILE_SIZE)).convert_alpha()
 
         self.worldModel = WorldModel(self.create_world())
-        # world Model object
+        #world Model object
         # f1 = open('worldSave','rb')
         # self.worldModel = pickle.load(f1)
 
@@ -117,9 +120,12 @@ class WorldController:
 
         # temporary case for selection
         self.temp_cases = []
+        self.walkers = []
 
         # keyboard
         self.keyboard = keyboard
+
+
 
         # camera offset
         self.offset = pg.math.Vector2()
@@ -169,6 +175,16 @@ class WorldController:
                     screen.blit(self.images[tile],
                                 (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
                                  rect_case[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
+        self.draw_walkers(screen, camera_scroll_x, camera_scroll_y)
+    def update_walkers(self):
+        for walker in self.walkers:
+            walker.move_to_home()
+
+    def draw_walkers(self, screen, camera_scroll_x, camera_scroll_y):
+        for walker in self.walkers:
+            screen.blit(self.images["walker"], (walker.pos_x + self.dim_map.get_width() / 2 + camera_scroll_x,
+                                                walker.pos_y - (self.images[
+                                                                    "walker"].get_height() - TILE_SIZE) + camera_scroll_y))
 
     def mouse_to_grid(self, x, y, scroll):
         # transform to world position (removing camera scroll and offset)
@@ -183,6 +199,7 @@ class WorldController:
         return grid_x, grid_y
 
     def update(self, camera):
+        self.update_walkers()
         mouse_pos = pg.mouse.get_pos()
         mouse_action = self.keyboard.get_keyboard_input()
         grid_pos = self.mouse_to_grid(mouse_pos[0], mouse_pos[1], camera.scroll)
