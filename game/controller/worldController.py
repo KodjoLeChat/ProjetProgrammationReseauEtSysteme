@@ -210,7 +210,6 @@ class WorldController:
                     self.selected_on = False
                     if sprite_name == "hud_road_sprite":
                         cases = self.selection_roads.add_grid_pos(grid_pos)
-                        self.worldModel.set_list_grid_pos_road(cases)
                         self.selection_roads.set_image_roads()
                         self.change_cases_collision(True,cases)
                     else:
