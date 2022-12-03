@@ -13,30 +13,40 @@ class Road:
         :param grid_pos: position actuelle de la sourie convertie en coordonnée de la map
         :return: None
         """
-        temp_list = {self.start}
+        temp_list = set()
         if grid_pos[0] <= self.start[0] and grid_pos[1] <= self.start[1]:  # en haut a gauche
             for x in range(grid_pos[0], self.start[0] + 1):
                 temp_list.add((x, self.start[1]))
+                self.worldModel.add_list_grid_pos_road((x, self.start[1]))
             for y in range(grid_pos[1], self.start[1] + 1):
                 temp_list.add((grid_pos[0], y))
+                self.worldModel.add_list_grid_pos_road((grid_pos[0], y))
 
         elif grid_pos[0] <= self.start[0] and grid_pos[1] >= self.start[1]:  # en haut a droite
             for x in range(grid_pos[0], self.start[0] + 1):
                 temp_list.add((x, grid_pos[1]))
+                self.worldModel.add_list_grid_pos_road((x, grid_pos[1]))
             for y in range(self.start[1], grid_pos[1] + 1):
                 temp_list.add((self.start[0], y))
+                self.worldModel.add_list_grid_pos_road((self.start[0], y))
 
         elif grid_pos[0] >= self.start[0] and grid_pos[1] <= self.start[1]:  # en bas a gauche
             for x in range(self.start[0], grid_pos[0] + 1):
                 temp_list.add((x, grid_pos[1]))
+                self.worldModel.add_list_grid_pos_road((x, grid_pos[1]))
+
             for y in range(grid_pos[1], self.start[1] + 1):
                 temp_list.add((self.start[0], y))
+                self.worldModel.add_list_grid_pos_road((self.start[0], y))
 
         elif grid_pos[0] >= self.start[0] and grid_pos[1] >= self.start[1]:  # en en bas a droite
             for x in range(self.start[0], grid_pos[0] + 1):
                 temp_list.add((x, self.start[1]))
+                self.worldModel.add_list_grid_pos_road((x, self.start[1]))
             for y in range(self.start[1], grid_pos[1] + 1):
                 temp_list.add((grid_pos[0], y))
+                self.worldModel.add_list_grid_pos_road((grid_pos[0], y))
+
         return temp_list
 
     def get_image_key(self, coord):

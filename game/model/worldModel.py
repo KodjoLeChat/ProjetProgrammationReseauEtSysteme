@@ -21,7 +21,7 @@ class WorldModel:
         self.list_grid_pos_building = set()
 
         # list
-        #self.matrice_building = [[0 for y in range(GRID_LENGTH)] for x in range(GRID_WIDTH)]
+        # self.matrice_building = [[0 for y in range(GRID_LENGTH)] for x in range(GRID_WIDTH)]
 
     def get_case(self, i, j):
         return self.world[i][j]
@@ -50,5 +50,6 @@ class WorldModel:
 
     def diff_update_road(self, ensemble):
         self.list_grid_pos_road.difference_update(ensemble)
+
     def diff_update_building(self, ensemble):
         self.list_grid_pos_building.difference_update(ensemble)

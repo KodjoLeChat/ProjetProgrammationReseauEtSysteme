@@ -238,7 +238,6 @@ class WorldController:
                     if sprite_name == "hud_road_sprite":
                         temps_coord = self.selection_roads.add_grid_pos(grid_pos)
                         self.add_temp_case(temps_coord)
-                        self.worldModel.add_list_grid_pos_road(temps_coord)
                         self.selection_roads.set_image_roads()
                         self.worldModel.diff_update_road(temps_coord)
                     elif sprite_name == "hud_shovel_sprite":
