@@ -3,12 +3,10 @@ import pygame
 
 class Ressources:
     
-    def __init__(self, food, water, pence, dinars, workers,population):
+    def __init__(self, food, water, dinars,population):
         self.food = food
         self.water = water
-        self.pence = pence
         self.dinars = dinars
-        self.workers = workers
         self.population = population
 
     def get_food(self):
@@ -17,14 +15,9 @@ class Ressources:
     def get_water(self):
         return self.water
 
-    def get_pence(self):
-        return self.pence
-
     def get_dinars(self):
         return self.dinars
 
-    def get_workers(self):
-        return self.workers
 
     def get_population(self):
         return self.population
@@ -35,14 +28,10 @@ class Ressources:
     def add_water(self, water):
         self.water += water
 
-    def add_pence(self, pence):
-        self.pence += pence
 
     def add_dinars(self, dinars):
         self.dinars += dinars
 
-    def add_workers(self, workers):
-        self.workers += workers
 
     def sub_food(self, food):
         self.food -= food
@@ -50,15 +39,10 @@ class Ressources:
     def sub_water(self, water):
         self.water -= water
 
-    def sub_pence(self, pence):
-        self.pence -= pence
 
     def sub_dinars(self, dinars):
         self.dinars -= dinars
 
-    def sub_workers(self, workers):
-        self.workers -= workers
-        
     '''add, sub and set population'''
     def add_population(self, population):
         self.population += population
@@ -95,14 +79,8 @@ class Ressources:
     def enough_water(self, water):
         return self.water >= water
 
-    def enough_pence(self, pence):
-        return self.pence >= pence
-
     def enough_dinars(self, dinars):
         return self.dinars >= dinars
-
-    def enough_workers(self, workers):
-        return self.workers >= workers
 
     def enough_population(self, population):
         return self.population >= population

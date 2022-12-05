@@ -1,10 +1,11 @@
 import pygame
 import pygame as pg
 import random
-from game.model.settings import TILE_SIZE
+from game.model.settings import *
 from game.model.road import Road
 from game.controller.SelectionBuilding import SelectionBuilding
 from game.model.case import Case
+from game.model.Ressources import Ressources
 from game.controller.walker import Migrant
 from game.model.worldModel import WorldModel
 from game.model.House import House
@@ -146,6 +147,16 @@ class WorldController:
         self.internal_offset = pg.math.Vector2()
         self.internal_offset.x = self.internal_surf_size[0] // 2 - self.half_w
         self.internal_offset.y = self.internal_surf_size[1] // 2 - self.half_h
+
+        # Ressource
+        self.ressources = Ressources(0, 0, 3000, 0)
+
+
+        self.hud_w = self.width // 2
+        # HUD RECT
+        '''declare hud_rect'''
+        self.hud_rect = pg.Rect(0, 0, WIDHT-self.hud.hudbase_below.get_width() + 12, HEIGHT)
+
 
     def create_world(self):
 
@@ -307,13 +318,12 @@ class WorldController:
                     self.temp_cases.append(temp)
 
     def can_place_tile(self, grid_pos):
-        mouse_on_panel = False
-        for rect in [self.hud.resources_rect, self.hud.build_rect, self.hud.select_rect]:
-            if rect.collidepoint(pg.mouse.get_pos()):
-                mouse_on_panel = True
-        world_bounds = (0 <= grid_pos[0] <= self.grid_length_x) and (0 <= grid_pos[1] <= self.grid_length_y)
-
-        if world_bounds and not mouse_on_panel:
+        mouse_on_panel = True
+        for rect in [self.hud_rect]:
+            if (rect.collidepoint(pg.mouse.get_pos())):
+                mouse_on_panel = False
+               
+        if not mouse_on_panel:
             return True
         else:
             return False
@@ -321,10 +331,12 @@ class WorldController:
     def change_case_sprite_by_image_name(self, image_name, list_cases):
         cases = [self.worldModel.get_case(x, y) for x, y in list_cases]
         for case in cases:
-            if image_name != "hud_shovel_sprite":
-                case.set_tile(image_name)
-            elif image_name == "hud_shovel_sprite":
-                case.set_tile(image_name)
+            if self.can_place_tile(pg.mouse.get_pos()):
+                if image_name != "hud_shovel_sprite":
+                    case.set_tile(image_name)
+                    self.ressources.sub_dinars(10)
+                elif image_name == "hud_shovel_sprite":
+                    case.set_tile(image_name)
 
     def update_case(self, sprite_name):
         """
