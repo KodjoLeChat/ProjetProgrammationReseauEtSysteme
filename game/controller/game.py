@@ -1,4 +1,3 @@
-import pygame
 import pygame as pg
 
 from game.view.utils import draw_text

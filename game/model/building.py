@@ -15,6 +15,5 @@ class Building:
     def add_damage(self,damage):
         self.damage += damage
 
-
     def set_occupant(self, nb_occupant):
         self.occupant = nb_occupant
