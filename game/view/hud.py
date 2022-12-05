@@ -3,6 +3,7 @@ import pygame as pg
 from game.view.utils import draw_text
 from game.model.worldModel import __str__
 
+from game.model.settings import WIDHT, HEIGHT
 
 class Hud:
 
@@ -58,10 +59,10 @@ class Hud:
         self.tiles = self.create_build_hud()
 
         self.selected_tile = None
-
+        
     def create_build_hud(self):
 
-        render_pos = [self.width * 0.903, self.resources_rect.get_height() + self.build_surface.get_height()/3.1 ]
+        render_pos = [WIDHT - self.hudbase_below.get_width() + 12, (HEIGHT - self.hudbase_below.get_height())/3.17 ]
         object_width = self.build_surface.get_width() // 4
 
         tiles = []
@@ -85,7 +86,7 @@ class Hud:
             render_pos[0] += image_scale.get_width() + 10
 
             if count%3 == 0:
-                render_pos[0] = self.width * 0.903
+                render_pos[0] = WIDHT - self.hudbase_below.get_width() + 12
                 render_pos[1] += image_scale.get_height() + 10
 
         return tiles
@@ -136,10 +137,7 @@ class Hud:
             screen.blit(tile["icon"], tile["rect"])
 
         # resources
-        pos = self.width * 0.1
-        for resource in ["wood:", "stone:", "gold:"]:
-            draw_text(screen, resource, 30, (255, 255, 255), (pos, self.height * 0.002))
-            pos += self.width * 0.2
+
 
     def scale_image(self, image, w=None, h=None):
 
