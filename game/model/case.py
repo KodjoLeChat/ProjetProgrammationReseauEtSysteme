@@ -1,5 +1,5 @@
 class Case:
-    def __init__(self, grid,rect, iso_poly, tile, render_pos,collision):
+    def __init__(self, grid, rect, iso_poly, tile, render_pos, collision):
         self.grid = grid
         self.rect = rect
         self.iso_poly = iso_poly
@@ -26,17 +26,18 @@ class Case:
 
     def get_collision(self):
         return self.collision
+
     def get_iso_poly(self):
         return self.iso_poly
 
     def get_building(self):
         return self.building
 
-    def set_collision(self,value):
+    def set_collision(self, value):
         self.collision = value
 
     def set_tile(self, tile):
         self.tile = tile
 
-    def set_building(self,building):
+    def set_building(self, building):
         self.building = building

@@ -103,6 +103,7 @@ class WorldController:
             (grid_length_x * TILE_SIZE * 2, grid_length_y * TILE_SIZE + 2 * TILE_SIZE)).convert_alpha()
 
         self.worldModel = WorldModel(self.create_world())
+
         #world Model object
         f1 = open('worldSave','rb')
         self.worldModel = pickle.load(f1)
