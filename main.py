@@ -56,7 +56,6 @@ def main():
                     gama = True
 
                 case "ChooseFile":
-                    print("file")
                     path = easygui.fileopenbox()
                     file = open(path, 'rb')
                     game.set_state(True)
@@ -71,7 +70,7 @@ def main():
             if old_game:
                 game.worldController.worldModel = pickle.load(file)
                 game.run()
-                
+
             elif gameZ:
                 game.run()
 

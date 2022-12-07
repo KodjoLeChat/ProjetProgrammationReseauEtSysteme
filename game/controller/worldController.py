@@ -49,7 +49,11 @@ def load_images():
         "cross": pg.image.load("C3_sprites/C3/Land2a_00110.png").convert_alpha(),
     
         "speedDown" : pg.image.load("C3_sprites/C3/paneling_down.png").convert_alpha(),
-        "file": pg.image.load("C3_sprites/C3/Screenshot_1.png").convert_alpha(),
+                
+        "load_game": pg.image.load("C3_sprites/C3/Screenshot_4.png").convert_alpha(),
+        "save_game": pg.image.load("C3_sprites/C3/Screenshot_7.png").convert_alpha(),
+
+
         "speedUp" : pg.image.load("C3_sprites/C3/paneling_up.png").convert_alpha(),
 
         "fire": pygame.image.load('C3_sprites/C3/Land2a_00190.png').convert_alpha(),
@@ -246,15 +250,28 @@ class WorldController:
                             
     def FileSelector(self):
         mouse_action = self.keyboard.get_keyboard_input()
-        sprite_rect = self.images["file"].get_rect()
+        sprite_rect = self.images["load_game"].get_rect()
+        '''move rect of image'''
         mouse_pos = pygame.mouse.get_pos()
         if mouse_action.get(pg.MOUSEBUTTONDOWN):
             if sprite_rect.collidepoint(mouse_pos):
-                print("file")
+                print("load_game")
                 path = easygui.fileopenbox()
                 file = open(path, 'rb')
                 self.worldModel = pickle.load(file)
 
+    def FileRegister(self):
+        mouse_action = self.keyboard.get_keyboard_input()
+        sprite_rect = self.images["save_game"].get_rect()
+        '''move rect of image'''
+        mouse_pos = pygame.mouse.get_pos()
+        if mouse_action.get(pg.MOUSEBUTTONDOWN):
+            if sprite_rect.collidepoint(mouse_pos):
+                print("save_game")
+                path = easygui.fileopenbox()
+                file = open(path, 'wb')
+                self.saveWordt(path)
+                
 
 
     def update(self, camera):
@@ -268,7 +285,7 @@ class WorldController:
                     if random.randint(0, 100) < 50:
                         tile_name.set_tile("fire")
 
-
+        self.FileRegister()
         self.FileSelector()
         self.changeTime()
         self.time.update(self.speed)
@@ -443,5 +460,10 @@ class WorldController:
 
     def saveWord(self):
         with open("worldSave", "wb") as f1:
+            pickle.dump(self.worldModel, f1)
+        f1.close()
+
+    def saveWordt(self,path):
+        with open(path, "wb") as f1:
             pickle.dump(self.worldModel, f1)
         f1.close()

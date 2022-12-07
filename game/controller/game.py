@@ -35,6 +35,7 @@ class Game:
         # camera
         self.camera = Camera(self.width, self.height)
 
+
         
 
 

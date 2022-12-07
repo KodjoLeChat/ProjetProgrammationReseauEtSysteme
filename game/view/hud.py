@@ -61,6 +61,11 @@ class Hud:
                     "BK_RESSOURCES": pg.image.load("C3_sprites/C3/paneling_00015.png"),
                     }
 
+        self.file = {
+                    "load_game": pg.image.load("C3_sprites/C3/Screenshot_4.png"),
+                    "save_game": pg.image.load("C3_sprites/C3/Screenshot_7.png"),
+
+        }
         self.tiles = self.create_build_hud()
         self.speedBut = {
             "speedDown" : pg.image.load("C3_sprites/C3/paneling_down.png"),
@@ -69,6 +74,7 @@ class Hud:
 
         self.button = self.creat_button_speed()
 
+        self.fileList = self.creat_button_file()
         self.selected_tile = None
         
     def create_build_hud(self):
@@ -107,7 +113,6 @@ class Hud:
         object_width = self.build_surface.get_width() // 4
 
         button = []
-        count = 0
 
         for button_name, button_image in self.speedBut.items():
             pos = render_pos.copy()
@@ -125,6 +130,28 @@ class Hud:
             render_pos[0] += button_image.get_width()
         return button
 
+    def creat_button_file(self):
+        render_pos = [self.resources_rect.get_width()-30, self.resources_rect.get_height()]
+        object_width = self.build_surface.get_width() // 4
+
+        fileList = []
+
+        for file_name, file_image in self.file.items():
+            pos = render_pos.copy()
+            image_scale = self.scale_image(file_image, w=object_width)
+            rect = image_scale.get_rect(topleft=pos)
+
+            fileList.append(
+                {
+                    "name": file_name,
+                    "icon": file_image,
+                    "rect": rect
+                }
+            )
+            print(fileList)
+            render_pos[1] += image_scale.get_height() + 17
+        return fileList
+
     def update(self):
         mouse_pos = pg.mouse.get_pos()
         mouse_action = pg.mouse.get_pressed()
@@ -136,6 +163,9 @@ class Hud:
                 if tile["rect"].collidepoint(mouse_pos):
                     self.selected_tile = tile
             for tile in self.button:
+                if tile["rect"].collidepoint(mouse_pos):
+                    self.selected_tile = tile
+            for tile in self.fileList:
                 if tile["rect"].collidepoint(mouse_pos):
                     self.selected_tile = tile
             # update the speedof game
@@ -215,6 +245,10 @@ class Hud:
         for button in self.button:
             screen.blit(button["icon"], button["rect"])
 
+        for button in self.fileList:
+            screen.blit(button["icon"], button["rect"])
+        
+        
         '''show text ("test") above sprite ressource_hud'''
         screen.blit(self.info["BK_RESSOURCES"], (self.resources_rect.get_width()*10, 0))
         screen.blit(self.info["BK_RESSOURCES"], (self.resources_rect.get_width()*15, 0))
