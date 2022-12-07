@@ -12,6 +12,7 @@ from game.model.timer import Timer
 import pickle
 import easygui
 
+
 def load_images():
     images = {
         "building1": pg.image.load("C3_sprites/C3/paneling_00123.png").convert_alpha(),
@@ -50,6 +51,9 @@ def load_images():
         "speedDown" : pg.image.load("C3_sprites/C3/paneling_down.png").convert_alpha(),
         "file": pg.image.load("C3_sprites/C3/Screenshot_1.png").convert_alpha(),
         "speedUp" : pg.image.load("C3_sprites/C3/paneling_up.png").convert_alpha(),
+
+        "fire": pygame.image.load('C3_sprites/C3/Land2a_00190.png').convert_alpha(),
+
 
     }
 
@@ -162,7 +166,13 @@ class WorldController:
         '''declare hud_rect'''
         self.hud_rect = pg.Rect(0, 0, WIDHT-self.hud.hudbase_below.get_width() + 12, HEIGHT)
 
+        # TIMER
         self.time = Timer()
+
+        # FIRE
+        self.data = []
+
+
 
 
 
@@ -249,6 +259,17 @@ class WorldController:
 
 
     def update(self, camera):
+        if self.time.time_multiple():
+            if self.data:
+                i = random.randint(0, len(self.data) - 1)
+                x = self.data[i]["x"]
+                y = self.data[i]["y"]
+                tile_name = self.worldModel.get_case(x, y)
+                if tile_name.get_tile() == 'hud_house_sprite':
+                    if random.randint(0, 100) < 50:
+                        tile_name.set_tile("fire")
+
+
         self.FileSelector()
         self.changeTime()
         self.time.update(self.speed)
@@ -377,6 +398,16 @@ class WorldController:
                 if image_name != "hud_shovel_sprite":
                     case.set_tile(image_name)
                     self.ressources.sub_dinars(10)
+                    '''print x pos of case'''
+                    if image_name=='hud_house_sprite':
+                        temp = {
+                            "image": case.get_tile(),
+                            "x": case.get_grid()[0],
+                            "y": case.get_grid()[1]
+                        }
+                        self.data.append(temp)
+                        print(self.data)
+
                 elif image_name == "hud_shovel_sprite":
                     case.set_tile(image_name)
 

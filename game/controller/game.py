@@ -9,7 +9,6 @@ from game.controller.keyboard import keyboard
 from game.controller.camera import Camera
 from game.view.hud import Hud
 from game.controller.keyboard import keyboard
-from game.model.timer import Timer
 from game.model.Ressources import Ressources
 
 
@@ -35,7 +34,6 @@ class Game:
 
         # camera
         self.camera = Camera(self.width, self.height)
-
 
         
 
