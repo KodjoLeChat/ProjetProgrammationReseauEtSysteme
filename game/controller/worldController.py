@@ -10,6 +10,9 @@ from game.controller.walker import Migrant
 from game.model.worldModel import WorldModel
 from game.model.House import House
 import pickle
+from pathfinding.core.diagonal_movement import DiagonalMovement
+from pathfinding.core.grid import Grid
+from pathfinding.finder.a_star import AStarFinder
 
 
 def load_images():
@@ -105,8 +108,8 @@ class WorldController:
 
         self.worldModel = WorldModel(self.create_world())
 
-        #world Model object
-        f1 = open('worldSave','rb')
+        # world Model object
+        f1 = open('worldSave', 'rb')
         self.worldModel = pickle.load(f1)
 
         # selection building
@@ -122,12 +125,11 @@ class WorldController:
 
         # temporary case for selection
         self.temp_cases = []
+
         self.walkers = []
 
         # keyboard
         self.keyboard = keyboard
-
-
 
         # camera offset
         self.offset = pg.math.Vector2()
@@ -151,12 +153,10 @@ class WorldController:
         # Ressource
         self.ressources = Ressources(0, 0, 3000, 0)
 
-
         self.hud_w = self.width // 2
         # HUD RECT
         '''declare hud_rect'''
-        self.hud_rect = pg.Rect(0, 0, WIDHT-self.hud.hudbase_below.get_width() + 12, HEIGHT)
-
+        self.hud_rect = pg.Rect(0, 0, WIDHT - self.hud.hudbase_below.get_width() + 12, HEIGHT)
 
     def create_world(self):
 
@@ -188,14 +188,15 @@ class WorldController:
                                 (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
                                  rect_case[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
         self.draw_walkers(screen, camera_scroll_x, camera_scroll_y)
+
     def update_walkers(self):
         for walker in self.walkers:
             walker.move_to_home()
 
     def draw_walkers(self, screen, camera_scroll_x, camera_scroll_y):
         for walker in self.walkers:
-            screen.blit(self.images["walker"], (walker.pos_x + self.dim_map.get_width() / 2 + camera_scroll_x,
-                                                walker.pos_y - (self.images[
+            screen.blit(self.images["walker"], (walker.get_pos()[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
+                                                walker.get_pos()[1] - (self.images[
                                                                     "walker"].get_height() - TILE_SIZE) + camera_scroll_y))
 
     def mouse_to_grid(self, x, y, scroll):
@@ -224,10 +225,12 @@ class WorldController:
 
             if mouse_action.get(pg.MOUSEBUTTONDOWN):
                 if not self.selected_on:
-                    if sprite_name == "hud_road_sprite" and not self.worldModel.get_case(grid_pos[0], grid_pos[1]).get_collision():
+                    if sprite_name == "hud_road_sprite" and not self.worldModel.get_case(grid_pos[0],
+                                                                                         grid_pos[1]).get_collision():
                         self.selection_roads = Road(grid_pos, self.worldModel)
                         self.selected_on = True
-                    elif sprite_name == "hud_house_sprite" and not self.worldModel.get_case(grid_pos[0], grid_pos[1]).get_collision():
+                    elif sprite_name == "hud_house_sprite" and not self.worldModel.get_case(grid_pos[0], grid_pos[
+                        1]).get_collision():
                         self.selection_building = SelectionBuilding(grid_pos, self.worldModel)
                         self.selected_on = True
                     elif sprite_name == "hud_shovel_sprite":
@@ -240,7 +243,7 @@ class WorldController:
                     if sprite_name == "hud_road_sprite":
                         cases = self.selection_roads.add_grid_pos(grid_pos)
                         self.selection_roads.set_image_roads()
-                        self.change_cases_collision(True,cases)
+                        self.change_cases_collision(True, cases)
                     else:
                         if sprite_name == "hud_shovel_sprite":
                             case_to_delete = self.selection_shovel.add_grid_pos_to_erase(grid_pos)
@@ -248,12 +251,12 @@ class WorldController:
                             self.worldModel.diff_update_building(case_to_delete)
                             self.change_case_sprite_by_image_name(sprite_name, case_to_delete)
                             self.update_case(sprite_name)
-                            self.change_cases_collision(False,case_to_delete)
+                            self.change_cases_collision(False, case_to_delete)
                         elif sprite_name == "hud_house_sprite":
                             cases = self.selection_building.add_grid_pos(grid_pos)
                             self.change_case_sprite_by_image_name(sprite_name, cases)
-                            self.change_cases_collision(True, cases)
                             self.update_case(sprite_name)
+                            self.change_cases_collision(True, cases)
 
                     self.temp_cases = []
                     self.selection_building = None
@@ -320,9 +323,9 @@ class WorldController:
     def can_place_tile(self, grid_pos):
         mouse_on_panel = True
         for rect in [self.hud_rect]:
-            if (rect.collidepoint(pg.mouse.get_pos())):
+            if rect.collidepoint(pg.mouse.get_pos()):
                 mouse_on_panel = False
-               
+
         if not mouse_on_panel:
             return True
         else:
@@ -348,6 +351,11 @@ class WorldController:
             self.update_building(case)
             if sprite_name == "hud_house_sprite":
                 if not case.get_collision():
+                    migrant_posx,migrant_posy = 0,0
+                    migrant_destx , migrant_desty = case.get_grid()[0],case.get_grid()[1]
+                    path = self.pathfinding(migrant_posx,migrant_posy,migrant_destx,migrant_desty)
+                    migrant = Migrant(0,0,migrant_destx,migrant_desty,path)
+                    self.walkers.append(migrant)
                     house = House()
                     case.set_building(house)
             elif sprite_name == "hud_shovel_sprite":
@@ -366,6 +374,7 @@ class WorldController:
         cases = [self.worldModel.get_case(x, y) for x, y in coord_cases]
         for case in cases:
             case.set_collision(collision)
+
     def get_world_model(self):
         return self.worldModel
 
@@ -373,3 +382,23 @@ class WorldController:
         with open("worldSave", "wb") as f1:
             pickle.dump(self.worldModel, f1)
         f1.close()
+
+    def create_colision_matrix(self):
+        if len(self.worldModel.list_grid_pos_road) != 0:
+            matrix = [[0 for i in range(GRID_WIDTH)] for j in range(GRID_LENGTH)]
+            for x, y in self.worldModel.get_list_grid_pos_road():
+                matrix[x][y] = 1
+            return matrix
+        return None
+
+    def pathfinding(self, posx_start,posy_start,posx_end, posy_end):
+        matrix = self.create_colision_matrix()
+        if matrix != None:
+            grid = Grid(matrix=matrix)
+            start = grid.node(posx_start, posy_start)
+            end = grid.node(posx_end, posy_end)
+
+            finder = AStarFinder(diagonal_movement=DiagonalMovement.always)
+            path, run = finder.find_path(start, end, grid)
+            return path
+        return None
