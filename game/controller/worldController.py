@@ -94,7 +94,7 @@ def grid_to_world(grid_x, grid_y):
 
 
 class WorldController:
-    def __init__(self, hud, grid_length_x, grid_length_y, width, height, keyboard, ressources):
+    def __init__(self, hud, grid_length_x, grid_length_y, width, height, keyboard, ressources, speed):
         self.hud = hud
         self.grid_length_x = grid_length_x
         self.grid_length_y = grid_length_y
@@ -163,7 +163,7 @@ class WorldController:
         self.hud_rect = pg.Rect(0, 0, WIDHT-self.hud.hudbase_below.get_width() + 12, HEIGHT)
 
         self.time = Timer()
-        self.speed = 1
+        self.speed = speed
 
 
 
@@ -227,7 +227,7 @@ class WorldController:
             if self.hud.selected_tile is not None:
                 sprite_name = self.hud.selected_tile["name"]
                 if (sprite_name =="speedUp"):
-                        if self.speed >= 1:
+                        if self.speed >= 1 and self.speed < 5:
                             print("ok tu changes le tps")
                             self.speed += 1
                         if self.speed < 1:

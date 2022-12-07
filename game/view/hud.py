@@ -7,9 +7,10 @@ from game.model.settings import WIDHT, HEIGHT
 
 class Hud:
 
-    def __init__(self, width, height, ressources):
+    def __init__(self, width, height, ressources, speed, keyboard):
         self.ressources = Ressources(0, 0, 3000, 0)
-
+        self.keyboard = keyboard
+        self.speed = speed
         self.width = width
         self.height = height
 
@@ -221,11 +222,33 @@ class Hud:
         font = pg.font.Font(None, 25)
         text = font.render('Dn {}'.format(self.ressources.get_dinars()), 0, (255, 255, 255))
         screen.blit(text, (self.resources_rect.get_width()*10+10, 4))
-
+    
         text = font.render('Pop {}'.format(self.ressources.get_population()), 0, (255, 255, 255))
         screen.blit(text, (self.resources_rect.get_width()*15+10, 4))
 
         screen.blit(self.info["file"], (self.resources_rect.get_width()-30, 4))
+
+        mouse_action = self.keyboard.get_keyboard_input()
+
+        if mouse_action.get(pg.MOUSEBUTTONDOWN):
+            if self.selected_tile is not None:
+                sprite_name = self.selected_tile["name"]
+                if (sprite_name =="speedUp"):
+                        if self.speed >= 1 and self.speed < 5:
+                            print("ok tu changes le tps")
+                            self.speed += 1
+                        if self.speed < 1:
+                            print("ok tu changes le tps")
+                            self.speed += 0.1
+                if (sprite_name =="speedDown"):
+                        if self.speed > 1:
+                            self.speed -= 1
+                        if self.speed <= 1 and self.speed > 0.1:
+                            self.speed -= 0.1
+
+        text = font.render('{} %'.format(self.speed*100), 0, (0, 0, 0))
+        screen.blit(text, (WIDHT - WIDHT*0.04, HEIGHT //2 - 20) )
+
 
     def scale_image(self, image, w=None, h=None):
 

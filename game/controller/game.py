@@ -22,16 +22,17 @@ class Game:
         self.width, self.height = self.screen.get_size()
         self.state = False
         self.playing = True
+        self.speed = 1
 
         # Ressources
         self.ressources = Ressources(0, 0, 3000, 0)
 
         # hud
-        self.hud = Hud(self.width, self.height, self.ressources)
+        self.hud = Hud(self.width, self.height, self.ressources, self.speed, self.keyboard)
 
         # world
         self.worldController = WorldController(self.hud, GRID_LENGTH, GRID_WIDTH, self.width, self.height,
-                                               self.keyboard, self.ressources)
+                                               self.keyboard, self.ressources, self.speed)
 
         # camera
         self.camera = Camera(self.width, self.height)
