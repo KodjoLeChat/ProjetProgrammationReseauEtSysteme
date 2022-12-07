@@ -2,12 +2,15 @@ from game.view.menu import *
 from game.model.settings import *
 from game.controller.game import Game
 from game.view.utils import *
+import tkinter as tk
+import easygui
+
 def main():
 
-    running = True
-    playing = False
     old_game = False
-
+    gameZ = False
+    gama = True
+    test = False
     pg.init()
     pg.mixer.init()
     clock = pg.time.Clock()
@@ -17,30 +20,54 @@ def main():
     menu = Menu(text_buttons_menuP, init_pos,screen)
     menu.set()
 
+    newMenu = Menu(text_buttons_Game, init_pos,screen)
+    newMenu.set()
+    
+
     # implement game
     game = Game(screen, clock)
 
     while game.get_playing():
 
         # start menu goes here
-        menu.display()
-        choice = menu.check_state()
-        match choice:
-            case "Exit":
-                running = exit_function(screen)
-            case "Start_new_career":
-                playing = True
-                game.set_state(True)
-            case "Load_saved_game":
-                old_game = True
-                playing = True
-                game.set_state(True)
+        if gama == True:
+            menu.display()
+            choice = menu.check_state()
+            match choice:
+                case "Exit":
+                    pg.quit()
+                case "Start_new_career":
+                    gameZ = True
+                    game.set_state(True)
+
+                case "Load_saved_game":
+                    newMenu.display()
+                    gama = False
+
+        if gama == False:
+            newMenu.display()
+            choices = newMenu.check_state()
+
+            match choices:
+                case "Exit":
+                    pg.quit()
+                case "Return":
+                    gama = True
+
+                case "ChooseFile":
+                    path = easygui.fileopenbox()
+                    game.set_state(True)
+                    gama = False
+
+
+
+                
         while game.get_state():
             # game loop here
             if old_game:
-                # with saved data
-                game.run()
-            else:
+                pass
+                
+            elif gameZ:
                 game.run()
 
 if __name__ == "__main__":
