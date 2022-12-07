@@ -9,6 +9,8 @@ from game.controller.keyboard import keyboard
 from game.controller.camera import Camera
 from game.view.hud import Hud
 from game.controller.keyboard import keyboard
+from game.model.timer import Timer
+from game.model.Ressources import Ressources
 
 
 class Game:
@@ -21,16 +23,22 @@ class Game:
         self.state = False
         self.playing = True
 
+        # Ressources
+        self.ressources = Ressources(0, 0, 3000, 0)
 
         # hud
-        self.hud = Hud(self.width, self.height)
+        self.hud = Hud(self.width, self.height, self.ressources)
 
         # world
         self.worldController = WorldController(self.hud, GRID_LENGTH, GRID_WIDTH, self.width, self.height,
-                                               self.keyboard)
+                                               self.keyboard, self.ressources)
 
         # camera
         self.camera = Camera(self.width, self.height)
+
+
+        
+
 
 
     # build
@@ -63,11 +71,5 @@ class Game:
         self.screen.fill((0, 0, 0))
         self.screen.blit(self.worldController.dim_map, (self.camera.scroll.x, self.camera.scroll.y))
         self.worldController.draw(self.screen, self.camera)
-        draw_text(
-            self.screen,
-            'fps={}'.format(round(self.clock.get_fps())),
-            25,
-            (255, 255, 255),
-            (10, 10)
-        )
+
         self.hud.draw(self.screen)

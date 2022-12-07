@@ -43,3 +43,5 @@ class keyboard:
     def quit_game(self):
         self.game.set_playing(False)
         self.game.set_state(False)
+
+

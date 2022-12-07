@@ -5,12 +5,12 @@ from game.model.settings import *
 from game.model.road import Road
 from game.controller.SelectionBuilding import SelectionBuilding
 from game.model.case import Case
-from game.model.Ressources import Ressources
 from game.controller.walker import Migrant
 from game.model.worldModel import WorldModel
 from game.model.House import House
+from game.model.timer import Timer
 import pickle
-
+import easygui
 
 def load_images():
     images = {
@@ -45,7 +45,12 @@ def load_images():
         "crossroad_top_bottom_left": pg.image.load("C3_sprites/C3/Land2a_00107.png").convert_alpha(),
         "crossroad_top_right_left": pg.image.load("C3_sprites/C3/Land2a_00108.png").convert_alpha(),
         "crossroad_top_right_bottom": pg.image.load("C3_sprites/C3/Land2a_00109.png").convert_alpha(),
-        "cross": pg.image.load("C3_sprites/C3/Land2a_00110.png").convert_alpha()
+        "cross": pg.image.load("C3_sprites/C3/Land2a_00110.png").convert_alpha(),
+    
+        "speedDown" : pg.image.load("C3_sprites/C3/paneling_down.png").convert_alpha(),
+        "file": pg.image.load("C3_sprites/C3/Screenshot_1.png").convert_alpha(),
+        "speedUp" : pg.image.load("C3_sprites/C3/paneling_up.png").convert_alpha(),
+
     }
 
     return images
@@ -89,7 +94,7 @@ def grid_to_world(grid_x, grid_y):
 
 
 class WorldController:
-    def __init__(self, hud, grid_length_x, grid_length_y, width, height, keyboard):
+    def __init__(self, hud, grid_length_x, grid_length_y, width, height, keyboard, ressources):
         self.hud = hud
         self.grid_length_x = grid_length_x
         self.grid_length_y = grid_length_y
@@ -106,8 +111,8 @@ class WorldController:
         self.worldModel = WorldModel(self.create_world())
 
         #world Model object
-        f1 = open('worldSave','rb')
-        self.worldModel = pickle.load(f1)
+        #f1 = open('worldSave','rb')
+        #self.worldModel = pickle.load(f1)
 
         # selection building
         self.selection_building = None
@@ -149,13 +154,17 @@ class WorldController:
         self.internal_offset.y = self.internal_surf_size[1] // 2 - self.half_h
 
         # Ressource
-        self.ressources = Ressources(0, 0, 3000, 0)
+        self.ressources = ressources
 
 
         self.hud_w = self.width // 2
         # HUD RECT
         '''declare hud_rect'''
         self.hud_rect = pg.Rect(0, 0, WIDHT-self.hud.hudbase_below.get_width() + 12, HEIGHT)
+
+        self.time = Timer()
+        self.speed = 1
+
 
 
     def create_world(self):
@@ -188,6 +197,7 @@ class WorldController:
                                 (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
                                  rect_case[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
         self.draw_walkers(screen, camera_scroll_x, camera_scroll_y)
+    
     def update_walkers(self):
         for walker in self.walkers:
             walker.move_to_home()
@@ -210,7 +220,40 @@ class WorldController:
         grid_y = int(cart_y // TILE_SIZE)
         return grid_x, grid_y
 
+    def changeTime(self):
+        mouse_action = self.keyboard.get_keyboard_input()
+
+        if mouse_action.get(pg.MOUSEBUTTONDOWN):
+            if self.hud.selected_tile is not None:
+                sprite_name = self.hud.selected_tile["name"]
+                if (sprite_name =="speedUp"):
+                        if self.speed >= 1:
+                            print("ok tu changes le tps")
+                            self.speed += 1
+                        if self.speed < 1:
+                            print("ok tu changes le tps")
+                            self.speed += 0.1
+                if (sprite_name =="speedDown"):
+                        if self.speed > 1:
+                            self.speed -= 1
+                        if self.speed <= 1 and self.speed > 0.1:
+                            self.speed -= 0.1
+                            
+    def FileSelector(self):
+        mouse_action = self.keyboard.get_keyboard_input()
+        sprite_rect = self.images["file"].get_rect()
+        mouse_pos = pygame.mouse.get_pos()
+        if mouse_action.get(pg.MOUSEBUTTONDOWN):
+            if sprite_rect.collidepoint(mouse_pos):
+                print("file")
+                path = easygui.fileopenbox()
+
+
     def update(self, camera):
+        self.FileSelector()
+        self.changeTime()
+        self.time.update(self.speed)
+
         self.update_walkers()
         mouse_pos = pg.mouse.get_pos()
         mouse_action = self.keyboard.get_keyboard_input()

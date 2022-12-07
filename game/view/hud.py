@@ -2,12 +2,13 @@ from turtle import back, screensize
 import pygame as pg
 from game.view.utils import draw_text
 from game.model.worldModel import __str__
-
+from game.model.Ressources import *
 from game.model.settings import WIDHT, HEIGHT
 
 class Hud:
 
-    def __init__(self, width, height):
+    def __init__(self, width, height, ressources):
+        self.ressources = Ressources(0, 0, 3000, 0)
 
         self.width = width
         self.height = height
@@ -21,11 +22,12 @@ class Hud:
 
         # building hud
         self.hudbase = pg.image.load("C3_sprites/C3/paneling_00017.png")
-        self.hudbase_below = pg.image.load("C3_sprites/C3/paneling_00018.png")
+        self.hudbase_below = pg.image.load("C3_sprites/C3/paneling_00020.png")
         self.hudbase_mid = pg.image.load("C3_sprites/C3/paneling_00519.png")
         self.build_surface = pg.Surface((self.hudbase.get_width(), self.height), pg.SRCALPHA)
         self.build_surface.blit(self.hudbase, [0,0])
-        self.build_surface.blit(self.hudbase_below, [0, self.height - self.hudbase_below.get_height() - self.resources_rect.get_height()])
+
+        self.ressources = ressources
 
         # select hud
         # self.select_surface = pg.Surface((width * 0.3, height * 0.2), pg.SRCALPHA)
@@ -54,15 +56,23 @@ class Hud:
                     "dom_info": pg.image.load("C3_sprites/C3/paneling_00088.png"),
                     "right": pg.image.load("C3_sprites/C3/paneling_00091.png"),
                     "left": pg.image.load("C3_sprites/C3/paneling_00094.png"),
+                    "file": pg.image.load("C3_sprites/C3/Screenshot_1.png"),
+                    "BK_RESSOURCES": pg.image.load("C3_sprites/C3/paneling_00015.png"),
                     }
 
         self.tiles = self.create_build_hud()
+        self.speedBut = {
+            "speedDown" : pg.image.load("C3_sprites/C3/paneling_down.png"),
+            "speedUp" : pg.image.load("C3_sprites/C3/paneling_up.png"),
+        }
+
+        self.button = self.creat_button_speed()
 
         self.selected_tile = None
         
     def create_build_hud(self):
 
-        render_pos = [WIDHT - self.hudbase_below.get_width() + 12, (HEIGHT - self.hudbase_below.get_height())/3.17 ]
+        render_pos = [WIDHT - self.hudbase_below.get_width() + 12, self.resources_rect.get_height() + 278]
         object_width = self.build_surface.get_width() // 4
 
         tiles = []
@@ -91,8 +101,30 @@ class Hud:
 
         return tiles
 
-    def update(self):
+    def creat_button_speed(self):
+        render_pos = [WIDHT - self.hudbase_below.get_width() + 12, self.resources_rect.get_height() + self.hudbase.get_height() + 40]
+        object_width = self.build_surface.get_width() // 4
 
+        button = []
+        count = 0
+
+        for button_name, button_image in self.speedBut.items():
+            pos = render_pos.copy()
+            image_scale = self.scale_image(button_image, w=object_width)
+            rect = image_scale.get_rect(topleft=pos)
+
+            button.append(
+                {
+                    "name": button_name,
+                    "icon": button_image,
+                    "rect": rect
+                }
+            )
+
+            render_pos[0] += button_image.get_width()
+        return button
+
+    def update(self):
         mouse_pos = pg.mouse.get_pos()
         mouse_action = pg.mouse.get_pressed()
 
@@ -102,6 +134,14 @@ class Hud:
             for tile in self.tiles:
                 if tile["rect"].collidepoint(mouse_pos):
                     self.selected_tile = tile
+            for tile in self.button:
+                if tile["rect"].collidepoint(mouse_pos):
+                    self.selected_tile = tile
+            # update the speedof game
+            # for button in self.button:
+
+
+        
 
     def draw(self, screen):
 
@@ -110,23 +150,58 @@ class Hud:
             img.set_alpha(100)
             screen.blit(img, pg.mouse.get_pos())
         
-        for height_base in range( self.hudbase.get_height(), self.build_surface.get_height() - self.hudbase_below.get_height() - 30, self.hudbase_mid.get_height()):
-            for width_base in range(0, self.build_surface.get_width() - self.hudbase_mid.get_width(), self.hudbase_mid.get_width()):
-                if (width_base == 0):
-                    if(height_base == self.hudbase.get_height()):
-                        self.build_surface.blit(  pg.image.load("C3_sprites/C3/paneling_00479.png") , [ width_base, height_base])
-                    else:
-                        if(height_base == self.hudbase.get_height()):
-                            self.build_surface.blit(  pg.image.load("C3_sprites/C3/paneling_00521.png") , [ width_base, height_base])
-                        else:
-                            self.build_surface.blit(  pg.image.load("C3_sprites/C3/paneling_00500.png") , [ width_base, height_base])
-                else:
-                    self.build_surface.blit(  self.hudbase_mid , [ width_base, height_base])
+        '''draw the rectangle in the middle of HUD à améliorer'''
+        render_pos = [0, self.hudbase.get_height()]
+        count_w = 0
+        mid_e_w = self.hudbase.get_width()//self.hudbase_mid.get_width()
+        for image_number in range(479, 486):
+            self.build_surface.blit( pg.image.load(f"C3_sprites/C3/paneling_00{image_number}.png") , [ render_pos[0], render_pos[1]])
+            count_w += 1
+            if(count_w == 3):
+                for last_count in range(7, mid_e_w):
+                    render_pos[0] += self.hudbase_mid.get_width()
+                    self.build_surface.blit( pg.image.load(f"C3_sprites/C3/paneling_00{image_number}.png") , [ render_pos[0], render_pos[1]])
+            render_pos[0] += self.hudbase_mid.get_width()
+
+        for count in  range(0,3):
+            for image_number in range(486, 521):
+                self.build_surface.blit( pg.image.load(f"C3_sprites/C3/paneling_00{image_number}.png") , [ render_pos[0], render_pos[1]])
+                render_pos[0] += self.hudbase_mid.get_width()
+                count_w += 1
+                if(count_w == 5):
+                    for last_count in range(7, mid_e_w):
+                        self.build_surface.blit( pg.image.load(f"C3_sprites/C3/paneling_00{image_number}.png") , [ render_pos[0], render_pos[1]])
+                        render_pos[0] += self.hudbase_mid.get_width()
+                if(count_w%7 == 0):
+                    render_pos[1] += self.hudbase_mid.get_height()
+                    render_pos[0] = 0
+                    count_w = 0
+
+        for image_number in range(521, 528):
+            self.build_surface.blit( pg.image.load(f"C3_sprites/C3/paneling_00{image_number}.png") , [ render_pos[0], render_pos[1]])
+            render_pos[0] += self.hudbase_mid.get_width()
+            count_w += 1
+            if(count_w == 2):
+                for last_count in range(7, mid_e_w):
+                    self.build_surface.blit( pg.image.load(f"C3_sprites/C3/paneling_00{image_number}.png") , [ render_pos[0], render_pos[1]])
+                    render_pos[0] += self.hudbase_mid.get_width()  
+            if(count_w%7 == 0):
+                    render_pos[1] += self.hudbase_mid.get_height()
+                    render_pos[0] = 0
+                    count_w = 0
+
+        self.build_surface.blit(self.hudbase_below, [0, render_pos[1]])
+        self.build_surface.blit(pygame.transform.scale(pg.image.load("C3_sprites/C3/paneling_gamespeed.png"), (80, 15)), [10, self.hudbase.get_height() + self.resources_rect.get_height()])
+        self.build_surface.blit(pygame.transform.scale(pg.image.load("C3_sprites/C3/paneling_unemployement.png"), (110, 19)), [10, self.hudbase.get_height() + self.resources_rect.get_height() + 60])
+        self.build_surface.blit(pygame.transform.scale(pg.image.load("C3_sprites/C3/paneling_invasions.png"), (120, 38)), [10, self.hudbase.get_height() + self.resources_rect.get_height() + 100])
+        self.build_surface.blit(pygame.transform.scale(pg.image.load("C3_sprites/C3/paneling_god.png"), (45, 18)), [10, self.hudbase.get_height() + self.resources_rect.get_height() + 150])
+        self.build_surface.blit(pg.image.load("C3_sprites/C3/paneling_00334.png"), [40, self.hudbase.get_height() + self.resources_rect.get_height() + 180])
+
 
         # build hud
         screen.blit(self.build_surface, (self.width - self.hudbase.get_width(), self.resources_rect.get_height()))
 
-        # resouce hud
+        # ressource hud
         pos_up_hud = 0
         while pos_up_hud < self.width:
             screen.blit(self.resouces_surface, (pos_up_hud, 0))
@@ -136,8 +211,21 @@ class Hud:
         for tile in self.tiles:
             screen.blit(tile["icon"], tile["rect"])
 
-        # resources
+        for button in self.button:
+            screen.blit(button["icon"], button["rect"])
 
+        '''show text ("test") above sprite ressource_hud'''
+        screen.blit(self.info["BK_RESSOURCES"], (self.resources_rect.get_width()*10, 0))
+        screen.blit(self.info["BK_RESSOURCES"], (self.resources_rect.get_width()*15, 0))
+
+        font = pg.font.Font(None, 25)
+        text = font.render('Dn {}'.format(self.ressources.get_dinars()), 0, (255, 255, 255))
+        screen.blit(text, (self.resources_rect.get_width()*10+10, 4))
+
+        text = font.render('Pop {}'.format(self.ressources.get_population()), 0, (255, 255, 255))
+        screen.blit(text, (self.resources_rect.get_width()*15+10, 4))
+
+        screen.blit(self.info["file"], (self.resources_rect.get_width()-30, 4))
 
     def scale_image(self, image, w=None, h=None):
 
@@ -156,6 +244,56 @@ class Hud:
 
         return image
 
+    def draw_rect_mid(self, mid_rect):
+        mid_rect_h = self.height - self.resources_rect.get_height() - self.hudbase.get_height() - self.hudbase_below.get_height()
+        mid_rect = pg.Surface((self.hudbase.get_width(), mid_rect_h), pg.SRCALPHA)
+
+        '''draw the rectangle in the middle of HUD'''
+        render_pos = [0, self.hudbase.get_height()]
+        count_w = 0
+        mid_e_w = self.hudbase.get_width()//self.hudbase_mid.get_width()
+        for image_number in range(479, 521):
+            mid_rect.blit( pg.image.load(f"C3_sprites/C3/paneling_00{image_number}.png") , [ render_pos[0], render_pos[1]])
+            count_w += 1
+            if(count_w == 3):
+                for last_count in range(7, mid_e_w):
+                    render_pos[0] += self.hudbase_mid.get_width()
+                    mid_rect.blit( pg.image.load(f"C3_sprites/C3/paneling_00{image_number}.png") , [ render_pos[0], render_pos[1]])
+            render_pos[0] += self.hudbase_mid.get_width()
+            if(count_w%7 == 0):
+                render_pos[1] += self.hudbase_mid.get_height()
+                render_pos[0] = 0
+                count_w = 0
+
+        for image_number in range(486, 521):
+            mid_rect.blit( pg.image.load(f"C3_sprites/C3/paneling_00{image_number}.png") , [ render_pos[0], render_pos[1]])
+            render_pos[0] += self.hudbase_mid.get_width()
+            count_w += 1
+            if(count_w == 5):
+                for last_count in range(7, mid_e_w):
+                    mid_rect.blit( pg.image.load(f"C3_sprites/C3/paneling_00{image_number}.png") , [ render_pos[0], render_pos[1]])
+                    render_pos[0] += self.hudbase_mid.get_width()
+            if(count_w%7 == 0):
+                render_pos[1] += self.hudbase_mid.get_height()
+                render_pos[0] = 0
+                count_w = 0
+
+        for image_number in range(486, 528):
+            mid_rect.blit( pg.image.load(f"C3_sprites/C3/paneling_00{image_number}.png") , [ render_pos[0], render_pos[1]])
+            render_pos[0] += self.hudbase_mid.get_width()
+            count_w += 1
+            if(count_w == 2):
+                for last_count in range(7, mid_e_w):
+                    mid_rect.blit( pg.image.load(f"C3_sprites/C3/paneling_00{image_number}.png") , [ render_pos[0], render_pos[1]])
+                    render_pos[0] += self.hudbase_mid.get_width()
+            if(count_w%7 == 0):
+                render_pos[1] += self.hudbase_mid.get_height()
+                render_pos[0] = 0
+                count_w = 0  
+
+        self.build_surface.blit(self.hudbase_below, [0, render_pos[1]]) 
+            
+        return mid_rect
 
     def get_sprite_by_hud_tile(self,image_name):
         match image_name:
@@ -174,3 +312,5 @@ class Hud:
             case "sword": return pg.image.load("C3_sprites/C3/paneling_00174.png")
             case "char": return pg.image.load("C3_sprites/C3/paneling_00118.png")
             case "bell": return pg.image.load("C3_sprites/C3/paneling_00122.png")
+
+
