@@ -7,10 +7,10 @@ from game.model.settings import WIDHT, HEIGHT
 
 class Hud:
 
-    def __init__(self, width, height, ressources, speed, keyboard):
+    def __init__(self, width, height, ressources, keyboard):
         self.ressources = Ressources(0, 0, 3000, 0)
         self.keyboard = keyboard
-        self.speed = speed
+        self.speed = 1
         self.width = width
         self.height = height
 

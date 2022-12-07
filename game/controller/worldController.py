@@ -94,13 +94,13 @@ def grid_to_world(grid_x, grid_y):
 
 
 class WorldController:
-    def __init__(self, hud, grid_length_x, grid_length_y, width, height, keyboard, ressources, speed):
+    def __init__(self, hud, grid_length_x, grid_length_y, width, height, keyboard, ressources):
         self.hud = hud
         self.grid_length_x = grid_length_x
         self.grid_length_y = grid_length_y
         self.width = width
         self.height = height
-
+        self.speed = 1
         # images
         self.images = load_images()
 
@@ -163,7 +163,6 @@ class WorldController:
         self.hud_rect = pg.Rect(0, 0, WIDHT-self.hud.hudbase_below.get_width() + 12, HEIGHT)
 
         self.time = Timer()
-        self.speed = speed
 
 
 
