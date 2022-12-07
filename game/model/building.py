@@ -2,17 +2,17 @@ import pygame
 
 
 class Building:
-    def __init__(self):
+    def __init__(self, citoyen):
         self.damage = 0
         self.fire = 0
-        self.occupant = 0
+        self.citoyen = citoyen
         self.fire = False
 
     def get_damage(self):
         return self.damage
 
-    def get_occupant(self):
-        return self.occupant
+    def get_citoyen(self):
+        return self.citoyen
 
     def get_fire(self):
         return self.fire
