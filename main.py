@@ -4,13 +4,14 @@ from game.controller.game import Game
 from game.view.utils import *
 import tkinter as tk
 import easygui
+import pickle
 
 def main():
 
     old_game = False
     gameZ = False
     gama = True
-    test = False
+
     pg.init()
     pg.mixer.init()
     clock = pg.time.Clock()
@@ -55,8 +56,11 @@ def main():
                     gama = True
 
                 case "ChooseFile":
+                    print("file")
                     path = easygui.fileopenbox()
+                    file = open(path, 'rb')
                     game.set_state(True)
+                    old_game = True
                     gama = False
 
 
@@ -65,7 +69,8 @@ def main():
         while game.get_state():
             # game loop here
             if old_game:
-                pass
+                game.worldController.worldModel = pickle.load(file)
+                game.run()
                 
             elif gameZ:
                 game.run()
