@@ -284,6 +284,8 @@ class WorldController:
                     if random.randint(0, 100) < 50:
                         tile_name.set_tile("fire")
 
+
+
         self.FileRegister()
         self.FileSelector()
         self.changeTime()
@@ -412,8 +414,6 @@ class WorldController:
             if self.can_place_tile(pg.mouse.get_pos()):
                 if image_name != "hud_shovel_sprite":
                     case.set_tile(image_name)
-                    self.ressources.sub_dinars(10)
-                    '''print x pos of case'''
                     if image_name=='hud_house_sprite':
                         temp = {
                             "image": case.get_tile(),
@@ -421,6 +421,7 @@ class WorldController:
                             "y": case.get_grid()[1]
                         }
                         self.data.append(temp)
+                        self.ressources.sub_dinars(10)
                         print(self.data)
 
                 elif image_name == "hud_shovel_sprite":
