@@ -195,11 +195,9 @@ class WorldController:
                             self.draw_walkers(building.get_citoyen(), building.get_citoyen().get_sprite(),screen, camera_scroll_x, camera_scroll_y)
 
     def update_walkers(self):
-        now = pygame.time.get_ticks()
-        if now - self.time > 500:
-            for walker in self.walkers:
-                walker.move_to_home()
-            self.time = now
+        for walker in self.walkers:
+            walker.move_to_home()
+
 
     def draw_walkers(self,walker,sprite, screen, camera_scroll_x, camera_scroll_y):
         case = self.worldModel.get_case(walker.get_pos()[0],walker.get_pos()[1])
@@ -221,8 +219,11 @@ class WorldController:
         return grid_x, grid_y
 
     def update(self, camera):
-        self.update_building()
-        self.update_walkers()
+        now = pygame.time.get_ticks()
+        if( now - self.time > 500):
+            self.update_building()
+            self.update_walkers()
+            self.time = now
         mouse_pos = pg.mouse.get_pos()
         mouse_action = self.keyboard.get_keyboard_input()
         grid_pos = self.mouse_to_grid(mouse_pos[0], mouse_pos[1], camera.scroll)
@@ -395,14 +396,17 @@ class WorldController:
         :param case: la case sur laquel est le building
         :return: None
         """
-        for x,y in self.worldModel.get_list_grid_pos_building():
-            case = self.worldModel.get_case(x,y)
-            building = case.get_building()
-            if building:
-                building.add_damage()
-                damage = building.get_damage()
-                if damage:
-                    building.set_sprite("house_broken")
+        now = pygame.time.get_ticks()
+        if now - self.time > 5000:
+            for x,y in self.worldModel.get_list_grid_pos_building():
+                case = self.worldModel.get_case(x,y)
+                building = case.get_building()
+                if building:
+                    building.add_damage()
+                    damage = building.get_damage()
+                    if damage:
+                        building.set_sprite("house_broken")
+            self.time = now
 
     def change_cases_collision(self, collision, coord_cases):
         cases = [self.worldModel.get_case(x, y) for x, y in coord_cases]

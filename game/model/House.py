@@ -16,7 +16,8 @@ class House():
     def get_route_voisine(self):
         return self.route_voisine
     def add_damage(self):
-        self.damage += random.randint(0,5)
+        if(random.randint(0,1)):
+            self.damage += random.randint(0,5)
 
     def set_occupant(self, nb_occupant):
         self.occupant = 5
