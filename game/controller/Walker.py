@@ -1,8 +1,4 @@
-import pygame.time
-
-
 class Migrant:
-
     def __init__(self, pos_x, pos_y, home_x, home_y, path, sprite):
         self.pos_x = pos_x
         self.pos_y = pos_y

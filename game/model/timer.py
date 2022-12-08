@@ -7,8 +7,6 @@ class Timer:
         self.start_time = time.time()
         self.time = 0
         self.temp = 0
-
-
     def update(self, test):
         if test == 0:
             test = 1
