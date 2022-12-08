@@ -1,6 +1,6 @@
 from turtle import back, screensize
 import pygame as pg
-from game.view.utils import draw_text
+from game.view.utils import draw_text, get_mode_image, get_sprite_by_hud_tile
 from game.model.worldModel import __str__
 from game.model.Ressources import *
 from game.model.settings import WIDHT, HEIGHT
@@ -76,6 +76,16 @@ class Hud:
 
         self.fileList = self.creat_button_file()
         self.selected_tile = None
+
+        self.selected_mode = pg.image.load("C3_sprites/C3/panelwindows_00001.png")
+        self.panel = {
+                    "gov": pg.image.load("C3_sprites/C3/paneling_00081.png"),
+                    "map": pg.image.load("C3_sprites/C3/paneling_00084.png"),
+                    "book": pg.image.load("C3_sprites/C3/paneling_00087.png"),
+                    "change": pg.image.load("C3_sprites/C3/paneling_00090.png"),
+                    "left": pg.image.load("C3_sprites/C3/paneling_00093.png"),
+                    "right": pg.image.load("C3_sprites/C3/paneling_00096.png"),
+                    }
         
     def create_build_hud(self):
 
@@ -87,7 +97,7 @@ class Hud:
 
         for image_name, sprite_name in self.images.items():
             pos = render_pos.copy()
-            image_tmp = self.get_sprite_by_hud_tile(image_name)
+            image_tmp = get_sprite_by_hud_tile(image_name)
             image_scale = self.scale_image(image_tmp, w=object_width)
             rect = image_scale.get_rect(topleft=pos)
 
@@ -95,7 +105,8 @@ class Hud:
                 {
                     "name": sprite_name,
                     "icon": image_scale,
-                    "rect": rect
+                    "rect": rect,
+                    "mode": get_mode_image(image_name)
                 }
             )
 
@@ -140,9 +151,9 @@ class Hud:
             image_scale = self.scale_image(file_image, w=object_width)
             rect = image_scale.get_rect(topleft=pos)
             if count == 0:
-                rect = pygame.Rect(self.resources_rect.get_width(), self.resources_rect.get_height(), self.resources_rect.get_width(), self.resources_rect.get_width())
+                rect = pygame.Rect(1, self.resources_rect.get_height(), self.resources_rect.get_width(), self.resources_rect.get_width())
             else:
-                rect = pygame.Rect(self.resources_rect.get_width(), self.resources_rect.get_height()+ 23, self.resources_rect.get_width(), self.resources_rect.get_width())
+                rect = pygame.Rect(1, self.resources_rect.get_height()+ 23, self.resources_rect.get_width(), self.resources_rect.get_width())
             fileList.append(
                 {
                     "name": file_name,
@@ -231,6 +242,22 @@ class Hud:
         self.build_surface.blit(pygame.transform.scale(pg.image.load("C3_sprites/C3/paneling_god.png"), (45, 18)), [10, self.hudbase.get_height() + self.resources_rect.get_height() + 150])
         self.build_surface.blit(pg.image.load("C3_sprites/C3/paneling_00334.png"), [40, self.hudbase.get_height() + self.resources_rect.get_height() + 180])
 
+         # Overview background
+        self.build_surface.blit(pg.image.load("C3_sprites/C3/paneling_00235.png"), [4, 3])
+        # button to hide tthe overview
+        self.build_surface.blit(pg.image.load("C3_sprites/C3/paneling_00098.png"), [self.hudbase.get_width() - 35, 5])
+        # image of the selected hud
+        self.build_surface.blit(self.selected_mode, [5, 215])
+        
+        render_pos = [7, self.resources_rect.get_height() + 131]
+        for panel_name, panel_image in self.panel.items():
+            if(panel_name == "book"): 
+                render_pos[0] = 6.5
+                render_pos[1] += panel_image.get_height() + 7
+            self.build_surface.blit( panel_image, [ render_pos[0], render_pos[1]])
+            render_pos[0] += panel_image.get_width() + 5.5
+           
+        self.build_surface.blit(self.hudbase, [0,0])
 
         # build hud
         screen.blit(self.build_surface, (self.width - self.hudbase.get_width(), self.resources_rect.get_height()))
@@ -352,23 +379,3 @@ class Hud:
         self.build_surface.blit(self.hudbase_below, [0, render_pos[1]]) 
             
         return mid_rect
-
-    def get_sprite_by_hud_tile(self,image_name):
-        match image_name:
-            case "house": return pg.image.load("C3_sprites/C3/paneling_00123.png")
-            case "shovel": return pg.image.load("C3_sprites/C3/paneling_00131.png")
-            case "road": return pg.image.load("C3_sprites/C3/paneling_00135.png")
-            case "well": return pg.image.load("C3_sprites/C3/paneling_00127.png")
-            case "hospital": return pg.image.load("C3_sprites/C3/paneling_00166.png")
-            case "temple": return pg.image.load("C3_sprites/C3/paneling_00154.png")
-            case "book": return pg.image.load("C3_sprites/C3/paneling_00150.png")
-            case "face": return pg.image.load("C3_sprites/C3/paneling_00146.png")
-            case "senate": return pg.image.load("C3_sprites/C3/paneling_00142.png")
-            case "hammer": return pg.image.load("C3_sprites/C3/paneling_00170.png")
-            case "cross": return pg.image.load("C3_sprites/C3/paneling_00162.png")
-            case "parchemin": return pg.image.load("C3_sprites/C3/paneling_00158.png")
-            case "sword": return pg.image.load("C3_sprites/C3/paneling_00174.png")
-            case "char": return pg.image.load("C3_sprites/C3/paneling_00118.png")
-            case "bell": return pg.image.load("C3_sprites/C3/paneling_00122.png")
-
-

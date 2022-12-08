@@ -71,3 +71,40 @@ def bg_block(display, pos, dim, color="Milk", rescale= True):
         for j in range(1, N_j):
             display.blit(backgrounds_updated[2][1], (x + j * dx, y+l))
         display.blit(backgrounds_updated[2][2], (x+L, y + l))
+
+def get_sprite_by_hud_tile(image_name):
+        match image_name:
+            case "house": return pg.image.load("C3_sprites/C3/paneling_00123.png")
+            case "shovel": return pg.image.load("C3_sprites/C3/paneling_00131.png")
+            case "road": return pg.image.load("C3_sprites/C3/paneling_00135.png")
+            case "well": return pg.image.load("C3_sprites/C3/paneling_00127.png")
+            case "hospital": return pg.image.load("C3_sprites/C3/paneling_00166.png")
+            case "temple": return pg.image.load("C3_sprites/C3/paneling_00154.png")
+            case "book": return pg.image.load("C3_sprites/C3/paneling_00150.png")
+            case "face": return pg.image.load("C3_sprites/C3/paneling_00146.png")
+            case "senate": return pg.image.load("C3_sprites/C3/paneling_00142.png")
+            case "hammer": return pg.image.load("C3_sprites/C3/paneling_00170.png")
+            case "cross": return pg.image.load("C3_sprites/C3/paneling_00162.png")
+            case "parchemin": return pg.image.load("C3_sprites/C3/paneling_00158.png")
+            case "sword": return pg.image.load("C3_sprites/C3/paneling_00174.png")
+            case "char": return pg.image.load("C3_sprites/C3/paneling_00118.png")
+            case "bell": return pg.image.load("C3_sprites/C3/paneling_00122.png")
+
+
+def get_mode_image(image_name):
+            match image_name:
+                case "house": return pg.image.load("C3_sprites/C3/panelwindows_00001.png")
+                case "shovel": return pg.image.load("C3_sprites/C3/panelwindows_00002.png")
+                case "road": return pg.image.load("C3_sprites/C3/panelwindows_00003.png")
+                case "well": return pg.image.load("C3_sprites/C3/panelwindows_00004.png")
+                case "hospital": return pg.image.load("C3_sprites/C3/panelwindows_00005.png")
+                case "temple": return pg.image.load("C3_sprites/C3/panelwindows_00006.png")
+                case "book": return pg.image.load("C3_sprites/C3/panelwindows_00007.png")
+                case "face": return pg.image.load("C3_sprites/C3/panelwindows_00008.png")
+                case "senate": return pg.image.load("C3_sprites/C3/panelwindows_00009.png")
+                case "hammer": return pg.image.load("C3_sprites/C3/panelwindows_00010.png")
+                case "cross": return pg.image.load("C3_sprites/C3/panelwindows_00011.png")
+                case "parchemin": return pg.image.load("C3_sprites/C3/panelwindows_00012.png")
+                case "sword": return pg.image.load("C3_sprites/C3/panelwindows_00013.png")
+                case "char": return pg.image.load("C3_sprites/C3/panelwindows_00014.png")
+                case "bell": return pg.image.load("C3_sprites/C3/panelwindows_00015.png")
