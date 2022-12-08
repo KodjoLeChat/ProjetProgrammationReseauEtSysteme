@@ -12,8 +12,8 @@ class Timer:
     def update(self, test):
         if test == 0:
             test = 1
+
         self.time = int((time.time() - self.start_time)*test)
-        print(self.time)
 
     '''pause function timer'''
     def pause(self):

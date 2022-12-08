@@ -6,7 +6,6 @@ class Building:
         self.damage = 0
         self.fire = 0
         self.citoyen = citoyen
-        self.fire = False
 
     def get_damage(self):
         return self.damage

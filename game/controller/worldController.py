@@ -1,15 +1,15 @@
-import pygame
 import pygame as pg
 import random
 from game.model.settings import *
 from game.model.road import Road
 from game.controller.SelectionBuilding import SelectionBuilding
 from game.model.case import Case
-from game.model.Ressources import Ressources
 from game.controller.walker import Migrant
 from game.model.worldModel import WorldModel
 from game.model.House import House
+from game.model.timer import Timer
 import pickle
+import easygui
 from pathfinding.core.diagonal_movement import DiagonalMovement
 from pathfinding.core.grid import Grid
 from pathfinding.finder.a_star import AStarFinder
@@ -27,7 +27,7 @@ def load_images():
         "grass": pg.image.load("C3_sprites/C3/Land1a_00002.png").convert_alpha(),
         "sign": pg.image.load("C3_sprites/C3/Housng1a_00045.png").convert_alpha(),
         "hud_house_sprite": pg.image.load("C3_sprites/C3/Housng1a_00001.png").convert_alpha(),
-        "house_broken":pg.image.load("C3_sprites/C3/Land2a_00115.png").convert_alpha(),
+        "house_broken": pg.image.load("C3_sprites/C3/Land2a_00115.png").convert_alpha(),
         "hud_shovel_sprite": pg.image.load("C3_sprites/C3/Land1a_00002.png").convert_alpha(),
         "hud_road_sprite": pg.image.load("C3_sprites/C3/Land1a_00003.png").convert_alpha(),
         "dirt": pg.image.load("C3_sprites/C3/Land2a_00004.png").convert_alpha(),
@@ -49,7 +49,17 @@ def load_images():
         "crossroad_top_bottom_left": pg.image.load("C3_sprites/C3/Land2a_00107.png").convert_alpha(),
         "crossroad_top_right_left": pg.image.load("C3_sprites/C3/Land2a_00108.png").convert_alpha(),
         "crossroad_top_right_bottom": pg.image.load("C3_sprites/C3/Land2a_00109.png").convert_alpha(),
-        "cross": pg.image.load("C3_sprites/C3/Land2a_00110.png").convert_alpha()
+        "cross": pg.image.load("C3_sprites/C3/Land2a_00110.png").convert_alpha(),
+
+        "speedDown": pg.image.load("C3_sprites/C3/paneling_down.png").convert_alpha(),
+
+        "load_game": pg.image.load("C3_sprites/C3/Screenshot_4.png").convert_alpha(),
+        "save_game": pg.image.load("C3_sprites/C3/Screenshot_7.png").convert_alpha(),
+
+        "speedUp": pg.image.load("C3_sprites/C3/paneling_up.png").convert_alpha(),
+
+        "fire": pygame.image.load('C3_sprites/C3/Land2a_00190.png').convert_alpha(),
+
     }
 
     return images
@@ -93,12 +103,13 @@ def grid_to_world(grid_x, grid_y):
 
 
 class WorldController:
-    def __init__(self, hud, grid_length_x, grid_length_y, width, height, keyboard):
+    def __init__(self, hud, grid_length_x, grid_length_y, width, height, keyboard, ressources):
         self.hud = hud
         self.grid_length_x = grid_length_x
         self.grid_length_y = grid_length_y
         self.width = width
         self.height = height
+        self.speed = 1
 
         # images
         self.images = load_images()
@@ -108,11 +119,11 @@ class WorldController:
             (grid_length_x * TILE_SIZE * 2, grid_length_y * TILE_SIZE + 2 * TILE_SIZE)).convert_alpha()
 
         self.worldModel = WorldModel(self.create_world())
-        self.time = pygame.time.get_ticks()
+        self.actual_time = pygame.time.get_ticks()
 
         # world Model object
-        f1 = open('worldSave', 'rb')
-        self.worldModel = pickle.load(f1)
+        # f1 = open('worldSave', 'rb')
+        # self.worldModel = pickle.load(f1)
 
         # selection building
         self.selection_building = None
@@ -127,7 +138,6 @@ class WorldController:
 
         # temporary case for selection
         self.temp_cases = []
-
         self.walkers = []
 
         # keyboard
@@ -153,12 +163,15 @@ class WorldController:
         self.internal_offset.y = self.internal_surf_size[1] // 2 - self.half_h
 
         # Ressource
-        self.ressources = Ressources(0, 0, 3000, 0)
+        self.ressources = ressources
 
         self.hud_w = self.width // 2
         # HUD RECT
         '''declare hud_rect'''
         self.hud_rect = pg.Rect(0, 0, WIDHT - self.hud.hudbase_below.get_width() + 12, HEIGHT)
+
+        # TIMER
+        self.time = Timer()
 
     def create_world(self):
 
@@ -192,15 +205,15 @@ class WorldController:
                                  rect_case[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
                     if building:
                         if building.get_citoyen() and building.get_citoyen().get_pos() != building.get_route_voisine():
-                            self.draw_walkers(building.get_citoyen(), building.get_citoyen().get_sprite(),screen, camera_scroll_x, camera_scroll_y)
+                            self.draw_walkers(building.get_citoyen(), building.get_citoyen().get_sprite(), screen,
+                                              camera_scroll_x, camera_scroll_y)
 
     def update_walkers(self):
         for walker in self.walkers:
             walker.move_to_home()
 
-
-    def draw_walkers(self,walker,sprite, screen, camera_scroll_x, camera_scroll_y):
-        case = self.worldModel.get_case(walker.get_pos()[0],walker.get_pos()[1])
+    def draw_walkers(self, walker, sprite, screen, camera_scroll_x, camera_scroll_y):
+        case = self.worldModel.get_case(walker.get_pos()[0], walker.get_pos()[1])
         rect_case = case.get_render_pos()
         screen.blit(self.images["walker"], (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
                                             rect_case[1] - (self.images[
@@ -218,12 +231,54 @@ class WorldController:
         grid_y = int(cart_y // TILE_SIZE)
         return grid_x, grid_y
 
+    def changeTime(self):
+        mouse_action = self.keyboard.get_keyboard_input()
+
+        if mouse_action.get(pg.MOUSEBUTTONDOWN):
+            if self.hud.selected_tile is not None:
+                sprite_name = self.hud.selected_tile["name"]
+                if (sprite_name == "speedUp"):
+                    if self.speed >= 1 and self.speed < 5:
+                        self.speed += 1
+                    if self.speed < 1:
+                        self.speed += 0.1
+                if (sprite_name == "speedDown"):
+                    if self.speed > 1:
+                        self.speed -= 1
+                    if self.speed <= 1 and self.speed > 0.1:
+                        self.speed -= 0.1
+
+    def FileSelector(self):
+        mouse_action = self.keyboard.get_keyboard_input()
+        if mouse_action.get(pg.MOUSEBUTTONDOWN):
+            if self.hud.selected_tile is not None:
+                sprite_name = self.hud.selected_tile["name"]
+                if (sprite_name == "load_game"):
+                    path = easygui.fileopenbox()
+                    file = open(path, 'rb')
+                    self.worldModel = pickle.load(file)
+
+    def FileRegister(self):
+        mouse_action = self.keyboard.get_keyboard_input()
+        if mouse_action.get(pg.MOUSEBUTTONDOWN):
+            if self.hud.selected_tile is not None:
+                sprite_name = self.hud.selected_tile["name"]
+                if (sprite_name == "save_game"):
+                    path = easygui.fileopenbox()
+                    file = open(path, 'wb')
+                    self.saveWord(path)
+
     def update(self, camera):
+        self.FileRegister()
+        self.FileSelector()
+        self.changeTime()
+        self.time.update(self.speed)
+
         now = pygame.time.get_ticks()
-        if( now - self.time > 500):
+        if (now - self.actual_time > 500):
             self.update_building()
             self.update_walkers()
-            self.time = now
+            self.actual_time = now
         mouse_pos = pg.mouse.get_pos()
         mouse_action = self.keyboard.get_keyboard_input()
         grid_pos = self.mouse_to_grid(mouse_pos[0], mouse_pos[1], camera.scroll)
@@ -349,6 +404,7 @@ class WorldController:
                 if image_name != "hud_shovel_sprite":
                     case.set_tile(image_name)
                     self.ressources.sub_dinars(10)
+
                 elif image_name == "hud_shovel_sprite":
                     case.set_tile(image_name)
 
@@ -381,11 +437,11 @@ class WorldController:
                         migrant_posx, migrant_posy = 0, 0
                         migrant_destx, migrant_desty = voisin_direct[0], voisin_direct[1]
                         path = self.pathfinding(migrant_posx, migrant_posy, migrant_destx, migrant_desty)
-                        migrant = Migrant(0, 0, migrant_destx, migrant_desty, path,"walker")
+                        migrant = Migrant(0, 0, migrant_destx, migrant_desty, path, "walker")
                         self.walkers.append(migrant)
-                        house = House(case,migrant,voisin_direct)
+                        house = House(case, migrant, voisin_direct)
                     else:
-                        house = House(case,None,None)
+                        house = House(case, None, None)
                     case.set_building(house)
             elif sprite_name == "hud_shovel_sprite":
                 case.set_building(None)
@@ -397,16 +453,24 @@ class WorldController:
         :return: None
         """
         now = pygame.time.get_ticks()
-        if now - self.time > 5000:
-            for x,y in self.worldModel.get_list_grid_pos_building():
-                case = self.worldModel.get_case(x,y)
+        if now - self.actual_time > 5000:
+            for x, y in self.worldModel.get_list_grid_pos_building():
+                case = self.worldModel.get_case(x, y)
                 building = case.get_building()
                 if building:
+                    if self.time.time_multiple():
+                        if random.randint(0, 100) < 50:
+                            building.add_fire()
                     building.add_damage()
+
                     damage = building.get_damage()
+                    fire = building.get_fire()
                     if damage:
                         building.set_sprite("house_broken")
-            self.time = now
+                    if fire:
+                        building.set_sprite("fire")
+
+            self.actual_time = now
 
     def change_cases_collision(self, collision, coord_cases):
         cases = [self.worldModel.get_case(x, y) for x, y in coord_cases]
@@ -416,8 +480,8 @@ class WorldController:
     def get_world_model(self):
         return self.worldModel
 
-    def saveWord(self):
-        with open("worldSave", "wb") as f1:
+    def saveWord(self,path):
+        with open(path, "wb") as f1:
             pickle.dump(self.worldModel, f1)
         f1.close()
 

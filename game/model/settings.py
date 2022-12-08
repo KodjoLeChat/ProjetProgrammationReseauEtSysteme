@@ -10,7 +10,11 @@ screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 #screen = pygame.display.set_mode((1000,800))
 WIDHT, HEIGHT = screen.get_size()
 # Menu Principal:
-text_buttons_menuP = ["ROMULUS", "Start_new_career", "Load_saved_game_", "Exit"]
+text_buttons_menuP = ["ROMULUS", "Start_new_career", "Load_saved_game", "Exit"]
+
+text_buttons_Game = ["ROMULUS", "Return", "ChooseFile", "Exit"]
+
+
 images_menuP = [None, None, None, None, None]
 fonts_menuP = [("white", "Milk"), ("red", "Milk"), ("red", "Milk"), ("red", "Milk")]
 delta_Button_menuP = [(60, 2), (15, 2), (15, 2), (60, 2)]  # la differnce entre la pos d un button et pos init
