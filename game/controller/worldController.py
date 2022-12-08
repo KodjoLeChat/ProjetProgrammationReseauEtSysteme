@@ -250,27 +250,26 @@ class WorldController:
                             
     def FileSelector(self):
         mouse_action = self.keyboard.get_keyboard_input()
-        sprite_rect = self.images["load_game"].get_rect()
-        '''move rect of image'''
-        mouse_pos = pygame.mouse.get_pos()
         if mouse_action.get(pg.MOUSEBUTTONDOWN):
-            if sprite_rect.collidepoint(mouse_pos):
-                print("load_game")
-                path = easygui.fileopenbox()
-                file = open(path, 'rb')
-                self.worldModel = pickle.load(file)
+            if self.hud.selected_tile is not None:
+                sprite_name = self.hud.selected_tile["name"]
+                if (sprite_name =="load_game"):
+                    print("load_game")
+                    path = easygui.fileopenbox()
+                    file = open(path, 'rb')
+                    self.worldModel = pickle.load(file)
+
 
     def FileRegister(self):
         mouse_action = self.keyboard.get_keyboard_input()
-        sprite_rect = self.images["save_game"].get_rect()
-        '''move rect of image'''
-        mouse_pos = pygame.mouse.get_pos()
         if mouse_action.get(pg.MOUSEBUTTONDOWN):
-            if sprite_rect.collidepoint(mouse_pos):
-                print("save_game")
-                path = easygui.fileopenbox()
-                file = open(path, 'wb')
-                self.saveWordt(path)
+            if self.hud.selected_tile is not None:
+                sprite_name = self.hud.selected_tile["name"]
+                if (sprite_name =="save_game"):
+                    print("save_game")
+                    path = easygui.fileopenbox()
+                    file = open(path, 'wb')
+                    self.saveWordt(path)
                 
 
 

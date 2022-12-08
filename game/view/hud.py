@@ -133,14 +133,16 @@ class Hud:
     def creat_button_file(self):
         render_pos = [self.resources_rect.get_width()-30, self.resources_rect.get_height()]
         object_width = self.build_surface.get_width() // 4
-
         fileList = []
-
+        count = 0
         for file_name, file_image in self.file.items():
             pos = render_pos.copy()
             image_scale = self.scale_image(file_image, w=object_width)
             rect = image_scale.get_rect(topleft=pos)
-
+            if count == 0:
+                rect = pygame.Rect(self.resources_rect.get_width(), self.resources_rect.get_height(), self.resources_rect.get_width(), self.resources_rect.get_width())
+            else:
+                rect = pygame.Rect(self.resources_rect.get_width(), self.resources_rect.get_height()+ 23, self.resources_rect.get_width(), self.resources_rect.get_width())
             fileList.append(
                 {
                     "name": file_name,
@@ -150,6 +152,7 @@ class Hud:
             )
             print(fileList)
             render_pos[1] += image_scale.get_height() + 17
+            count+=1
         return fileList
 
     def update(self):
@@ -269,10 +272,8 @@ class Hud:
                 sprite_name = self.selected_tile["name"]
                 if (sprite_name =="speedUp"):
                         if self.speed >= 1 and self.speed < 5:
-                            print("ok tu changes le tps")
                             self.speed += 1
                         if self.speed < 1:
-                            print("ok tu changes le tps")
                             self.speed += 0.1
                 if (sprite_name =="speedDown"):
                         if self.speed > 1:
