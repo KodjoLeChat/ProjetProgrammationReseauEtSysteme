@@ -35,6 +35,7 @@ def load_images():
         "hud_road_sprite": pg.image.load("C3_sprites/C3/Land1a_00003.png").convert_alpha(),
         "dirt": pg.image.load("C3_sprites/C3/Land2a_00004.png").convert_alpha(),
         "migrant": pygame.image.load("C3_sprites/C3/citizen02_00024.png").convert_alpha(),
+        "engineer": pygame.image.load("C3_sprites/C3/Citizen01_01141.png").convert_alpha(),
         "hud_hammer_sprite": pygame.image.load("C3_sprites/C3/transport_00056.png").convert_alpha(),
 
 
@@ -466,10 +467,10 @@ class WorldController:
                     voisin_direct = None if len(voisin) == 0 else voisin[0]
 
                     if voisin_direct is not None:
-                        migrant_posx, migrant_posy = 0, 0
-                        migrant_destx, migrant_desty = voisin_direct[0], voisin_direct[1]
+                        migrant_posx, migrant_posy = voisin_direct[0] ,  voisin_direct[1]
+                        migrant_destx,migrant_desty = list(self.worldModel.get_list_grid_pos_road())[random.randint(0,len(self.worldModel.get_list_grid_pos_building())-1)]
                         path = self.pathfinding(migrant_posx, migrant_posy, migrant_destx, migrant_desty)
-                        migrant = Migrant(0, 0, migrant_destx, migrant_desty, path, "migrant")
+                        migrant = Migrant(0, 0, migrant_destx, migrant_desty, path, "engineer")
                         self.walkers.append(migrant)
                         house = House(case, migrant, voisin_direct)
                     else:
