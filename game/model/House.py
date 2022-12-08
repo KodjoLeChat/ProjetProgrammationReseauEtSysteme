@@ -1,6 +1,9 @@
+import random
+
 class House():
-    def __init__(self, citoyen,route_voisine):
+    def __init__(self,case, citoyen,route_voisine):
         self.type = "house"
+        self.case = case
         self.citoyen = citoyen
         self.occupant = 0
         self.damage = 0
@@ -8,11 +11,15 @@ class House():
 
     def get_citoyen(self):
         return self.citoyen
-
+    def get_damage(self):
+        return self.damage
+    def get_route_voisine(self):
+        return self.route_voisine
     def add_damage(self):
-        self.damage += 5
+        self.damage += random.randint(0,5)
 
     def set_occupant(self, nb_occupant):
         self.occupant = 5
-    def get_route_voisine(self):
-        return self.route_voisine
+
+    def set_sprite(self,sprite):
+        self.case.set_tile(sprite)

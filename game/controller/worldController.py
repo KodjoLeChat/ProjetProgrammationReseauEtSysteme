@@ -27,6 +27,7 @@ def load_images():
         "grass": pg.image.load("C3_sprites/C3/Land1a_00002.png").convert_alpha(),
         "sign": pg.image.load("C3_sprites/C3/Housng1a_00045.png").convert_alpha(),
         "hud_house_sprite": pg.image.load("C3_sprites/C3/Housng1a_00001.png").convert_alpha(),
+        "house_broken":pg.image.load("C3_sprites/C3/Land2a_00115.png").convert_alpha(),
         "hud_shovel_sprite": pg.image.load("C3_sprites/C3/Land1a_00002.png").convert_alpha(),
         "hud_road_sprite": pg.image.load("C3_sprites/C3/Land1a_00003.png").convert_alpha(),
         "dirt": pg.image.load("C3_sprites/C3/Land2a_00004.png").convert_alpha(),
@@ -107,6 +108,7 @@ class WorldController:
             (grid_length_x * TILE_SIZE * 2, grid_length_y * TILE_SIZE + 2 * TILE_SIZE)).convert_alpha()
 
         self.worldModel = WorldModel(self.create_world())
+        self.time = pygame.time.get_ticks()
 
         # world Model object
         f1 = open('worldSave', 'rb')
@@ -193,8 +195,11 @@ class WorldController:
                             self.draw_walkers(building.get_citoyen(), building.get_citoyen().get_sprite(),screen, camera_scroll_x, camera_scroll_y)
 
     def update_walkers(self):
-        for walker in self.walkers:
-            walker.move_to_home()
+        now = pygame.time.get_ticks()
+        if now - self.time > 500:
+            for walker in self.walkers:
+                walker.move_to_home()
+            self.time = now
 
     def draw_walkers(self,walker,sprite, screen, camera_scroll_x, camera_scroll_y):
         case = self.worldModel.get_case(walker.get_pos()[0],walker.get_pos()[1])
@@ -216,6 +221,7 @@ class WorldController:
         return grid_x, grid_y
 
     def update(self, camera):
+        self.update_building()
         self.update_walkers()
         mouse_pos = pg.mouse.get_pos()
         mouse_action = self.keyboard.get_keyboard_input()
@@ -352,7 +358,6 @@ class WorldController:
         """
         cases = [self.worldModel.get_case(x, y) for x, y in self.worldModel.get_list_grid_pos_building()]
         for case in cases:
-            self.update_building(case)
             if sprite_name == "hud_house_sprite":
                 if not case.get_collision():
 
@@ -372,26 +377,32 @@ class WorldController:
                     voisin_direct = None if len(voisin) == 0 else voisin[0]
 
                     if voisin_direct is not None:
-                        migrant_posx, migrant_posy = 32, 64
+                        migrant_posx, migrant_posy = 0, 0
                         migrant_destx, migrant_desty = voisin_direct[0], voisin_direct[1]
                         path = self.pathfinding(migrant_posx, migrant_posy, migrant_destx, migrant_desty)
                         migrant = Migrant(0, 0, migrant_destx, migrant_desty, path,"walker")
                         self.walkers.append(migrant)
-                        house = House(migrant,voisin_direct)
+                        house = House(case,migrant,voisin_direct)
                     else:
-                        house = House(None,None)
+                        house = House(case,None,None)
                     case.set_building(house)
             elif sprite_name == "hud_shovel_sprite":
                 case.set_building(None)
 
-    def update_building(self, case):
+    def update_building(self):
         """
         Update les buildings
-        :param case: demande la case sur laquel est le building
+        :param case: la case sur laquel est le building
         :return: None
         """
-        if case.get_building():
-            case.get_building().add_damage()
+        for x,y in self.worldModel.get_list_grid_pos_building():
+            case = self.worldModel.get_case(x,y)
+            building = case.get_building()
+            if building:
+                building.add_damage()
+                damage = building.get_damage()
+                if damage:
+                    building.set_sprite("house_broken")
 
     def change_cases_collision(self, collision, coord_cases):
         cases = [self.worldModel.get_case(x, y) for x, y in coord_cases]

@@ -1,3 +1,6 @@
+import pygame.time
+
+
 class Migrant:
 
     def __init__(self, pos_x, pos_y, home_x, home_y, path, sprite):
@@ -19,3 +22,6 @@ class Migrant:
 
     def get_sprite(self):
         return self.sprite
+
+    def get_time(self):
+        return self.time

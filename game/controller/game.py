@@ -38,8 +38,8 @@ class Game:
         while self.playing:
             self.clock.tick(70)
             self.keyboard.notify()
-            self.update()
             self.draw()
+            self.update()
             pg.display.flip()
 
     def update(self):
