@@ -35,11 +35,6 @@ class Game:
         # camera
         self.camera = Camera(self.width, self.height)
 
-
-        
-
-
-
     # build
     def run(self):
         while self.playing:
@@ -70,5 +65,5 @@ class Game:
         self.screen.fill((0, 0, 0))
         self.screen.blit(self.worldController.dim_map, (self.camera.scroll.x, self.camera.scroll.y))
         self.worldController.draw(self.screen, self.camera)
-
+        self.worldController.draw_minimapR(self.screen, self.camera)
         self.hud.draw(self.screen)

@@ -176,6 +176,7 @@ class Hud:
             for tile in self.tiles:
                 if tile["rect"].collidepoint(mouse_pos):
                     self.selected_tile = tile
+                    self.selected_mode = tile["mode"]
             for tile in self.button:
                 if tile["rect"].collidepoint(mouse_pos):
                     self.selected_tile = tile
