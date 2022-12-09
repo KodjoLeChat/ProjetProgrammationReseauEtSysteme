@@ -89,63 +89,6 @@ class Hud:
                     "right": pg.image.load("C3_sprites/C3/paneling_00096.png"),
                     }
 
-        self.test = {
-            "map": pg.image.load("C3_sprites/C3/paneling_00479.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00480.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00481.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00482.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00483.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00484.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00485.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00486.png"),
-                }
-        self.test2 = {
-            "map": pg.image.load("C3_sprites/C3/paneling_00487.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00488.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00489.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00490.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00491.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00492.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00493.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00494.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00495.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00496.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00497.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00498.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00499.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00500.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00501.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00502.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00503.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00504.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00505.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00506.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00507.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00508.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00509.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00510.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00511.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00512.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00513.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00514.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00515.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00516.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00517.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00518.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00519.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00520.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00521.png"),
-                }
-        self.test3 = {
-            "map": pg.image.load("C3_sprites/C3/paneling_00521.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00522.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00523.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00524.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00525.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00526.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00527.png"),
-            "map": pg.image.load("C3_sprites/C3/paneling_00528.png"),
-                }
     def create_build_hud(self):
 
         render_pos = [WIDHT - self.hudbase_below.get_width() + 12, self.resources_rect.get_height() + 278]
