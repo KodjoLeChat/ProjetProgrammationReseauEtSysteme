@@ -16,6 +16,7 @@ import easygui
 from pathfinding.core.diagonal_movement import DiagonalMovement
 from pathfinding.core.grid import Grid
 from pathfinding.finder.a_star import AStarFinder
+from pathfinding.core.util import smoothen_path
 
 
 def load_images():
@@ -35,8 +36,8 @@ def load_images():
         "hud_road_sprite": pg.image.load("C3_sprites/C3/Land1a_00003.png").convert_alpha(),
         "dirt": pg.image.load("C3_sprites/C3/Land2a_00004.png").convert_alpha(),
         "migrant": pygame.image.load("C3_sprites/C3/citizen02_00024.png").convert_alpha(),
+        "engineer": pygame.image.load("C3_sprites/C3/Citizen01_01141.png").convert_alpha(),
         "hud_hammer_sprite": pygame.image.load("C3_sprites/C3/transport_00056.png").convert_alpha(),
-
 
         # routes
         "road_hover": pg.image.load("C3_sprites/C3/Land2a_00044.png").convert_alpha(),
@@ -208,21 +209,21 @@ class WorldController:
                     screen.blit(self.images[tile],
                                 (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
                                  rect_case[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
-                    if building:
-                        if building.get_citoyen() and building.get_citoyen().get_pos() != building.get_route_voisine():
-                            self.draw_walkers(building.get_citoyen(), building.get_citoyen().get_sprite(), screen,
-                                              camera_scroll_x, camera_scroll_y)
+        self.draw_walkers(screen, camera_scroll_x, camera_scroll_y)
 
     def update_walkers(self):
         for walker in self.walkers:
             walker.move_to_home()
 
-    def draw_walkers(self, walker, sprite, screen, camera_scroll_x, camera_scroll_y):
-        case = self.worldModel.get_case(walker.get_pos()[0], walker.get_pos()[1])
-        rect_case = case.get_render_pos()
-        screen.blit(self.images["migrant"], (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
-                                             rect_case[1] - (self.images[
-                                                                 sprite].get_height() - TILE_SIZE) + camera_scroll_y))
+    def draw_walkers(self, screen, camera_scroll_x, camera_scroll_y):
+        for walker in self.walkers:
+            if len(walker.get_path()) != 0:
+                case = self.worldModel.get_case(walker.get_pos()[0], walker.get_pos()[1])
+                rect_case = case.get_render_pos()
+                sprite = walker.get_sprite()
+                screen.blit(self.images[sprite], (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
+                                                  rect_case[1] - (self.images[
+                                                                      sprite].get_height() - TILE_SIZE) + camera_scroll_y))
 
     def mouse_to_grid(self, x, y, scroll):
         # transform to world position (removing camera scroll and offset)
@@ -442,7 +443,8 @@ class WorldController:
                     if voisin_direct is not None:
                         migrant_posx, migrant_posy = 0, 0
                         migrant_destx, migrant_desty = voisin_direct[0], voisin_direct[1]
-                        path = self.pathfinding(migrant_posx, migrant_posy, migrant_destx, migrant_desty)
+                        matrix = self.create_colision_matrix_migrant()
+                        path = self.pathfinding(migrant_posx, migrant_posy, migrant_destx, migrant_desty, matrix)
                         migrant = Migrant(0, 0, migrant_destx, migrant_desty, path, "migrant")
                         self.walkers.append(migrant)
                         house = House(case, migrant, voisin_direct)
@@ -464,19 +466,18 @@ class WorldController:
                         voisin.append((x, y - 1))
 
                     voisin_direct = None if len(voisin) == 0 else voisin[0]
-
                     if voisin_direct is not None:
-                        migrant_posx, migrant_posy = 0, 0
+
+                        migrant_posx, migrant_posy = voisin_direct[0], voisin_direct[1]
                         migrant_destx, migrant_desty = voisin_direct[0], voisin_direct[1]
-                        path = self.pathfinding(migrant_posx, migrant_posy, migrant_destx, migrant_desty)
-                        migrant = Migrant(0, 0, migrant_destx, migrant_desty, path, "migrant")
+                        bad_path = self.bad_pathfind(migrant_posx, migrant_posy, migrant_destx, migrant_desty)
+                        # path = self.pathfinding(migrant_posx, migrant_posy, migrant_destx, migrant_desty)
+                        migrant = Migrant(0, 0, migrant_destx, migrant_desty, bad_path, "engineer")
                         self.walkers.append(migrant)
                         house = House(case, migrant, voisin_direct)
                     else:
                         house = House(case, None, None)
                     case.set_building(house)
-
-
             elif sprite_name == "hud_shovel_sprite":
                 case.set_building(None)
 
@@ -491,6 +492,7 @@ class WorldController:
             for x, y in self.worldModel.get_list_grid_pos_building():
                 case = self.worldModel.get_case(x, y)
                 building = case.get_building()
+                route_voisine = case.get_route_voisine()
                 if building:
                     if self.time.time_multiple():
                         if random.randint(0, 100) < 50:
@@ -523,18 +525,67 @@ class WorldController:
         if len(self.worldModel.list_grid_pos_road) != 0:
             matrix = [[0 for i in range(GRID_WIDTH)] for j in range(GRID_LENGTH)]
             for x, y in self.worldModel.get_list_grid_pos_road():
+                matrix[x][y] = 1
+            return matrix
+        return None
+
+    def create_colision_matrix_migrant(self):
+        if len(self.worldModel.list_grid_pos_road) != 0:
+            matrix = [[0 for i in range(GRID_WIDTH)] for j in range(GRID_LENGTH)]
+            for x, y in self.worldModel.get_list_grid_pos_road():
                 matrix[y][x] = 1
             return matrix
         return None
 
-    def pathfinding(self, posx_start, posy_start, posx_end, posy_end):
-        matrix = self.create_colision_matrix()
-        if matrix != None:
+    def pathfinding(self, posx_start, posy_start, posx_end, posy_end, matrix):
+        if matrix is not None:
             grid = Grid(matrix=matrix)
             start = grid.node(posx_start, posy_start)
             end = grid.node(posx_end, posy_end)
-
             finder = AStarFinder(diagonal_movement=DiagonalMovement.always)
             path, run = finder.find_path(start, end, grid)
             return path
         return None
+
+    def bad_pathfind(self, posx_start, posy_start, posx_end, posy_end):
+        matrix = self.create_colision_matrix()
+        path = []
+        actual_posx = posx_start
+        actual_posy = posy_start
+        old_posx_start = None
+        old_posy_start = None
+        voisin = list()
+        is_voisin = True
+        if matrix is not None:
+            while (is_voisin):
+                is_voisin = False
+                if matrix[actual_posx - 1][actual_posy]:
+                    if (actual_posx - 1,actual_posy) != (old_posx_start,old_posy_start):
+                        if actual_posx - 1 != old_posx_start:
+                            voisin.append((actual_posx - 1, actual_posy))
+
+                if matrix[actual_posx + 1][actual_posy]:
+                    if (actual_posx + 1,actual_posy) != (old_posx_start,old_posy_start):
+                        if  actual_posx + 1 != old_posx_start:
+                            voisin.append((actual_posx + 1, actual_posy))
+
+                if matrix[actual_posx][actual_posy - 1]:
+                    if (actual_posx,actual_posy - 1) != (old_posx_start,old_posy_start):
+                        if actual_posy - 1 != old_posy_start:
+                            voisin.append((actual_posx, actual_posy - 1))
+
+                if matrix[actual_posx][actual_posy + 1]:
+                    if (actual_posx,actual_posy + 1) != (old_posx_start,old_posy_start):
+                        if actual_posy + 1 != old_posy_start:
+                            voisin.append((actual_posx, actual_posy + 1))
+
+                if (len(voisin) != 0):
+                    is_voisin = True
+                    random_voisin = random.choice(voisin)
+                    path.append(random_voisin)
+                    old_posx_start = actual_posx
+                    old_posy_start = actual_posy
+                    actual_posx =random_voisin[0]
+                    actual_posy =random_voisin[1]
+                voisin = list()
+            return path

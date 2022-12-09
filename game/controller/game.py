@@ -43,7 +43,7 @@ class Game:
     # build
     def run(self):
         while self.playing:
-            self.clock.tick(70)
+            self.clock.tick(60)
             self.keyboard.notify()
             self.draw()
             self.update()
