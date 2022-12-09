@@ -26,7 +26,7 @@ class Game:
         self.ressources = Ressources(0, 0, 3000, 0)
 
         # hud
-        self.hud = Hud(self.width, self.height, self.ressources, self.keyboard)
+        self.hud = Hud(self.width, self.height, self.ressources, self.keyboard, self.clock)
 
         # world
         self.worldController = WorldController(self.hud, GRID_LENGTH, GRID_WIDTH, self.width, self.height,
