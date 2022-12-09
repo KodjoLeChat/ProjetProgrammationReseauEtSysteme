@@ -7,11 +7,14 @@ import pygame.event
 
 from game.model.case import Case
 from game.model.settings import TILE_SIZE
+from PIL import Image
 
 
 class World:
 
-    def __init__(self, hud, grid_length_x, grid_length_y, width, height, keyboard):
+    def __init__(self, hud, grid_length_x, grid_length_y, width, height, keyboard,image):
+        # pour tester
+        self.image = image
         self.hud = hud
         self.grid_length_x = grid_length_x
         self.grid_length_y = grid_length_y
@@ -31,7 +34,10 @@ class World:
         self.images = self.load_images()
         self.world = self.create_world()
 
+        
+        #
         self.temp_cases = []
+       
 
     def update(self, camera):
         mouse_pos = pg.mouse.get_pos()
@@ -144,9 +150,16 @@ class World:
                 world[grid_x].append(world_tile)
 
                 render_pos = world_tile.get_render_pos()
-                self.dim_map.blit(self.images["block"],
-                                  (render_pos[0] + self.dim_map.get_width() / 2, render_pos[1]))
+                #?? 
+                #self.dim_map.blit(self.images[world_tile.tile],
+                #                  (render_pos[0] + self.dim_map.get_width() / 2, render_pos[1]))
         return world
+
+    def land(self):
+        with Image.open(self.image) as im:
+            x, y = im.size 
+            px = im.load()        
+            return px
 
     def grid_to_world(self, grid_x, grid_y):
         rect = [
@@ -160,28 +173,40 @@ class World:
 
         minx = min([x for x, y in iso_poly])
         miny = min([y for x, y in iso_poly])
-        r = random.randint(1, 1000)
+        couleurs = self.land()
+        clr_x_y = couleurs[grid_x, grid_y]
+        clr = (clr_x_y[0],clr_x_y[1],clr_x_y[2])
 
-        if r <= 50 and r > 5:
-            tile = "tree1"
-        elif r <= 100 and r >= 50:
-            tile = "tree2"
-        elif r <= 150 and r >= 100:
-            tile = "tree3"
-        # elif r <= 1:
-        #    tile = "farm"
-        else:
-            tile = ""
+        match clr:
+            case (0,162,232):
+                tile = "water"
+            case (34,177,76):
+                tile = "block"
+            case (20,102,44):
+                tile = "tree1" 
+            case (212,212,212):
+                tile = "rock"  
+            case (70,70,70):
+                tile = "water_left"
+            case (130,130,130):
+                tile = "water_right"
+            case _:
+                tile = "block"
+
         collision = False if tile == "" else True
 
         out = Case([grid_x, grid_y], rect, iso_poly, tile, (minx, miny), collision)
 
         return out
 
+
+
     def cart_to_iso(self, x, y):
         iso_x = x - y
         iso_y = (x + y) / 2
         return iso_x, iso_y
+
+    
 
     def load_images(self):
         images = {
@@ -193,10 +218,14 @@ class World:
             "farm": pg.image.load("C3_sprites/C3/Security_00053.png").convert_alpha(),
             "tree": pg.image.load("C3_sprites/C3/paneling_00135.png").convert_alpha(),
             "block": pg.image.load("C3_sprites/C3/Land1a_00002.png").convert_alpha(),
+            "rock":pg.image.load("C3_sprites/C3/Land1a_00293.png").convert_alpha(),
             "sign": pg.image.load("C3_sprites/C3/Housng1a_00045.png").convert_alpha(),
+            "water": pg.image.load("C3_sprites/C3/Land1a_00120.png").convert_alpha(),
             "hud_house_sprite": pg.image.load("C3_sprites/C3/Housng1a_00001.png").convert_alpha(),
             "hud_shovel_sprite": pg.image.load("C3_sprites/C3/Land1a_00002.png").convert_alpha(),
             "hud_road_sprite": pg.image.load("C3_sprites/C3/Land1a_00003.png").convert_alpha(),
+            "water_left":pg.image.load("C3_sprites/C3/Land1a_00133.png").convert_alpha(),
+            "water_right":pg.image.load("C3_sprites/C3/Land1a_00143.png").convert_alpha(),
             # routes
             "road_hover": pygame.image.load("C3_sprites/C3/Land2a_00044.png").convert_alpha(),
             "top_bottom": pygame.image.load("C3_sprites/C3/Land2a_00094.png").convert_alpha(),

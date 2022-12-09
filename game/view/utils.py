@@ -22,7 +22,7 @@ def extract_image_path(car: object, font: object) -> object:
             var_str = "00" + str(var)
         elif var < 100:
             var_str = "0"+str(var)
-        path = "C3_sprites\C3\\fonts_00"+var_str+".png"
+        path = "C3_sprites/C3/fonts_00"+var_str+".png"
     return path
 
 def create_bg(color):

@@ -21,7 +21,7 @@ class Game:
         self.hud = Hud(self.width, self.height)
 
         # world
-        self.world = World(self.hud, 65, 65, self.width, self.height,self.keyboard)
+        self.world = World(self.hud, 64, 64, self.width, self.height,self.keyboard,"land.png")
 
         # camera
         self.camera = Camera(self.width, self.height)

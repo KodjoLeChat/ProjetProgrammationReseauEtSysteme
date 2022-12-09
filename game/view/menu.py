@@ -4,6 +4,7 @@ from game.view.Button import Button
 from game.view.utils import extract_image_path, create_bg
 from game.view.utils import *
 from game.model.settings import *
+from game.view.Land import *
 
 class Menu():
     '''
@@ -50,6 +51,8 @@ class Menu():
         # move to Run function
         # barre_function(self.screen)
         ##
+        '''land = Land(self.screen, "land_green.png")
+        land.draw()'''
         pygame.display.flip()
 
     def check_state(self):
