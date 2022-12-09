@@ -22,6 +22,8 @@ class Game:
         self.state = False
         self.playing = True
 
+        self.pause = False
+
         # Ressources
         self.ressources = Ressources(0, 0, 3000, 0)
 
@@ -29,11 +31,12 @@ class Game:
         self.hud = Hud(self.width, self.height, self.ressources, self.keyboard, self.clock)
 
         # world
-        self.worldController = WorldController(self.hud, GRID_LENGTH, GRID_WIDTH, self.width, self.height,
-                                               self.keyboard, self.ressources)
+        self.worldController = WorldController(self.hud, GRID_LENGTH, GRID_WIDTH, self.width, self.height, self.keyboard, self.ressources)
 
         # camera
         self.camera = Camera(self.width, self.height)
+
+        
 
     # build
     def run(self):
@@ -45,9 +48,38 @@ class Game:
             pg.display.flip()
 
     def update(self):
-        self.camera.update()
-        self.hud.update()
-        self.worldController.update(self.camera)
+            print(self.PauseR())
+            self.Pause()
+            self.camera.update()
+            self.hud.update()
+            if self.pause == False:
+                self.worldController.update(self.camera)
+            
+    def Pause(self):
+        mouse_action = self.keyboard.get_keyboard_input()
+        
+        if mouse_action.get(pg.MOUSEBUTTONDOWN):
+            if self.hud.selected_tile is not None:
+                sprite_name = self.hud.selected_tile["name"]
+                print(sprite_name)
+                if (sprite_name =="pause"):
+                    if self.pause == False:
+                        print("pause")
+                        self.pause = True
+                        return True
+                    else:
+                        self.pause = False
+                        print("unpause")
+                        return False
+            
+    def PauseR(self):
+        for event in pg.event.get():
+            if event.type == pg.MOUSEBUTTONUP:
+                print("mouuuuuuuuuuuuuuuuuse")
+            
+                return True
+
+
 
     def get_state(self):
         return self.state

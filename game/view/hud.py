@@ -71,6 +71,7 @@ class Hud:
         self.speedBut = {
             "speedDown" : pg.image.load("C3_sprites/C3/paneling_down.png"),
             "speedUp" : pg.image.load("C3_sprites/C3/paneling_up.png"),
+            "pause": pg.image.load("C3_sprites/C3/Screenshot_8.png"),
 
         }
 
@@ -131,7 +132,7 @@ class Hud:
             pos = render_pos.copy()
             image_scale = self.scale_image(button_image, w=object_width)
             rect = image_scale.get_rect(topleft=pos)
-
+            print(button_name)
             button.append(
                 {
                     "name": button_name,
@@ -140,7 +141,9 @@ class Hud:
                 }
             )
 
-            render_pos[0] += button_image.get_width()
+
+            render_pos[0] += button_image.get_width() + 10
+
         return button
 
     def creat_button_file(self):
@@ -301,6 +304,8 @@ class Hud:
 
         screen.blit(self.info["file"], (self.resources_rect.get_width()-30, 4))
 
+        
+
         mouse_action = self.keyboard.get_keyboard_input()
 
         if mouse_action.get(pg.MOUSEBUTTONDOWN):
@@ -318,7 +323,7 @@ class Hud:
                             self.speed -= 0.1
 
         text = font.render('{} %'.format(self.speed*100), 0, (0, 0, 0))
-        screen.blit(text, (WIDHT - WIDHT*0.04, HEIGHT //2 - 20) )
+        screen.blit(text, (WIDHT - WIDHT*0.03, HEIGHT //2 - 40) )
 
 
     def scale_image(self, image, w=None, h=None):

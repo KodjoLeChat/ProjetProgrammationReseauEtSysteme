@@ -53,6 +53,7 @@ def load_images():
         "load_game": pg.image.load("C3_sprites/C3/Screenshot_4.png").convert_alpha(),
         "save_game": pg.image.load("C3_sprites/C3/Screenshot_7.png").convert_alpha(),
 
+        "pause": pg.image.load("C3_sprites/C3/Screenshot_8.png"),
 
         "speedUp" : pg.image.load("C3_sprites/C3/paneling_up.png").convert_alpha(),
 
@@ -135,8 +136,6 @@ class WorldController:
 
         # keyboard
         self.keyboard = keyboard
-
-
 
         # camera offset
         self.offset = pg.math.Vector2()
@@ -301,7 +300,7 @@ class WorldController:
                     self.saveWordt(path)
                 
 
-
+                
     def update(self, camera):
         if self.time.time_multiple():
             if self.data:
