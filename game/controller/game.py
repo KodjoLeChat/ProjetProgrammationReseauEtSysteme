@@ -22,23 +22,20 @@ class Game:
         self.state = False
         self.playing = True
 
+
         # Ressources
         self.ressources = Ressources(0, 0, 3000, 0)
 
         # hud
-        self.hud = Hud(self.width, self.height, self.ressources, self.keyboard)
+        self.hud = Hud(self.width, self.height, self.ressources, self.keyboard, self.clock)
 
         # world
-        self.worldController = WorldController(self.hud, GRID_LENGTH, GRID_WIDTH, self.width, self.height,
-                                               self.keyboard, self.ressources)
+        self.worldController = WorldController(self.hud, GRID_LENGTH, GRID_WIDTH, self.width, self.height, self.keyboard, self.ressources)
 
         # camera
         self.camera = Camera(self.width, self.height)
 
-
         
-
-
 
     # build
     def run(self):
@@ -50,9 +47,11 @@ class Game:
             pg.display.flip()
 
     def update(self):
-        self.camera.update()
-        self.hud.update()
-        self.worldController.update(self.camera)
+            self.camera.update()
+            self.hud.update()
+            self.worldController.update(self.camera)
+            
+
 
     def get_state(self):
         return self.state
@@ -70,5 +69,5 @@ class Game:
         self.screen.fill((0, 0, 0))
         self.screen.blit(self.worldController.dim_map, (self.camera.scroll.x, self.camera.scroll.y))
         self.worldController.draw(self.screen, self.camera)
-
+        self.worldController.draw_minimapR(self.screen, self.camera)
         self.hud.draw(self.screen)

@@ -12,6 +12,7 @@ class keyboard:
             if self.game.get_state():
                 self.key_down_playing(event)
 
+
     def key_down_playing(self, event):
         """
         Gère les évenements pendant le jeu
@@ -24,6 +25,7 @@ class keyboard:
             self.pressed[event.key] = True
         elif event.type == pygame.KEYUP:
             self.pressed[event.key] = False
+            
         if event.type == pygame.MOUSEBUTTONDOWN:
             self.pressed[pygame.MOUSEBUTTONDOWN] = True
         elif event.type == pygame.MOUSEBUTTONUP:
@@ -33,6 +35,7 @@ class keyboard:
             self.pressed[pygame.MOUSEMOTION] = True
         elif event.type != pygame.MOUSEMOTION:
             self.pressed[pygame.MOUSEMOTION] = False
+            
 
     def key_down_menu(self):
         pass

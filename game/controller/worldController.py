@@ -1,8 +1,6 @@
+import pygame
 import pygame as pg
 import random
-
-import pygame.image
-
 from game.model.settings import *
 from game.model.road import Road
 from game.controller.SelectionBuilding import SelectionBuilding
@@ -62,9 +60,12 @@ def load_images():
         "load_game": pg.image.load("C3_sprites/C3/Screenshot_4.png").convert_alpha(),
         "save_game": pg.image.load("C3_sprites/C3/Screenshot_7.png").convert_alpha(),
 
-        "speedUp": pg.image.load("C3_sprites/C3/paneling_up.png").convert_alpha(),
+        "pause": pg.image.load("C3_sprites/C3/Screenshot_8.png"),
+
+        "speedUp" : pg.image.load("C3_sprites/C3/paneling_up.png").convert_alpha(),
 
         "fire": pygame.image.load('C3_sprites/C3/Land2a_00190.png').convert_alpha(),
+
 
     }
 
@@ -116,7 +117,6 @@ class WorldController:
         self.width = width
         self.height = height
         self.speed = 1
-
         # images
         self.images = load_images()
 
@@ -125,11 +125,6 @@ class WorldController:
             (grid_length_x * TILE_SIZE * 2, grid_length_y * TILE_SIZE + 2 * TILE_SIZE)).convert_alpha()
 
         self.worldModel = WorldModel(self.create_world())
-        self.actual_time = pygame.time.get_ticks()
-
-        # world Model object
-        # f1 = open('worldSave', 'rb')
-        # self.worldModel = pickle.load(f1)
 
         # selection building
         self.selection_building = None
@@ -171,13 +166,22 @@ class WorldController:
         # Ressource
         self.ressources = ressources
 
+
         self.hud_w = self.width // 2
         # HUD RECT
         '''declare hud_rect'''
-        self.hud_rect = pg.Rect(0, 0, WIDHT - self.hud.hudbase_below.get_width() + 12, HEIGHT)
+        self.hud_rect = pg.Rect(0, 0, WIDHT-self.hud.hudbase_below.get_width() + 12, HEIGHT)
 
         # TIMER
+        self.actual_time = pygame.time.get_ticks()
         self.time = Timer()
+
+        # FIRE
+        self.data = []
+
+
+
+
 
     def create_world(self):
 
@@ -202,7 +206,6 @@ class WorldController:
         for x in range(self.grid_length_x):
             for y in range(self.grid_length_y):
                 case = self.worldModel.get_case(x, y)
-                building = case.get_building()
                 rect_case = case.get_render_pos()
                 tile = case.get_tile()
                 if tile != "":
@@ -210,6 +213,35 @@ class WorldController:
                                 (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
                                  rect_case[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
         self.draw_walkers(screen, camera_scroll_x, camera_scroll_y)
+
+    def draw_minimapR(self, screen,camera):
+        # Calculate the scale of the minimap relative to the full-size map
+        minimap_scale = 0.045
+        minimap_width = int(self.dim_map.get_width() * minimap_scale)
+        minimap_height = int(self.dim_map.get_height() * minimap_scale)
+
+        # Create a new surface to draw the minimap on
+        minimap_surface = pygame.Surface((150, 120))
+
+        # Loop through each tile in the full-size map and draw it on the minimap surface
+        for x in range(self.grid_length_x):
+            for y in range(self.grid_length_y):
+                case = self.worldModel.get_case(x, y)
+                rect_case = case.get_render_pos()
+                tile = case.get_tile()
+                if tile != "":
+                    # Scale the tile image down to fit on the minimap surface
+                    scaled_tile = pygame.transform.scale(self.images[tile], (int(self.images[tile].get_width() * minimap_scale), int(self.images[tile].get_height() * minimap_scale)))
+                    # Draw the scaled tile on the minimap surface
+                    minimap_surface.blit(scaled_tile, (rect_case[0] * minimap_scale+74, rect_case[1] * minimap_scale+30))
+
+        # Draw the minimap surface on the main screen
+        # Calculate the center position of the minimap on the screen
+        minimap_x = self.width - minimap_width - 10
+        minimap_y = self.height - minimap_height - 10
+        screen.blit(minimap_surface, (WIDHT - self.hud.hudbase.get_width()+4, 50))
+
+
 
     def update_walkers(self):
         for walker in self.walkers:
