@@ -311,7 +311,7 @@ class WorldController:
         self.FileSelector()
         self.changeTime()
         self.time.update(self.speed)
-
+        
         now = pygame.time.get_ticks()
         if (now - self.actual_time > 500):
             self.update_building()
@@ -520,22 +520,22 @@ class WorldController:
         :return: None
         """
         now = pygame.time.get_ticks()
-        if now - self.actual_time > 5000:
+        if now - self.actual_time > 200:
             for x, y in self.worldModel.get_list_grid_pos_building():
                 case = self.worldModel.get_case(x, y)
                 building = case.get_building()
-                route_voisine = case.get_route_voisine()
+                #route_voisine = case.get_route_voisine()
                 if building:
-                    if self.time.time_multiple():
-                        if random.randint(0, 100) < 50:
-                            building.add_fire()
+                    #add fire
+                    building.add_fire()
+                    #add damage
                     building.add_damage()
 
                     damage = building.get_damage()
                     fire = building.get_fire()
-                    if damage:
+                    if damage > 500:
                         building.set_sprite("house_broken")
-                    if fire:
+                    if fire > 15:
                         building.set_sprite("fire")
 
             self.actual_time = now

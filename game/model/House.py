@@ -7,6 +7,7 @@ class House():
         self.citoyen = citoyen
         self.occupant = 0
         self.damage = 0
+        self.fire = 0
         self.route_voisine = route_voisine
 
     def get_citoyen(self):
@@ -15,11 +16,14 @@ class House():
     def get_damage(self):
         return self.damage
 
+    def get_fire(self):
+        return self.fire
+
     def get_route_voisine(self):
         return self.route_voisine
 
     def add_damage(self):
-        if (random.randint(0, 1)):
+        if random.randint(0, 1):
             self.damage += random.randint(0, 5)
 
     def set_occupant(self, nb_occupant):
@@ -27,3 +31,7 @@ class House():
 
     def set_sprite(self, sprite):
         self.case.set_tile(sprite)
+
+    def add_fire(self):
+        if random.randint(0, 1):
+            self.fire += 5

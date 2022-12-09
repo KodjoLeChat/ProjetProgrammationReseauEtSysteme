@@ -41,16 +41,16 @@ class Hud:
                        "road":"hud_road_sprite",
                        "well":"hud_well_sprite",
                        "hospital":"hud_hospital_sprite",
-                       "temple" : "hus_temple_sprite",
-                       "book": "hus_book_sprite",
-                       "face": "hus_face_sprite",
-                       "senate": "hus_senate_sprite",
-                       "hammer": "hus_hammer_sprite",
-                       "cross": "hus_cross_sprite",
-                       "parchemin": "hus_parchemin_sprite",
-                       "sword": "hus_sword_sprite",
-                       "char": "hus_char_sprite",
-                       "bell": "hus_bell_sprite",
+                       "temple" : "hud_temple_sprite",
+                       "book": "hud_book_sprite",
+                       "face": "hud_face_sprite",
+                       "senate": "hud_senate_sprite",
+                       "hammer": "hud_hammer_sprite",
+                       "cross": "hud_cross_sprite",
+                       "parchemin": "hud_parchemin_sprite",
+                       "sword": "hud_sword_sprite",
+                       "char": "hud_char_sprite",
+                       "bell": "hud_bell_sprite",
                        }
 
         self.info = {
@@ -132,7 +132,6 @@ class Hud:
             pos = render_pos.copy()
             image_scale = self.scale_image(button_image, w=object_width)
             rect = image_scale.get_rect(topleft=pos)
-            print(button_name)
             button.append(
                 {
                     "name": button_name,
@@ -166,7 +165,6 @@ class Hud:
                     "rect": rect
                 }
             )
-            print(fileList)
             render_pos[1] += image_scale.get_height() + 17
             count+=1
         return fileList
@@ -323,7 +321,7 @@ class Hud:
                             self.speed -= 0.1
 
         text = font.render('{} %'.format(self.speed*100), 0, (0, 0, 0))
-        screen.blit(text, (WIDHT - WIDHT*0.03, HEIGHT //2 - 40) )
+        screen.blit(text, (WIDHT - WIDHT*0.03, HEIGHT //2 +50) )
 
 
     def scale_image(self, image, w=None, h=None):

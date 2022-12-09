@@ -7,6 +7,7 @@ class EngeneerPost:
         self.citoyen = citoyen
         self.occupant = 0
         self.damage = 0
+        self.fire = 0
         self.route_voisine = route_voisine
 
     def get_citoyen(self):
@@ -27,3 +28,7 @@ class EngeneerPost:
 
     def set_sprite(self, sprite):
         self.case.set_tile(sprite)
+
+    def add_fire(self):
+        if random.randint(0, 1):
+            self.fire += 5
