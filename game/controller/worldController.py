@@ -246,6 +246,9 @@ class WorldController:
     def update_walkers(self):
         for walker in self.walkers:
             walker.move_to_home()
+            if walker.get_home_pos() == walker.get_pos() and walker.get_sprite() == "engineer":
+                walker.set_path(self.bad_pathfind(walker.get_pos()[0],walker.get_pos()[1]))
+
 
     def draw_walkers(self, screen, camera_scroll_x, camera_scroll_y):
         for walker in self.walkers:
@@ -311,7 +314,7 @@ class WorldController:
         self.FileSelector()
         self.changeTime()
         self.time.update(self.speed)
-        
+
         now = pygame.time.get_ticks()
         if (now - self.actual_time > 500):
             self.update_building()
@@ -502,8 +505,7 @@ class WorldController:
 
                         migrant_posx, migrant_posy = voisin_direct[0], voisin_direct[1]
                         migrant_destx, migrant_desty = voisin_direct[0], voisin_direct[1]
-                        bad_path = self.bad_pathfind(migrant_posx, migrant_posy, migrant_destx, migrant_desty)
-                        # path = self.pathfinding(migrant_posx, migrant_posy, migrant_destx, migrant_desty)
+                        bad_path = self.bad_pathfind(migrant_posx, migrant_posy)
                         migrant = Migrant(0, 0, migrant_destx, migrant_desty, bad_path, "engineer")
                         self.walkers.append(migrant)
                         house = House(case, migrant, voisin_direct)
@@ -519,26 +521,22 @@ class WorldController:
         :param case: la case sur laquel est le building
         :return: None
         """
-        now = pygame.time.get_ticks()
-        if now - self.actual_time > 200:
-            for x, y in self.worldModel.get_list_grid_pos_building():
-                case = self.worldModel.get_case(x, y)
-                building = case.get_building()
-                #route_voisine = case.get_route_voisine()
-                if building:
-                    #add fire
-                    building.add_fire()
-                    #add damage
-                    building.add_damage()
+        for x, y in self.worldModel.get_list_grid_pos_building():
+            case = self.worldModel.get_case(x, y)
+            building = case.get_building()
+            #route_voisine = case.get_route_voisine()
+            if building:
+                #add fire
+                building.add_fire()
+                #add damage
+                building.add_damage()
 
-                    damage = building.get_damage()
-                    fire = building.get_fire()
-                    if damage > 500:
-                        building.set_sprite("house_broken")
-                    if fire > 15:
-                        building.set_sprite("fire")
-
-            self.actual_time = now
+                damage = building.get_damage()
+                fire = building.get_fire()
+                if damage > 1000:
+                    building.set_sprite("house_broken")
+                if fire > 1000:
+                    building.set_sprite("fire")
 
     def change_cases_collision(self, collision, coord_cases):
         cases = [self.worldModel.get_case(x, y) for x, y in coord_cases]
@@ -579,7 +577,7 @@ class WorldController:
             return path
         return None
 
-    def bad_pathfind(self, posx_start, posy_start, posx_end, posy_end):
+    def bad_pathfind(self, posx_start, posy_start):
         matrix = self.create_colision_matrix()
         path = []
         actual_posx = posx_start
@@ -589,7 +587,8 @@ class WorldController:
         voisin = list()
         is_voisin = True
         if matrix is not None:
-            while (is_voisin):
+            limite = 0
+            while (is_voisin and limite <= 20):
                 is_voisin = False
                 if matrix[actual_posx - 1][actual_posy]:
                     if (actual_posx - 1,actual_posy) != (old_posx_start,old_posy_start):
@@ -620,4 +619,5 @@ class WorldController:
                     actual_posx =random_voisin[0]
                     actual_posy =random_voisin[1]
                 voisin = list()
+                limite +=1
             return path
