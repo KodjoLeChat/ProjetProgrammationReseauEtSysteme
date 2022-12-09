@@ -13,6 +13,9 @@ class Migrant:
         if self.path is not None and len(self.path) != 0:
             self.pos_x, self.pos_y = self.path.pop(0)
 
+    def get_path(self):
+        return self.path
+
     def get_pos(self):
         return self.pos_x, self.pos_y
 
