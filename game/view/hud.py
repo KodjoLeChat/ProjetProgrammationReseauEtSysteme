@@ -89,6 +89,8 @@ class Hud:
                     "left": pg.image.load("C3_sprites/C3/paneling_00093.png"),
                     "right": pg.image.load("C3_sprites/C3/paneling_00096.png"),
                     }
+        self.selected_button = None
+        self.selected_fileList = None
 
     def create_build_hud(self):
 
@@ -175,22 +177,28 @@ class Hud:
 
         if mouse_action[2]:
             self.selected_tile = None
+            self.selected_button = None
+            self.selected_fileList = None
         elif mouse_action[0]:
             for tile in self.tiles:
                 if tile["rect"].collidepoint(mouse_pos):
                     self.selected_tile = tile
                     self.selected_mode = tile["mode"]
-            for tile in self.button:
-                if tile["rect"].collidepoint(mouse_pos):
-                    self.selected_tile = tile
-            for tile in self.fileList:
-                if tile["rect"].collidepoint(mouse_pos):
-                    self.selected_tile = tile
+                    self.selected_button = None
+                    self.selected_fileList = None
+            for button in self.button:
+                if button["rect"].collidepoint(mouse_pos):
+                    self.selected_button = button
+                    self.selected_tile = None
+                    self.selected_fileList = None
+            for fileList in self.fileList:
+                if fileList["rect"].collidepoint(mouse_pos):
+                    self.selected_fileList = fileList
+                    self.selected_button = None
+                    self.selected_tile = None
             # update the speedof game
             # for button in self.button:
-
-
-        
+     
 
     def draw(self, screen):
 
@@ -307,8 +315,8 @@ class Hud:
         mouse_action = self.keyboard.get_keyboard_input()
 
         if mouse_action.get(pg.MOUSEBUTTONDOWN):
-            if self.selected_tile is not None:
-                sprite_name = self.selected_tile["name"]
+            if self.selected_button is not None:
+                sprite_name = self.selected_button["name"]
                 if (sprite_name =="speedUp"):
                         if self.speed >= 1 and self.speed < 5:
                             self.speed += 1

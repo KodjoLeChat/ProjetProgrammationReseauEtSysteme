@@ -273,8 +273,8 @@ class WorldController:
         mouse_action = self.keyboard.get_keyboard_input()
 
         if mouse_action.get(pg.MOUSEBUTTONDOWN):
-            if self.hud.selected_tile is not None:
-                sprite_name = self.hud.selected_tile["name"]
+            if self.hud.selected_button is not None:
+                sprite_name = self.hud.selected_button["name"]
                 if (sprite_name == "speedUp"):
                     if self.speed >= 1 and self.speed < 5:
                         self.speed += 1
@@ -437,16 +437,19 @@ class WorldController:
         else:
             return False
 
+
+
     def change_case_sprite_by_image_name(self, image_name, list_cases):
         cases = [self.worldModel.get_case(x, y) for x, y in list_cases]
         for case in cases:
             if self.can_place_tile(pg.mouse.get_pos()):
-                if image_name != "hud_shovel_sprite":
+                if image_name != "hud_shovel_sprite" and image_name != "speedDown" and image_name != "load_game" and image_name != "save_game" and image_name != "pause" and image_name != "speedUp":
                     case.set_tile(image_name)
                     self.ressources.sub_dinars(10)
 
                 elif image_name == "hud_shovel_sprite":
                     case.set_tile(image_name)
+
 
     def update_case(self, sprite_name):
         """
