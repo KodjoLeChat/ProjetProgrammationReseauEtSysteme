@@ -246,9 +246,12 @@ class WorldController:
     def update_walkers(self):
         for walker in self.walkers:
             walker.move_to_home()
-            if walker.get_home_pos() == walker.get_pos() and walker.get_sprite() == "engineer":
-                walker.set_path(self.bad_pathfind(walker.get_pos()[0],walker.get_pos()[1]))
-
+            if walker.get_reset() and len(walker.get_path()) == 0:
+                home_x, home_y = walker.get_pos()
+                new_path = self.bad_pathfind(home_x,home_y)
+                walker.set_path(new_path)
+                walker.reset_path_retour()
+                walker.set_reset(False)
 
     def draw_walkers(self, screen, camera_scroll_x, camera_scroll_y):
         for walker in self.walkers:
@@ -533,9 +536,9 @@ class WorldController:
 
                 damage = building.get_damage()
                 fire = building.get_fire()
-                if damage > 1000:
+                if damage > 100:
                     building.set_sprite("house_broken")
-                if fire > 1000:
+                if fire > 100:
                     building.set_sprite("fire")
 
     def change_cases_collision(self, collision, coord_cases):
@@ -588,7 +591,7 @@ class WorldController:
         is_voisin = True
         if matrix is not None:
             limite = 0
-            while (is_voisin and limite <= 20):
+            while (limite < 20):
                 is_voisin = False
                 if matrix[actual_posx - 1][actual_posy]:
                     if (actual_posx - 1,actual_posy) != (old_posx_start,old_posy_start):
