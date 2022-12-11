@@ -1,4 +1,4 @@
-from turtle import back, screensize
+#from turtle import back, screensize
 import pygame as pg
 from game.view.utils import draw_text, get_mode_image, get_sprite_by_hud_tile
 from game.model.worldModel import __str__

@@ -35,7 +35,7 @@ class Game:
         # camera
         self.camera = Camera(self.width, self.height)
 
-        
+
 
     # build
     def run(self):
@@ -50,7 +50,7 @@ class Game:
             self.camera.update()
             self.hud.update()
             self.worldController.update(self.camera)
-            
+
 
 
     def get_state(self):
