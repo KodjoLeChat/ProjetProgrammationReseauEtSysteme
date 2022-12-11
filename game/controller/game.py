@@ -30,12 +30,12 @@ class Game:
         self.hud = Hud(self.width, self.height, self.ressources, self.keyboard, self.clock)
 
         # world
-        self.worldController = WorldController(self.hud, GRID_LENGTH, GRID_WIDTH, self.width, self.height, self.keyboard, self.ressources)
+        self.worldController = WorldController(self.hud, GRID_LENGTH, GRID_WIDTH, self.width, self.height, self.keyboard, self.ressources, "land.png")
 
         # camera
         self.camera = Camera(self.width, self.height)
 
-        
+
 
     # build
     def run(self):
@@ -50,7 +50,7 @@ class Game:
             self.camera.update()
             self.hud.update()
             self.worldController.update(self.camera)
-            
+
 
 
     def get_state(self):
