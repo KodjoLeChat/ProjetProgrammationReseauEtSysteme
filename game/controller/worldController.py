@@ -1,6 +1,8 @@
 import pygame
 import pygame as pg
 import random
+
+from game.model.EngeneerPost import EngeneerPost
 from game.model.settings import *
 from game.model.road import Road
 from game.controller.SelectionBuilding import SelectionBuilding
@@ -62,10 +64,9 @@ def load_images():
 
         "pause": pg.image.load("C3_sprites/C3/Screenshot_8.png"),
 
-        "speedUp" : pg.image.load("C3_sprites/C3/paneling_up.png").convert_alpha(),
+        "speedUp": pg.image.load("C3_sprites/C3/paneling_up.png").convert_alpha(),
 
         "fire": pygame.image.load('C3_sprites/C3/Land2a_00190.png').convert_alpha(),
-
 
     }
 
@@ -166,11 +167,10 @@ class WorldController:
         # Ressource
         self.ressources = ressources
 
-
         self.hud_w = self.width // 2
         # HUD RECT
         '''declare hud_rect'''
-        self.hud_rect = pg.Rect(0, 0, WIDHT-self.hud.hudbase_below.get_width() + 12, HEIGHT)
+        self.hud_rect = pg.Rect(0, 0, WIDHT - self.hud.hudbase_below.get_width() + 12, HEIGHT)
 
         # TIMER
         self.actual_time = pygame.time.get_ticks()
@@ -178,10 +178,6 @@ class WorldController:
 
         # FIRE
         self.data = []
-
-
-
-
 
     def create_world(self):
 
@@ -214,7 +210,7 @@ class WorldController:
                                  rect_case[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
         self.draw_walkers(screen, camera_scroll_x, camera_scroll_y)
 
-    def draw_minimapR(self, screen,camera):
+    def draw_minimapR(self, screen, camera):
         # Calculate the scale of the minimap relative to the full-size map
         minimap_scale = 0.045
         minimap_width = int(self.dim_map.get_width() * minimap_scale)
@@ -231,21 +227,30 @@ class WorldController:
                 tile = case.get_tile()
                 if tile != "":
                     # Scale the tile image down to fit on the minimap surface
-                    scaled_tile = pygame.transform.scale(self.images[tile], (int(self.images[tile].get_width() * minimap_scale), int(self.images[tile].get_height() * minimap_scale)))
+                    scaled_tile = pygame.transform.scale(self.images[tile], (
+                    int(self.images[tile].get_width() * minimap_scale),
+                    int(self.images[tile].get_height() * minimap_scale)))
                     # Draw the scaled tile on the minimap surface
-                    minimap_surface.blit(scaled_tile, (rect_case[0] * minimap_scale+74, rect_case[1] * minimap_scale+30))
+                    minimap_surface.blit(scaled_tile,
+                                         (rect_case[0] * minimap_scale + 74, rect_case[1] * minimap_scale + 30))
 
         # Draw the minimap surface on the main screen
         # Calculate the center position of the minimap on the screen
         minimap_x = self.width - minimap_width - 10
         minimap_y = self.height - minimap_height - 10
-        screen.blit(minimap_surface, (WIDHT - self.hud.hudbase.get_width()+4, 50))
-
-
+        screen.blit(minimap_surface, (WIDHT - self.hud.hudbase.get_width() + 4, 50))
 
     def update_walkers(self):
         for walker in self.walkers:
             walker.move_to_home()
+            if len(walker.get_path()) != 0:
+                if walker.get_path()[0] == walker.get_home_pos():
+                    if walker.get_reset():
+                        pos_x, pos_y = walker.get_path()[0]
+                        new_path = self.bad_pathfind(pos_x, pos_y)
+                        walker.set_path(new_path)
+                        walker.reset_path_retour()
+                        walker.set_reset(False)
 
     def draw_walkers(self, screen, camera_scroll_x, camera_scroll_y):
         for walker in self.walkers:
@@ -311,7 +316,7 @@ class WorldController:
         self.FileSelector()
         self.changeTime()
         self.time.update(self.speed)
-        
+
         now = pygame.time.get_ticks()
         if (now - self.actual_time > 500):
             self.update_building()
@@ -470,18 +475,17 @@ class WorldController:
                     if (x, y - 1) in self.worldModel.get_list_grid_pos_road():
                         voisin.append((x, y - 1))
 
-                    voisin_direct = None if len(voisin) == 0 else voisin[0]
 
-                    if voisin_direct is not None:
+                    if len(voisin) != 0:
                         migrant_posx, migrant_posy = 0, 0
-                        migrant_destx, migrant_desty = voisin_direct[0], voisin_direct[1]
+                        migrant_destx, migrant_desty = voisin[0][0], voisin[0][1]
                         matrix = self.create_colision_matrix_migrant()
                         path = self.pathfinding(migrant_posx, migrant_posy, migrant_destx, migrant_desty, matrix)
                         migrant = Migrant(0, 0, migrant_destx, migrant_desty, path, "migrant")
                         self.walkers.append(migrant)
-                        house = House(case, migrant, voisin_direct)
+                        house = House(case, migrant, voisin,sprite_name)
                     else:
-                        house = House(case, None, None)
+                        house = House(case, None, None,sprite_name)
                     case.set_building(house)
 
             elif sprite_name == "hud_hammer_sprite":
@@ -502,14 +506,13 @@ class WorldController:
 
                         migrant_posx, migrant_posy = voisin_direct[0], voisin_direct[1]
                         migrant_destx, migrant_desty = voisin_direct[0], voisin_direct[1]
-                        bad_path = self.bad_pathfind(migrant_posx, migrant_posy, migrant_destx, migrant_desty)
-                        # path = self.pathfinding(migrant_posx, migrant_posy, migrant_destx, migrant_desty)
+                        bad_path = self.bad_pathfind(migrant_posx, migrant_posy)
                         migrant = Migrant(0, 0, migrant_destx, migrant_desty, bad_path, "engineer")
                         self.walkers.append(migrant)
-                        house = House(case, migrant, voisin_direct)
+                        Engineer_post = EngeneerPost(case, migrant, voisin_direct,sprite_name)
                     else:
-                        house = House(case, None, None)
-                    case.set_building(house)
+                        Engineer_post = EngeneerPost(case, None, None, sprite_name)
+                    case.set_building(Engineer_post)
             elif sprite_name == "hud_shovel_sprite":
                 case.set_building(None)
 
@@ -519,26 +522,31 @@ class WorldController:
         :param case: la case sur laquel est le building
         :return: None
         """
-        now = pygame.time.get_ticks()
-        if now - self.actual_time > 200:
-            for x, y in self.worldModel.get_list_grid_pos_building():
-                case = self.worldModel.get_case(x, y)
-                building = case.get_building()
-                #route_voisine = case.get_route_voisine()
-                if building:
-                    #add fire
-                    building.add_fire()
-                    #add damage
-                    building.add_damage()
+        for x, y in self.worldModel.get_list_grid_pos_building():
+            case = self.worldModel.get_case(x, y)
+            building = case.get_building()
+            if building:
+                route_voisine = building.get_route_voisine()
+                sprite_name = building.get_sprite_name()
+                # add fire
+                building.add_fire()
+                # add damage
+                building.add_damage()
 
-                    damage = building.get_damage()
-                    fire = building.get_fire()
-                    if damage > 500:
-                        building.set_sprite("house_broken")
-                    if fire > 15:
-                        building.set_sprite("fire")
+                #reset du des damages quand l'ingénieur est à côté
+                for walker in self.walkers:
+                    if route_voisine != None:
+                        if walker.get_pos() in route_voisine and walker.get_sprite() == "engineer":
+                            building.reset_damage()
 
-            self.actual_time = now
+                damage = building.get_damage()
+                fire = building.get_fire()
+                if damage > 100:
+                    building.set_sprite("house_broken")
+                elif damage == 0 and sprite_name != case.get_tile():
+                    building.set_sprite(sprite_name)
+                if fire > 5000:
+                    building.set_sprite("fire")
 
     def change_cases_collision(self, collision, coord_cases):
         cases = [self.worldModel.get_case(x, y) for x, y in coord_cases]
@@ -579,45 +587,44 @@ class WorldController:
             return path
         return None
 
-    def bad_pathfind(self, posx_start, posy_start, posx_end, posy_end):
+    def bad_pathfind(self, posx_start, posy_start):
         matrix = self.create_colision_matrix()
-        path = []
+        path = [(posx_start,posy_start)]
         actual_posx = posx_start
         actual_posy = posy_start
         old_posx_start = None
         old_posy_start = None
         voisin = list()
-        is_voisin = True
         if matrix is not None:
-            while (is_voisin):
-                is_voisin = False
+            limite = 0
+            while (limite < 20):
                 if matrix[actual_posx - 1][actual_posy]:
-                    if (actual_posx - 1,actual_posy) != (old_posx_start,old_posy_start):
+                    if (actual_posx - 1, actual_posy) != (old_posx_start, old_posy_start):
                         if actual_posx - 1 != old_posx_start:
                             voisin.append((actual_posx - 1, actual_posy))
 
                 if matrix[actual_posx + 1][actual_posy]:
-                    if (actual_posx + 1,actual_posy) != (old_posx_start,old_posy_start):
-                        if  actual_posx + 1 != old_posx_start:
+                    if (actual_posx + 1, actual_posy) != (old_posx_start, old_posy_start):
+                        if actual_posx + 1 != old_posx_start:
                             voisin.append((actual_posx + 1, actual_posy))
 
                 if matrix[actual_posx][actual_posy - 1]:
-                    if (actual_posx,actual_posy - 1) != (old_posx_start,old_posy_start):
+                    if (actual_posx, actual_posy - 1) != (old_posx_start, old_posy_start):
                         if actual_posy - 1 != old_posy_start:
                             voisin.append((actual_posx, actual_posy - 1))
 
                 if matrix[actual_posx][actual_posy + 1]:
-                    if (actual_posx,actual_posy + 1) != (old_posx_start,old_posy_start):
+                    if (actual_posx, actual_posy + 1) != (old_posx_start, old_posy_start):
                         if actual_posy + 1 != old_posy_start:
                             voisin.append((actual_posx, actual_posy + 1))
 
                 if (len(voisin) != 0):
-                    is_voisin = True
                     random_voisin = random.choice(voisin)
                     path.append(random_voisin)
                     old_posx_start = actual_posx
                     old_posy_start = actual_posy
-                    actual_posx =random_voisin[0]
-                    actual_posy =random_voisin[1]
+                    actual_posx = random_voisin[0]
+                    actual_posy = random_voisin[1]
                 voisin = list()
+                limite += 1
             return path
