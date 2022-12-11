@@ -16,7 +16,7 @@ import easygui
 from pathfinding.core.diagonal_movement import DiagonalMovement
 from pathfinding.core.grid import Grid
 from pathfinding.finder.a_star import AStarFinder
-from pathfinding.core.util import smoothen_path
+from PIL import Image
 
 
 def load_images():
@@ -29,6 +29,11 @@ def load_images():
         "farm": pg.image.load("C3_sprites/C3/Security_00053.png").convert_alpha(),
         "tree": pg.image.load("C3_sprites/C3/paneling_00135.png").convert_alpha(),
         "grass": pg.image.load("C3_sprites/C3/Land1a_00002.png").convert_alpha(),
+        "block": pg.image.load("C3_sprites/C3/Land1a_00002.png").convert_alpha(),
+        "water_left": pg.image.load("C3_sprites/C3/Land1a_00133.png").convert_alpha(),
+        "water_right": pg.image.load("C3_sprites/C3/Land1a_00143.png").convert_alpha(),
+        "water": pg.image.load("C3_sprites/C3/Land1a_00120.png").convert_alpha(),
+        "rock": pg.image.load("C3_sprites/C3/Land1a_00293.png").convert_alpha(),
         "sign": pg.image.load("C3_sprites/C3/Housng1a_00045.png").convert_alpha(),
         "hud_house_sprite": pg.image.load("C3_sprites/C3/Housng1a_00001.png").convert_alpha(),
         "house_broken": pg.image.load("C3_sprites/C3/Land2a_00115.png").convert_alpha(),
@@ -78,6 +83,10 @@ def cart_to_iso(x, y):
     iso_y = (x + y) / 2
     return iso_x, iso_y
 
+def land():
+    im = Image.open("land.png")
+    px = im.load()
+    return px
 
 def grid_to_world(grid_x, grid_y):
     rect = [
@@ -91,18 +100,26 @@ def grid_to_world(grid_x, grid_y):
 
     minx = min([x for x, y in iso_poly])
     miny = min([y for x, y in iso_poly])
-    r = random.randint(1, 1000)
+    couleurs = land()
+    clr_x_y = couleurs[grid_x-1, grid_y-1]
+    clr = (clr_x_y[0], clr_x_y[1], clr_x_y[2])
 
-    if 50 >= r > 5:
-        tile = "tree1"
-    elif 100 >= r >= 50:
-        tile = "tree2"
-    elif 150 >= r >= 100:
-        tile = "tree3"
-    # elif r <= 1:
-    #    tile = "farm"
-    else:
-        tile = "grass"
+    match clr:
+        case (0, 162, 232):
+            tile = "water"
+        case (34, 177, 76):
+            tile = "block"
+        case (20, 102, 44):
+            tile = "tree1"
+        case (212, 212, 212):
+            tile = "rock"
+        case (70, 70, 70):
+            tile = "water_left"
+        case (130, 130, 130):
+            tile = "water_right"
+        case _:
+            tile = "block"
+
     collision = False if tile == "grass" else True
 
     out = Case([grid_x, grid_y], rect, iso_poly, tile, (minx, miny), collision)

@@ -30,7 +30,7 @@ class Game:
         self.hud = Hud(self.width, self.height, self.ressources, self.keyboard, self.clock)
 
         # world
-        self.worldController = WorldController(self.hud, GRID_LENGTH, GRID_WIDTH, self.width, self.height, self.keyboard, self.ressources, "land.png")
+        self.worldController = WorldController(self.hud, GRID_LENGTH, GRID_WIDTH, self.width, self.height, self.keyboard, self.ressources)
 
         # camera
         self.camera = Camera(self.width, self.height)
