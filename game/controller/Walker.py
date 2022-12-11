@@ -9,16 +9,16 @@ class Migrant:
         self.path_retour = []
         self.reset = False
     def move_to_home(self):
-        #print(self.path_retour)
         if self.path is not None:
             if len(self.path) != 0:
                 coord = self.path.pop(0)
                 self.pos_x, self.pos_y = coord
                 self.path_retour.insert(0,coord)
-            elif self.sprite == "engineer":
+            if self.sprite == "engineer" and len(self.path) == 0:
                 self.path = self.path_retour
                 self.reset = True
                 self.path_retour = []
+
 
 
 
