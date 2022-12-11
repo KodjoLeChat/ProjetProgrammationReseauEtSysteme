@@ -1,6 +1,8 @@
 import pygame
 import pygame as pg
 import random
+
+from game.model.EngeneerPost import EngeneerPost
 from game.model.settings import *
 from game.model.road import Road
 from game.controller.SelectionBuilding import SelectionBuilding
@@ -473,18 +475,17 @@ class WorldController:
                     if (x, y - 1) in self.worldModel.get_list_grid_pos_road():
                         voisin.append((x, y - 1))
 
-                    voisin_direct = None if len(voisin) == 0 else voisin[0]
 
-                    if voisin_direct is not None:
+                    if len(voisin) != 0:
                         migrant_posx, migrant_posy = 0, 0
-                        migrant_destx, migrant_desty = voisin_direct[0], voisin_direct[1]
+                        migrant_destx, migrant_desty = voisin[0][0], voisin[0][1]
                         matrix = self.create_colision_matrix_migrant()
                         path = self.pathfinding(migrant_posx, migrant_posy, migrant_destx, migrant_desty, matrix)
                         migrant = Migrant(0, 0, migrant_destx, migrant_desty, path, "migrant")
                         self.walkers.append(migrant)
-                        house = House(case, migrant, voisin_direct)
+                        house = House(case, migrant, voisin,sprite_name)
                     else:
-                        house = House(case, None, None)
+                        house = House(case, None, None,sprite_name)
                     case.set_building(house)
 
             elif sprite_name == "hud_hammer_sprite":
@@ -508,10 +509,10 @@ class WorldController:
                         bad_path = self.bad_pathfind(migrant_posx, migrant_posy)
                         migrant = Migrant(0, 0, migrant_destx, migrant_desty, bad_path, "engineer")
                         self.walkers.append(migrant)
-                        house = House(case, migrant, voisin_direct)
+                        Engineer_post = EngeneerPost(case, migrant, voisin_direct,sprite_name)
                     else:
-                        house = House(case, None, None)
-                    case.set_building(house)
+                        Engineer_post = EngeneerPost(case, None, None, sprite_name)
+                    case.set_building(Engineer_post)
             elif sprite_name == "hud_shovel_sprite":
                 case.set_building(None)
 
@@ -524,18 +525,27 @@ class WorldController:
         for x, y in self.worldModel.get_list_grid_pos_building():
             case = self.worldModel.get_case(x, y)
             building = case.get_building()
-            # route_voisine = case.get_route_voisine()
+            route_voisine = building.get_route_voisine()
+            sprite_name = building.get_sprite_name()
             if building:
                 # add fire
                 building.add_fire()
                 # add damage
                 building.add_damage()
 
+                #reset du des damages quand l'ingénieur est à côté
+                for walker in self.walkers:
+                    if route_voisine != None:
+                        if walker.get_pos() in route_voisine and walker.get_sprite() == "engineer":
+                            building.reset_damage()
+
                 damage = building.get_damage()
                 fire = building.get_fire()
                 if damage > 100:
                     building.set_sprite("house_broken")
-                if fire > 100:
+                elif damage == 0 and sprite_name != case.get_tile():
+                    building.set_sprite(sprite_name)
+                if fire > 200:
                     building.set_sprite("fire")
 
     def change_cases_collision(self, collision, coord_cases):
