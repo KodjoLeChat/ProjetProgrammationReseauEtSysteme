@@ -108,7 +108,7 @@ def grid_to_world(grid_x, grid_y):
         case (0, 162, 232):
             tile = "water"
         case (34, 177, 76):
-            tile = "block"
+            tile = "grass"
         case (20, 102, 44):
             tile = "tree1"
         case (212, 212, 212):
@@ -118,10 +118,8 @@ def grid_to_world(grid_x, grid_y):
         case (130, 130, 130):
             tile = "water_right"
         case _:
-            tile = "block"
-
+            tile = "grass"
     collision = False if tile == "grass" else True
-
     out = Case([grid_x, grid_y], rect, iso_poly, tile, (minx, miny), collision)
 
     return out
