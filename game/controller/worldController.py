@@ -525,9 +525,9 @@ class WorldController:
         for x, y in self.worldModel.get_list_grid_pos_building():
             case = self.worldModel.get_case(x, y)
             building = case.get_building()
-            route_voisine = building.get_route_voisine()
-            sprite_name = building.get_sprite_name()
             if building:
+                route_voisine = building.get_route_voisine()
+                sprite_name = building.get_sprite_name()
                 # add fire
                 building.add_fire()
                 # add damage
@@ -545,7 +545,7 @@ class WorldController:
                     building.set_sprite("house_broken")
                 elif damage == 0 and sprite_name != case.get_tile():
                     building.set_sprite(sprite_name)
-                if fire > 200:
+                if fire > 5000:
                     building.set_sprite("fire")
 
     def change_cases_collision(self, collision, coord_cases):
