@@ -44,6 +44,11 @@ def load_images():
         "engineer": pygame.image.load("C3_sprites/C3/Citizen01_01141.png").convert_alpha(),
         "hud_hammer_sprite": pygame.image.load("C3_sprites/C3/transport_00056.png").convert_alpha(),
 
+        #pillier pour la jauge
+        "head_white_pillar": pygame.image.load("C3_sprites/C3/Sprites_00009.png").convert_alpha(),
+        "body_white_pillar": pygame.image.load("C3_sprites/C3/Sprites_00010.png").convert_alpha(),
+        "bottom_white_pillar": pygame.image.load("C3_sprites/C3/Sprites_00011.png").convert_alpha(),
+
         # routes
         "road_hover": pg.image.load("C3_sprites/C3/Land2a_00044.png").convert_alpha(),
         "top_bottom": pg.image.load("C3_sprites/C3/Land2a_00094.png").convert_alpha(),
@@ -217,13 +222,32 @@ class WorldController:
         for x in range(self.grid_length_x):
             for y in range(self.grid_length_y):
                 case = self.worldModel.get_case(x, y)
+                building = case.get_building()
                 rect_case = case.get_render_pos()
                 tile = case.get_tile()
                 if tile != "":
                     screen.blit(self.images[tile],
                                 (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
                                  rect_case[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
+                    if building:
+                        self.draw_jauge_building(case,screen,camera)
         self.draw_walkers(screen, camera_scroll_x, camera_scroll_y)
+
+    def draw_jauge_building(self, case,screen, camera):
+        camera_scroll_x = camera.get_scroll().x
+        camera_scroll_y = camera.get_scroll().y
+        rect_case = case.get_render_pos()
+        building = case.get_building()
+        jauges = building.get_pillar()
+        hauteur_total_pillier = 0
+        for pillar_name,count in jauges.items():
+            for i in range(count):
+                screen.blit(self.images[pillar_name],
+                            (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
+                            (rect_case[1] - (self.images[pillar_name].get_height() - TILE_SIZE)-(self.images[pillar_name].get_height()*(i+hauteur_total_pillier)))+ camera_scroll_y))
+            hauteur_total_pillier += count
+
+
 
     def draw_minimapR(self, screen, camera):
         # Calculate the scale of the minimap relative to the full-size map

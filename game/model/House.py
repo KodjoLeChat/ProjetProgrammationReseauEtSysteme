@@ -10,9 +10,13 @@ class House():
         self.damage = 0
         self.fire = 0
         self.route_voisine = route_voisine
+        self.pillar = {"bottom_white_pillar":1, "body_white_pillar":10,"head_white_pillar":1}
 
     def get_citoyen(self):
         return self.citoyen
+
+    def get_pillar(self):
+        return self.pillar
 
     def get_damage(self):
         return self.damage
