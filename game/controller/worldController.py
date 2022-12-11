@@ -230,7 +230,8 @@ class WorldController:
                                 (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
                                  rect_case[1] - (self.images[tile].get_height() - TILE_SIZE) + camera_scroll_y))
                     if building:
-                        self.draw_jauge_building(case,screen,camera)
+                        if self.keyboard.get_keyboard_input().get(pygame.K_a):
+                            self.draw_jauge_building(case,screen,camera)
         self.draw_walkers(screen, camera_scroll_x, camera_scroll_y)
 
     def draw_jauge_building(self, case,screen, camera):
@@ -238,14 +239,32 @@ class WorldController:
         camera_scroll_y = camera.get_scroll().y
         rect_case = case.get_render_pos()
         building = case.get_building()
-        jauges = building.get_pillar()
-        hauteur_total_pillier = 0
-        for pillar_name,count in jauges.items():
-            for i in range(count):
-                screen.blit(self.images[pillar_name],
-                            (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x,
-                            (rect_case[1] - (self.images[pillar_name].get_height() - TILE_SIZE)-(self.images[pillar_name].get_height()*(i+hauteur_total_pillier)))+ camera_scroll_y))
-            hauteur_total_pillier += count
+        if type(building).__name__ == "House":
+            jauges = building.get_pillar()
+            hauteur_total_pillier = 0
+            for pillar_name,count in jauges.items():
+                for i in range(1,count+1):
+                    if pillar_name == "body_white_pillar":
+                        hauteur = (self.images[pillar_name].get_height() + hauteur_total_pillier)
+                        screen.blit(self.images[pillar_name],
+                                    (rect_case[0] + self.dim_map.get_width() /2 + camera_scroll_x + 16,
+                                    (rect_case[1] - hauteur) +TILE_SIZE+ camera_scroll_y)
+                                    )
+                        hauteur_total_pillier = hauteur
+                    elif pillar_name == "bottom_white_pillar":
+                        screen.blit(self.images[pillar_name],
+                                    (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x  + self.images[pillar_name].get_height() / 4 ,
+                                     (rect_case[1] - (self.images[pillar_name].get_height() - TILE_SIZE)) + camera_scroll_y)
+                                    )
+                        hauteur_total_pillier = self.images[pillar_name].get_height()/2
+                    else :
+                        screen.blit(self.images[pillar_name],
+                                    (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x + 4,
+                                     (rect_case[1] - (self.images[
+                                                          pillar_name].get_height() + hauteur_total_pillier - TILE_SIZE)) + camera_scroll_y)
+                                    )
+                        hauteur_total_pillier += self.images[pillar_name].get_height() + hauteur_total_pillier - TILE_SIZE
+
 
 
 
@@ -567,25 +586,27 @@ class WorldController:
             if building:
                 route_voisine = building.get_route_voisine()
                 sprite_name = building.get_sprite_name()
-                # add fire
-                building.add_fire()
-                # add damage
-                building.add_damage()
+                if type(building).__name__ == "House": # fait en sorte de ne prendre que les classes de type House (le post d'ingénieur ne prend pas de dégats dans le temps
+                    # add fire
+                    building.add_fire()
+                    # add damage
+                    building.add_damage()
 
-                #reset du des damages quand l'ingénieur est à côté
-                for walker in self.walkers:
-                    if route_voisine != None:
-                        if walker.get_pos() in route_voisine and walker.get_sprite() == "engineer":
-                            building.reset_damage()
+                    #reset du des damages quand l'ingénieur est à côté
+                    for walker in self.walkers:
+                        if route_voisine != None:
+                            if walker.get_pos() in route_voisine and walker.get_sprite() == "engineer":
+                                building.reset_damage()
+                                building.reset_pillard()
 
-                damage = building.get_damage()
-                fire = building.get_fire()
-                if damage > 100:
-                    building.set_sprite("house_broken")
-                elif damage == 0 and sprite_name != case.get_tile():
-                    building.set_sprite(sprite_name)
-                if fire > 5000:
-                    building.set_sprite("fire")
+                    damage = building.get_damage()
+                    fire = building.get_fire()
+                    if damage > 20:
+                        building.set_sprite("house_broken")
+                    elif damage == 0 and sprite_name != case.get_tile():
+                        building.set_sprite(sprite_name)
+                    if fire > 5000:
+                        building.set_sprite("fire")
 
     def change_cases_collision(self, collision, coord_cases):
         cases = [self.worldModel.get_case(x, y) for x, y in coord_cases]
