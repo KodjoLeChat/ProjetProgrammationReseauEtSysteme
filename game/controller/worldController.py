@@ -118,7 +118,7 @@ def grid_to_world(grid_x, grid_y):
         case (130, 130, 130):
             tile = "water_right"
         case _:
-            tile = "block"
+            tile = "grass"
 
     collision = False if tile == "grass" else True
 
