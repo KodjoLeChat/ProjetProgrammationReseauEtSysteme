@@ -419,13 +419,13 @@ class WorldController:
                             self.worldModel.diff_update_road(case_to_delete)
                             self.worldModel.diff_update_building(case_to_delete)
                             self.change_case_sprite_by_image_name(sprite_name, case_to_delete)
-                            self.update_case(sprite_name)
+                            self.update_case(sprite_name, case_to_delete)
                             self.change_cases_collision(False, case_to_delete)
                         elif sprite_name:
                             coord_cases = self.selection_building.add_grid_pos(grid_pos)
                             cases_without_col = [coord for coord in coord_cases if not self.worldModel.get_case(coord[0],coord[1]).get_collision()]
                             self.change_case_sprite_by_image_name(sprite_name, cases_without_col)
-                            self.update_case(sprite_name)
+                            self.update_case(sprite_name,cases_without_col)
                             self.change_cases_collision(True, cases_without_col)
 
                     self.temp_cases = []
@@ -513,12 +513,12 @@ class WorldController:
                 elif image_name == "hud_shovel_sprite":
                     case.set_tile(image_name)
 
-    def update_case(self, sprite_name):
+    def update_case(self, sprite_name,coord_cases):
         """
         Met à jour les cases pour leurs ajouter/supprimer un building :param sprite_name: le nom du sprite
         selectionner pour savoir s'il faut supprimer ou ajouter un building aux cases :return: None
         """
-        cases = [self.worldModel.get_case(x, y) for x, y in self.worldModel.get_list_grid_pos_building() if not self.worldModel.get_case(x, y).get_collision()]
+        cases = [self.worldModel.get_case(x, y) for x, y in coord_cases]
         for case in cases:
             if sprite_name == "hud_house_sprite":
                 # test
@@ -572,9 +572,7 @@ class WorldController:
                 case.set_building(Engineer_post)
 
             elif sprite_name == "hud_shovel_sprite":
-                if case.get_render_pos() not in self.worldModel.get_list_grid_pos_building():
-                    if case.get_render_pos() not in self.worldModel.get_list_grid_pos_road():
-                        case.set_building(None)
+                case.set_building(None)
 
     def update_building(self):
         """
@@ -605,6 +603,7 @@ class WorldController:
                     fire = building.get_fire()
                     if damage > 20:
                         building.set_sprite("house_broken")
+                        building.reset_pillard()
                     elif damage == 0 and sprite_name != case.get_tile():
                         building.set_sprite(sprite_name)
                     if fire > 5000:

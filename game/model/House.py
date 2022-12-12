@@ -37,10 +37,10 @@ class House():
             self.pillar["body_white_pillar"] +=1
 
     def pillard_to_zero(self):
-        self.pillar = {"bottom_white_pillar":1, "body_white_pillar":1,"head_white_pillar":1}
+        self.pillar = {"bottom_white_pillar":0, "body_white_pillar":0,"head_white_pillar":0}
 
     def reset_pillard(self):
-        self.pillar = {"bottom_white_pillar":0, "body_white_pillar":0,"head_white_pillar":0}
+        self.pillar = {"bottom_white_pillar":1, "body_white_pillar":0,"head_white_pillar":1}
 
     def reset_damage(self):
         self.damage = 0
