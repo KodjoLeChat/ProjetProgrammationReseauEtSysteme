@@ -199,6 +199,8 @@ class WorldController:
         # FIRE
         self.data = []
 
+        self.time_Co = 100
+
     def create_world(self):
 
         world = []
@@ -338,16 +340,24 @@ class WorldController:
         if mouse_action.get(pg.MOUSEBUTTONDOWN):
             if self.hud.selected_tile is not None:
                 sprite_name = self.hud.selected_tile["name"]
-                if (sprite_name == "speedUp"):
+                if (sprite_name == "speedDown"):
                     if self.speed >= 1 and self.speed < 5:
                         self.speed += 1
                     if self.speed < 1:
                         self.speed += 0.1
-                if (sprite_name == "speedDown"):
+                    self.time_Co = 100 * self.speed * 10
+                    print('low :')
+                    print(self.time_Co)
+                if (sprite_name == "speedUp"):
                     if self.speed > 1:
                         self.speed -= 1
                     if self.speed <= 1 and self.speed > 0.1:
                         self.speed -= 0.1
+                    self.time_Co = 100 * self.speed * 10
+                    print('up :')
+                    print(self.time_Co)
+
+                
 
     def FileSelector(self):
         mouse_action = self.keyboard.get_keyboard_input()
@@ -376,7 +386,7 @@ class WorldController:
         self.time.update(self.speed)
 
         now = pygame.time.get_ticks()
-        if (now - self.actual_time > 200):
+        if (now - self.actual_time > self.time_Co):
             self.update_building()
             self.update_walkers()
             self.actual_time = now
