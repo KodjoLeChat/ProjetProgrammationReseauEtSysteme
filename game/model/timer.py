@@ -12,6 +12,7 @@ class Timer:
             test = 1
 
         self.time = int((time.time() - self.start_time)*test)
+        print(self.time)
     '''pause function timer'''
     def pause(self):
         self.start_time = time.time() - self.time
