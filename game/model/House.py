@@ -45,22 +45,23 @@ class House():
         if random.randint(0, 1):
             self.damage += 2
         if self.damage % 10 == 0:
+            self.pillar["body_pillar"] +=1
+        if 0< self.damage < 25:
             self.bottom_pillard = "bottom_white_pillar"
             self.body_pillard = "body_white_pillar"
-            self.bottom_pillard = "head_white_pillar"
-            self.pillar["body_pillar"] +=1
-        if self.damage %30 == 0:
+            self.head_pillard = "head_white_pillar"
+        if 25 < self.damage < 50:
             self.bottom_pillard = "bottom_orange_pillar"
             self.body_pillard = "body_orange_pillar"
-            self.bottom_pillard = "head_orange_pillar"
-        if self.damage %50 == 0:
+            self.head_pillard = "head_orange_pillar"
+        if 50 < self.damage < 75:
             self.bottom_pillard = "bottom_orange_red_pillar"
             self.body_pillard = "body_orange_red_pillar"
-            self.bottom_pillard = "head_orange_red_pillar"
-        if self.damage %85 == 0:
+            self.head_pillard = "head_orange_red_pillar"
+        if 75 < self.damage <= 100:
             self.bottom_pillard = "bottom_red_pillar"
             self.body_pillard = "body_red_pillar"
-            self.bottom_pillard = "head_red_pillar"
+            self.head_pillard = "head_red_pillar"
 
 
     def pillard_to_zero(self):

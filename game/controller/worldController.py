@@ -616,7 +616,7 @@ class WorldController:
 
                     damage = building.get_damage()
                     fire = building.get_fire()
-                    if damage > 20:
+                    if damage >= 100:
                         building.set_sprite("house_broken")
                         building.pillard_to_zero()
                     elif damage == 0 and sprite_name != case.get_tile():
