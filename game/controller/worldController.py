@@ -376,7 +376,7 @@ class WorldController:
         self.time.update(self.speed)
 
         now = pygame.time.get_ticks()
-        if (now - self.actual_time > 500):
+        if (now - self.actual_time > 200):
             self.update_building()
             self.update_walkers()
             self.actual_time = now
@@ -422,10 +422,11 @@ class WorldController:
                             self.update_case(sprite_name)
                             self.change_cases_collision(False, case_to_delete)
                         elif sprite_name:
-                            cases = self.selection_building.add_grid_pos(grid_pos)
-                            self.change_case_sprite_by_image_name(sprite_name, cases)
+                            coord_cases = self.selection_building.add_grid_pos(grid_pos)
+                            cases_without_col = [coord for coord in coord_cases if not self.worldModel.get_case(coord[0],coord[1]).get_collision()]
+                            self.change_case_sprite_by_image_name(sprite_name, cases_without_col)
                             self.update_case(sprite_name)
-                            self.change_cases_collision(True, cases)
+                            self.change_cases_collision(True, cases_without_col)
 
                     self.temp_cases = []
                     self.selection_building = None
@@ -446,9 +447,10 @@ class WorldController:
                         self.change_case_sprite_by_image_name("dirt", temps_coord)
                     else:
                         temps_coord = self.selection_building.add_grid_pos(grid_pos)
-                        self.add_temp_case(temps_coord)
-                        self.change_case_sprite_by_image_name("sign", temps_coord)
-                        self.worldModel.diff_update_building(temps_coord)
+                        new_temps_coord = [coord for coord in temps_coord if not self.worldModel.get_case(coord[0],coord[1]).get_collision()]
+                        self.add_temp_case(new_temps_coord)
+                        self.change_case_sprite_by_image_name("sign", new_temps_coord)
+                        self.worldModel.diff_update_building(new_temps_coord)
 
             elif mouse_action.get(pg.MOUSEMOTION) and not mouse_action.get(pg.MOUSEBUTTONDOWN):
                 self.temp_cases = []
@@ -516,63 +518,63 @@ class WorldController:
         Met à jour les cases pour leurs ajouter/supprimer un building :param sprite_name: le nom du sprite
         selectionner pour savoir s'il faut supprimer ou ajouter un building aux cases :return: None
         """
-        cases = [self.worldModel.get_case(x, y) for x, y in self.worldModel.get_list_grid_pos_building()]
+        cases = [self.worldModel.get_case(x, y) for x, y in self.worldModel.get_list_grid_pos_building() if not self.worldModel.get_case(x, y).get_collision()]
         for case in cases:
             if sprite_name == "hud_house_sprite":
-                if not case.get_collision():
-
-                    # test
-                    x, y = case.get_grid()
-                    voisin = list()
-                    if (x + 1, y) in self.worldModel.get_list_grid_pos_road():
-                        voisin.append((x + 1, y))
-                    if (x - 1, y) in self.worldModel.get_list_grid_pos_road():
-                        voisin.append((x - 1, y))
-                    if (x, y + 1) in self.worldModel.get_list_grid_pos_road():
-                        voisin.append((x, y + 1))
-                    if (x, y - 1) in self.worldModel.get_list_grid_pos_road():
-                        voisin.append((x, y - 1))
+                # test
+                x, y = case.get_grid()
+                voisin = list()
+                if (x + 1, y) in self.worldModel.get_list_grid_pos_road():
+                    voisin.append((x + 1, y))
+                if (x - 1, y) in self.worldModel.get_list_grid_pos_road():
+                    voisin.append((x - 1, y))
+                if (x, y + 1) in self.worldModel.get_list_grid_pos_road():
+                    voisin.append((x, y + 1))
+                if (x, y - 1) in self.worldModel.get_list_grid_pos_road():
+                    voisin.append((x, y - 1))
 
 
-                    if len(voisin) != 0:
-                        migrant_posx, migrant_posy = 0, 0
-                        migrant_destx, migrant_desty = voisin[0][0], voisin[0][1]
-                        matrix = self.create_colision_matrix_migrant()
-                        path = self.pathfinding(migrant_posx, migrant_posy, migrant_destx, migrant_desty, matrix)
-                        migrant = Migrant(0, 0, migrant_destx, migrant_desty, path, "migrant")
-                        self.walkers.append(migrant)
-                        house = House(case, migrant, voisin,sprite_name)
-                    else:
-                        house = House(case, None, None,sprite_name)
-                    case.set_building(house)
+                if len(voisin) != 0:
+                    migrant_posx, migrant_posy = 0, 0
+                    migrant_destx, migrant_desty = voisin[0][0], voisin[0][1]
+                    matrix = self.create_colision_matrix_migrant()
+                    path = self.pathfinding(migrant_posx, migrant_posy, migrant_destx, migrant_desty, matrix)
+                    migrant = Migrant(0, 0, migrant_destx, migrant_desty, path, "migrant")
+                    self.walkers.append(migrant)
+                    house = House(case, migrant, voisin,sprite_name)
+                else:
+                    house = House(case, None, None,sprite_name)
+                case.set_building(house)
 
             elif sprite_name == "hud_hammer_sprite":
-                if not case.get_collision():
-                    x, y = case.get_grid()
-                    voisin = list()
-                    if (x + 1, y) in self.worldModel.get_list_grid_pos_road():
-                        voisin.append((x + 1, y))
-                    if (x - 1, y) in self.worldModel.get_list_grid_pos_road():
-                        voisin.append((x - 1, y))
-                    if (x, y + 1) in self.worldModel.get_list_grid_pos_road():
-                        voisin.append((x, y + 1))
-                    if (x, y - 1) in self.worldModel.get_list_grid_pos_road():
-                        voisin.append((x, y - 1))
+                x, y = case.get_grid()
+                voisin = list()
+                if (x + 1, y) in self.worldModel.get_list_grid_pos_road():
+                    voisin.append((x + 1, y))
+                if (x - 1, y) in self.worldModel.get_list_grid_pos_road():
+                    voisin.append((x - 1, y))
+                if (x, y + 1) in self.worldModel.get_list_grid_pos_road():
+                    voisin.append((x, y + 1))
+                if (x, y - 1) in self.worldModel.get_list_grid_pos_road():
+                    voisin.append((x, y - 1))
 
-                    voisin_direct = None if len(voisin) == 0 else voisin[0]
-                    if voisin_direct is not None:
+                voisin_direct = None if len(voisin) == 0 else voisin[0]
+                if voisin_direct is not None:
 
-                        migrant_posx, migrant_posy = voisin_direct[0], voisin_direct[1]
-                        migrant_destx, migrant_desty = voisin_direct[0], voisin_direct[1]
-                        bad_path = self.bad_pathfind(migrant_posx, migrant_posy)
-                        migrant = Migrant(0, 0, migrant_destx, migrant_desty, bad_path, "engineer")
-                        self.walkers.append(migrant)
-                        Engineer_post = EngeneerPost(case, migrant, voisin_direct,sprite_name)
-                    else:
-                        Engineer_post = EngeneerPost(case, None, None, sprite_name)
-                    case.set_building(Engineer_post)
+                    migrant_posx, migrant_posy = voisin_direct[0], voisin_direct[1]
+                    migrant_destx, migrant_desty = voisin_direct[0], voisin_direct[1]
+                    bad_path = self.bad_pathfind(migrant_posx, migrant_posy)
+                    migrant = Migrant(0, 0, migrant_destx, migrant_desty, bad_path, "engineer")
+                    self.walkers.append(migrant)
+                    Engineer_post = EngeneerPost(case, migrant, voisin_direct,sprite_name)
+                else:
+                    Engineer_post = EngeneerPost(case, None, None, sprite_name)
+                case.set_building(Engineer_post)
+
             elif sprite_name == "hud_shovel_sprite":
-                case.set_building(None)
+                if case.get_render_pos() not in self.worldModel.get_list_grid_pos_building():
+                    if case.get_render_pos() not in self.worldModel.get_list_grid_pos_road():
+                        case.set_building(None)
 
     def update_building(self):
         """

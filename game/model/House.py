@@ -34,8 +34,6 @@ class House():
         if random.randint(0, 1):
             self.damage += 2
         if self.damage % 10 == 0:
-            print(self.damage)
-            print(self.damage % 10)
             self.pillar["body_white_pillar"] +=1
 
     def pillard_to_zero(self):
