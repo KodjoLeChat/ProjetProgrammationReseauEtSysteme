@@ -49,6 +49,18 @@ def load_images():
         "body_white_pillar": pygame.image.load("C3_sprites/C3/Sprites_00010.png").convert_alpha(),
         "bottom_white_pillar": pygame.image.load("C3_sprites/C3/Sprites_00011.png").convert_alpha(),
 
+        "head_orange_pillar": pygame.image.load("C3_sprites/C3/Sprites_00012.png").convert_alpha(),
+        "body_orange_pillar": pygame.image.load("C3_sprites/C3/Sprites_00013.png").convert_alpha(),
+        "bottom_orange_pillar": pygame.image.load("C3_sprites/C3/Sprites_00014.png").convert_alpha(),
+
+        "head_orange_red_pillar": pygame.image.load("C3_sprites/C3/Sprites_00015.png").convert_alpha(),
+        "body_orange_red_pillar": pygame.image.load("C3_sprites/C3/Sprites_00016.png").convert_alpha(),
+        "bottom_orange_red_pillar": pygame.image.load("C3_sprites/C3/Sprites_00017.png").convert_alpha(),
+
+        "head_red_pillar": pygame.image.load("C3_sprites/C3/Sprites_00018.png").convert_alpha(),
+        "body_red_pillar": pygame.image.load("C3_sprites/C3/Sprites_00019.png").convert_alpha(),
+        "bottom_red_pillar": pygame.image.load("C3_sprites/C3/Sprites_00020.png").convert_alpha(),
+
         # routes
         "road_hover": pg.image.load("C3_sprites/C3/Land2a_00044.png").convert_alpha(),
         "top_bottom": pg.image.load("C3_sprites/C3/Land2a_00094.png").convert_alpha(),
@@ -244,26 +256,29 @@ class WorldController:
             hauteur_total_pillier = 0
             for pillar_name,count in jauges.items():
                 for i in range(1,count+1):
-                    if pillar_name == "body_white_pillar":
-                        hauteur = (self.images[pillar_name].get_height() + hauteur_total_pillier)
-                        screen.blit(self.images[pillar_name],
+                    if pillar_name == "body_pillar":
+                        pillar = building.get_body_pillard()
+                        hauteur = (self.images[pillar].get_height() + hauteur_total_pillier)
+                        screen.blit(self.images[pillar],
                                     (rect_case[0] + self.dim_map.get_width() /2 + camera_scroll_x + 16,
                                     (rect_case[1] - hauteur) +TILE_SIZE+ camera_scroll_y)
                                     )
                         hauteur_total_pillier = hauteur
-                    elif pillar_name == "bottom_white_pillar":
-                        screen.blit(self.images[pillar_name],
-                                    (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x  + self.images[pillar_name].get_height() / 4 ,
-                                     (rect_case[1] - (self.images[pillar_name].get_height() - TILE_SIZE)) + camera_scroll_y)
+                    elif pillar_name == "bottom_pillar":
+                        pillar = building.get_bottom_pillard()
+                        screen.blit(self.images[pillar],
+                                    (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x  + self.images[pillar].get_height() / 4 ,
+                                     (rect_case[1] - (self.images[pillar].get_height() - TILE_SIZE)) + camera_scroll_y)
                                     )
-                        hauteur_total_pillier = self.images[pillar_name].get_height()/2
+                        hauteur_total_pillier = self.images[pillar].get_height()/2
                     else :
-                        screen.blit(self.images[pillar_name],
+                        pillar = building.get_head_pillard()
+                        screen.blit(self.images[pillar],
                                     (rect_case[0] + self.dim_map.get_width() / 2 + camera_scroll_x + 4,
                                      (rect_case[1] - (self.images[
-                                                          pillar_name].get_height() + hauteur_total_pillier - TILE_SIZE)) + camera_scroll_y)
+                                                          pillar].get_height() + hauteur_total_pillier - TILE_SIZE)) + camera_scroll_y)
                                     )
-                        hauteur_total_pillier += self.images[pillar_name].get_height() + hauteur_total_pillier - TILE_SIZE
+                        hauteur_total_pillier += self.images[pillar].get_height() + hauteur_total_pillier - TILE_SIZE
 
 
 
@@ -603,7 +618,7 @@ class WorldController:
                     fire = building.get_fire()
                     if damage > 20:
                         building.set_sprite("house_broken")
-                        building.reset_pillard()
+                        building.pillard_to_zero()
                     elif damage == 0 and sprite_name != case.get_tile():
                         building.set_sprite(sprite_name)
                     if fire > 5000:
