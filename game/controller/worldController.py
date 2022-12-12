@@ -137,6 +137,7 @@ def grid_to_world(grid_x, grid_y):
         case _:
             tile = "grass"
     collision = False if tile == "grass" else True
+
     out = Case([grid_x, grid_y], rect, iso_poly, tile, (minx, miny), collision)
 
     return out
@@ -300,12 +301,9 @@ class WorldController:
                 tile = case.get_tile()
                 if tile != "":
                     # Scale the tile image down to fit on the minimap surface
-                    scaled_tile = pygame.transform.scale(self.images[tile], (
-                    int(self.images[tile].get_width() * minimap_scale),
-                    int(self.images[tile].get_height() * minimap_scale)))
+                    scaled_tile = pygame.transform.scale(self.images[tile], (int(self.images[tile].get_width() * minimap_scale), int(self.images[tile].get_height() * minimap_scale)))
                     # Draw the scaled tile on the minimap surface
-                    minimap_surface.blit(scaled_tile,
-                                         (rect_case[0] * minimap_scale + 74, rect_case[1] * minimap_scale + 30))
+                    minimap_surface.blit(scaled_tile, (rect_case[0] * minimap_scale+74, rect_case[1] * minimap_scale+30))
 
         # Draw the minimap surface on the main screen
         # Calculate the center position of the minimap on the screen
@@ -351,8 +349,8 @@ class WorldController:
         mouse_action = self.keyboard.get_keyboard_input()
 
         if mouse_action.get(pg.MOUSEBUTTONDOWN):
-            if self.hud.selected_tile is not None:
-                sprite_name = self.hud.selected_tile["name"]
+            if self.hud.selected_button is not None:
+                sprite_name = self.hud.selected_button["name"]
                 if (sprite_name == "speedUp"):
                     if self.speed >= 1 and self.speed < 5:
                         self.speed += 1
@@ -521,7 +519,7 @@ class WorldController:
         cases = [self.worldModel.get_case(x, y) for x, y in list_cases]
         for case in cases:
             if self.can_place_tile(pg.mouse.get_pos()):
-                if image_name != "hud_shovel_sprite":
+                if image_name != "hud_shovel_sprite" and image_name != "speedDown" and image_name != "load_game" and image_name != "save_game" and image_name != "pause" and image_name != "speedUp":
                     case.set_tile(image_name)
                     self.ressources.sub_dinars(10)
 

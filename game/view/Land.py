@@ -30,7 +30,6 @@ class Land():
             for i in range(x):
                 for j in range(y):
                     color = im.getpixel((i, j))
-                    print(color)
                     if color in map_sprites.keys():
                         image = pg.image.load(map_sprites[color][0])
                     image = pg.transform.scale(image, (20*scale_factor, 10*scale_factor))
