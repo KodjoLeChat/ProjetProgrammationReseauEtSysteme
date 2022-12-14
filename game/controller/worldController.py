@@ -629,15 +629,15 @@ class WorldController:
                     #reset du des damages quand l'ingénieur est à côté
                     for walker in self.walkers:
                         if route_voisine != None:
-                            if walker.get_pos() in route_voisine and walker.get_sprite() == "engineer":
+                            if walker.get_pos() in route_voisine and walker.get_sprite() == "engineer" and building.get_sprite_name() != "house_broken":
                                 building.reset_damage()
                                 building.reset_pillard()
 
                     damage = building.get_damage()
                     fire = building.get_fire()
-                    if damage > 20:
+                    if damage > 100:
                         building.set_sprite("house_broken")
-                        building.reset_pillard()
+                        building.pillard_to_zero()
                     elif damage == 0 and sprite_name != case.get_tile():
                         building.set_sprite(sprite_name)
                     if fire > 5000:
