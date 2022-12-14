@@ -550,7 +550,6 @@ class WorldController:
             if self.can_place_tile(pg.mouse.get_pos()):
                 if image_name != "hud_shovel_sprite" and image_name != "speedDown" and image_name != "load_game" and image_name != "save_game" and image_name != "pause" and image_name != "speedUp":
                     case.set_tile(image_name)
-                    print(image_name)
                     if image_name == "hud_house_sprite":
                         self.ressources.sub_dinars(10)
                         
