@@ -20,8 +20,6 @@ class Migrant:
                 self.path_retour = []
 
 
-
-
     def get_reset(self):
         return self.reset
     def get_path(self):

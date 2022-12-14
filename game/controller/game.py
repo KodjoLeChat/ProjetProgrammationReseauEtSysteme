@@ -6,6 +6,8 @@ from game.model.zoom import Zoom
 from game.model.settings import GRID_LENGTH, GRID_WIDTH
 from game.model.settings import TILE_SIZE
 from game.controller.keyboard import keyboard
+from game.controller.Mouse_Once import Mouse
+
 from game.controller.camera import Camera
 from game.view.hud import Hud
 from game.controller.keyboard import keyboard
@@ -16,6 +18,8 @@ class Game:
 
     def __init__(self, screen, clock):
         self.keyboard = keyboard(self)
+        self.mouse = Mouse()
+
         self.screen = screen
         self.clock = clock
         self.width, self.height = self.screen.get_size()
@@ -35,6 +39,8 @@ class Game:
         # camera
         self.camera = Camera(self.width, self.height)
 
+        self.pause = True
+
     # build
     def run(self):
         while self.playing:
@@ -45,9 +51,10 @@ class Game:
             pg.display.flip()
 
     def update(self):
-        self.camera.update()
         self.hud.update()
+        self.camera.update()
         self.worldController.update(self.camera)
+
 
     def draw(self):
         self.screen.fill((0, 0, 0))

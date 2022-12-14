@@ -137,7 +137,6 @@ def grid_to_world(grid_x, grid_y):
         case _:
             tile = "grass"
     collision = False if tile == "grass" else True
-
     out = Case([grid_x, grid_y], rect, iso_poly, tile, (minx, miny), collision)
 
     return out
@@ -212,6 +211,12 @@ class WorldController:
         # FIRE
         self.data = []
 
+        # MINIMAP SCALE
+        self.minimap_scale = 0.045
+
+        # TIME
+        self.time_Co = 100
+
     def create_world(self):
 
         world = []
@@ -246,6 +251,42 @@ class WorldController:
                         if self.keyboard.get_keyboard_input().get(pygame.K_a):
                             self.draw_jauge_building(case,screen,camera)
         self.draw_walkers(screen, camera_scroll_x, camera_scroll_y)
+
+    def draw_minimapR(self, screen, camera):
+        # Calculate the scale of the minimap relative to the full-size map
+        mouse_action = self.keyboard.get_keyboard_input()
+        if mouse_action.get(pg.K_b):
+            self.minimap_scale += 0.1
+        if mouse_action.get(pg.K_c) and self.minimap_scale > 0.1:
+            self.minimap_scale -= 0.1
+
+        minimap_width = int(camera.get_scroll().x * self.minimap_scale)
+        minimap_height = int(camera.get_scroll().y * self.minimap_scale)
+
+        # Create a new surface to draw the minimap on
+        minimap_surface = pygame.Surface((150, 120))
+
+        # Loop through each tile in the full-size map and draw it on the minimap surface
+        for x in range(self.grid_length_x):
+            for y in range(self.grid_length_y):
+                case = self.worldModel.get_case(x, y)
+                rect_case = case.get_render_pos()
+                tile = case.get_tile()
+                if tile != "":
+                    # Scale the tile image down to fit on the minimap surface
+                    scaled_tile = pygame.transform.scale(self.images[tile], (
+                    int(self.images[tile].get_width() * self.minimap_scale),
+                    int(self.images[tile].get_height() * self.minimap_scale)))
+                    # Draw the scaled tile on the minimap surface
+                    minimap_surface.blit(scaled_tile,
+                                         (rect_case[0] * self.minimap_scale + 74 + minimap_width, rect_case[1] * self.minimap_scale + 30 + minimap_height))
+
+        # Draw the minimap surface on the main screen
+        # Calculate the center position of the minimap on the screen
+        minimap_x = self.width - minimap_width - 10
+        minimap_y = self.height - minimap_height - 10
+        screen.blit(minimap_surface, (WIDHT - self.hud.hudbase.get_width() + 4, 50))
+
 
     def draw_jauge_building(self, case,screen, camera):
         camera_scroll_x = camera.get_scroll().x
@@ -282,34 +323,6 @@ class WorldController:
                         hauteur_total_pillier += self.images[pillar].get_height() + hauteur_total_pillier - TILE_SIZE
 
 
-
-
-    def draw_minimapR(self, screen, camera):
-        # Calculate the scale of the minimap relative to the full-size map
-        minimap_scale = 0.045
-        minimap_width = int(self.dim_map.get_width() * minimap_scale)
-        minimap_height = int(self.dim_map.get_height() * minimap_scale)
-
-        # Create a new surface to draw the minimap on
-        minimap_surface = pygame.Surface((150, 120))
-
-        # Loop through each tile in the full-size map and draw it on the minimap surface
-        for x in range(self.grid_length_x):
-            for y in range(self.grid_length_y):
-                case = self.worldModel.get_case(x, y)
-                rect_case = case.get_render_pos()
-                tile = case.get_tile()
-                if tile != "":
-                    # Scale the tile image down to fit on the minimap surface
-                    scaled_tile = pygame.transform.scale(self.images[tile], (int(self.images[tile].get_width() * minimap_scale), int(self.images[tile].get_height() * minimap_scale)))
-                    # Draw the scaled tile on the minimap surface
-                    minimap_surface.blit(scaled_tile, (rect_case[0] * minimap_scale+74, rect_case[1] * minimap_scale+30))
-
-        # Draw the minimap surface on the main screen
-        # Calculate the center position of the minimap on the screen
-        minimap_x = self.width - minimap_width - 10
-        minimap_y = self.height - minimap_height - 10
-        screen.blit(minimap_surface, (WIDHT - self.hud.hudbase.get_width() + 4, 50))
 
     def update_walkers(self):
         for walker in self.walkers:
@@ -349,18 +362,26 @@ class WorldController:
         mouse_action = self.keyboard.get_keyboard_input()
 
         if mouse_action.get(pg.MOUSEBUTTONDOWN):
-            if self.hud.selected_button is not None:
-                sprite_name = self.hud.selected_button["name"]
-                if (sprite_name == "speedUp"):
+            if self.hud.selected_tile is not None:
+                sprite_name = self.hud.selected_tile["name"]
+                if (sprite_name == "speedDown"):
                     if self.speed >= 1 and self.speed < 5:
                         self.speed += 1
                     if self.speed < 1:
                         self.speed += 0.1
-                if (sprite_name == "speedDown"):
+                    self.time_Co = 100 * self.speed * 10
+                    print('low :')
+                    print(self.time_Co)
+                if (sprite_name == "speedUp"):
                     if self.speed > 1:
                         self.speed -= 1
                     if self.speed <= 1 and self.speed > 0.1:
                         self.speed -= 0.1
+                    self.time_Co = 100 * self.speed * 10
+                    print('up :')
+                    print(self.time_Co)
+
+
 
     def FileSelector(self):
         mouse_action = self.keyboard.get_keyboard_input()
@@ -389,7 +410,7 @@ class WorldController:
         self.time.update(self.speed)
 
         now = pygame.time.get_ticks()
-        if (now - self.actual_time > 200):
+        if (now - self.actual_time > self.time_Co):
             self.update_building()
             self.update_walkers()
             self.actual_time = now
@@ -519,7 +540,7 @@ class WorldController:
         cases = [self.worldModel.get_case(x, y) for x, y in list_cases]
         for case in cases:
             if self.can_place_tile(pg.mouse.get_pos()):
-                if image_name != "hud_shovel_sprite" and image_name != "speedDown" and image_name != "load_game" and image_name != "save_game" and image_name != "pause" and image_name != "speedUp":
+                if image_name != "hud_shovel_sprite":
                     case.set_tile(image_name)
                     self.ressources.sub_dinars(10)
 
@@ -614,9 +635,9 @@ class WorldController:
 
                     damage = building.get_damage()
                     fire = building.get_fire()
-                    if damage >= 100:
+                    if damage > 20:
                         building.set_sprite("house_broken")
-                        building.pillard_to_zero()
+                        building.reset_pillard()
                     elif damage == 0 and sprite_name != case.get_tile():
                         building.set_sprite(sprite_name)
                     if fire > 5000:
