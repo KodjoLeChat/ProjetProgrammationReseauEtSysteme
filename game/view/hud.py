@@ -312,24 +312,6 @@ class Hud:
 
         
 
-        mouse_action = self.keyboard.get_keyboard_input()
-
-        if mouse_action.get(pg.MOUSEBUTTONDOWN):
-            if self.selected_button is not None:
-                sprite_name = self.selected_button["name"]
-                if (sprite_name =="speedUp"):
-                        if self.speed >= 1 and self.speed < 5:
-                            self.speed += 1
-                        if self.speed < 1:
-                            self.speed += 0.1
-                if (sprite_name =="speedDown"):
-                        if self.speed > 1:
-                            self.speed -= 1
-                        if self.speed <= 1 and self.speed > 0.1:
-                            self.speed -= 0.1
-
-        text = font.render('{} %'.format(self.speed*100), 0, (0, 0, 0))
-        screen.blit(text, (WIDHT - WIDHT*0.03, HEIGHT //2 +50) )
 
 
     def scale_image(self, image, w=None, h=None):

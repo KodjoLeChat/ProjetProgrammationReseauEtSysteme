@@ -1,6 +1,7 @@
 from game.view.menu import *
 from game.model.settings import *
 from game.controller.game import Game
+
 from game.view.utils import *
 import tkinter as tk
 import easygui

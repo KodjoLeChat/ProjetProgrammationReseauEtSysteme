@@ -6,6 +6,7 @@ class keyboard:
     def __init__(self, game):
         self.game = game
         self.pressed = {}
+        self.wantToPause = False
 
     def notify(self):
         for event in pygame.event.get():
