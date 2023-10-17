@@ -10,16 +10,16 @@ screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 #screen = pygame.display.set_mode((1000,800))
 WIDHT, HEIGHT = screen.get_size()
 # Menu Principal:
-text_buttons_menuP = ["ROMULUS", "Start_new_career", "Load_saved_game", "Exit"]
+text_buttons_menuP = ["ROMULUS", "Start_new_career", "Load_saved_game", "Join_game","Exit"]
 
 text_buttons_Game = ["ROMULUS", "Return", "ChooseFile", "Exit"]
 
 
 images_menuP = [None, None, None, None, None]
-fonts_menuP = [("white", "Milk"), ("red", "Milk"), ("red", "Milk"), ("red", "Milk")]
-delta_Button_menuP = [(60, 2), (15, 2), (15, 2), (60, 2)]  # la differnce entre la pos d un button et pos init
-delta_text_menuP = [(10, 2), (20, 2), (20, 2), (10, 2)]  # la difference entre le text et la pos d un boutton
-size_bg_button = [(13 * len(txt), 20) for txt in text_buttons_menuP]
+fonts_menuP = [("white", "Milk"), ("red", "Milk"), ("red", "Milk"), ("red", "Milk"), ("red", "Milk")]
+delta_Button_menuP = [(60, 2), (15, 2), (15, 2), (15, 2), (60, 2)]  # la differnce entre la pos d un button et pos init
+delta_text_menuP = [(10, 2), (20, 2), (20, 2), (20, 2), (10, 2)]  # la difference entre le text et la pos d un boutton
+size_bg_button = [(208 if "Start_new_career" in txt or "Load_saved_game" in txt or "Join_game" in txt else 13 * len(txt) - 10, 20) for txt in text_buttons_menuP]
 init_pos = [WIDHT / 2 - 100, HEIGHT / 2 - 105, 50]
 # initial position of the first button (x,y)
 # delta_H the last variable.

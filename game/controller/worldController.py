@@ -7,7 +7,7 @@ from game.model.settings import *
 from game.model.road import Road
 from game.controller.SelectionBuilding import SelectionBuilding
 from game.model.case import Case
-from game.controller.Walker import Migrant
+from game.model.Walker import Migrant
 from game.model.worldModel import WorldModel
 from game.model.House import House
 from game.model.timer import Timer

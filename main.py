@@ -45,6 +45,9 @@ def main():
                 case "Load_saved_game":
                     newMenu.display()
                     gama = False
+                case "Join_game":
+                    newMenu.display()
+                    gama2 = True
 
         if gama == False:
             newMenu.display()
