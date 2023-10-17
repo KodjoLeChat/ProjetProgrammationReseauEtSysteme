@@ -1,6 +1,6 @@
 ## Installation
 
-Pour exécuter ce projet, assurez-vous d'avoir Python 3 installé. Vous pouvez le télécharger à partir du site officiel de Python : [python.org](https://www.python.org/downloads/).
+Pour exécuter ce projet, assurez-vous d'avoir au moins Python 3.10 installé. Vous pouvez le télécharger à partir du site officiel de Python : [python.org](https://www.python.org/downloads/).
 
 Voici la liste des modules Python requis pour ce projet, avec leurs versions correspondantes :
 
