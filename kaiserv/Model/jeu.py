@@ -2,6 +2,7 @@ import random
 from .monde import Monde
 from .walker import Walker
 from .ingenieur import Ingenieur
+from .ressources import Ressources
 from .pathfinding import short_path
 import numpy
 
@@ -12,11 +13,15 @@ class Jeu:
         self.monde = Monde(size_tile, controleur.screen.get_size()) # plateau de jeu
         self.walkerlist = []                                        # liste de tous les walkers présents
         self.should_refresh = False                                 # permet de savoir si la carte doit être rechargée
+        self.ressources = Ressources(0, 0, 4000, 0)
 
     def add_engeneer(self, grid_start):
         # ajout de l'ingénieur sur la positition du bâtiment d'ingénieur
-        ingenieur = Ingenieur(grid_start, grid_start)
-        self.walkerlist.append(ingenieur)
+        if self.ressources.enough_dinars(2000):
+            ingenieur = Ingenieur(grid_start, grid_start)
+            self.walkerlist.append(ingenieur)
+            self.ressources.dinars -= 2000
+
 
     def update(self):
         should_refresh = False
@@ -30,7 +35,7 @@ class Jeu:
                         walker.chemin.remove(walker.chemin[0])
                 # si le migrant a atteint sa maison
                 if walker.actualPosition == walker.destination and self.monde.board[walker.destination[0]][walker.destination[1]]["building"].name == 'panneau':
-                    self.monde.board[walker.destination[0]][walker.destination[1]]["building"] = self.monde.craft_building(self.monde.information_for_each_tile['tente'])
+                    self.monde.board[walker.destination[0]][walker.destination[1]]["building"] = self.monde.craft_building(self.monde.information_for_each_tile['tente'],self.ressources)
                     self.monde.board[walker.destination[0]][walker.destination[1]]["building"].set_position_reference(walker.destination)
                     should_refresh = True
             elif walker.name == "citizen_engeneer":
@@ -48,6 +53,9 @@ class Jeu:
                         break
 
         self.should_refresh = should_refresh
+
+        for habitation in self.monde.habitations:
+            habitation.elapsed_time(self.ressources)
 
     # permet de changer les positions des walkers
     def update_move_walker(self, walker):
@@ -91,7 +99,7 @@ class Jeu:
                 if walker_tmp != None: self.walkerlist.remove(walker_tmp)
 
             # on replace de l'herbe à la place du bâtiment
-            self.monde.add_building_on_point(grid, 'herbe_{}'.format(random.randint(110,119)))
+            self.monde.add_building_on_point(grid, 'herbe_{}'.format(random.randint(110,119)),self.ressources)
 
             # cas particulier des ingénieurs, quand on supprime une route, on supprime potentiellement 
             # l'accès au bâtiment de l'un des ingénieurs présent sur la carte
@@ -126,10 +134,10 @@ class Jeu:
         return True 
 
     def add_building_on_point(self, grid_pos, path):
-        self.monde.add_building_on_point(grid_pos, path)
+        self.monde.add_building_on_point(grid_pos, path,self.ressources)
 
     def init_board(self, file_name):
-        return self.monde.init_board(file_name)
+        return self.monde.init_board(file_name,self.ressources)
 
     # devenu inutile
     def get_date(self):
@@ -140,8 +148,10 @@ class Jeu:
 
     # permet de créer un walker, utilisé pour les migrants
     def walker_creation(self,depart,destination):
-        walker = Walker(depart,destination)
-        self.walkerlist.append(walker)
-        walker.chemin = short_path(numpy.array(self.monde.define_matrix_for_path_finding()),walker.actualPosition,walker.destination)
-        walker.set_nextPosition()
-        
+        if self.ressources.enough_dinars(1000):
+            walker = Walker(depart,destination)
+            self.walkerlist.append(walker)
+            self.ressources.dinars -= 1000
+
+            walker.chemin = short_path(numpy.array(self.monde.define_matrix_for_path_finding()),walker.actualPosition,walker.destination)
+            walker.set_nextPosition()

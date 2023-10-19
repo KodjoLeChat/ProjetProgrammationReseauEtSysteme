@@ -46,6 +46,7 @@ class Controleur:
                 
                 self.ihm.draw()
 
+
         pygame.exit()
 
     def get_habitations(self):
@@ -59,13 +60,22 @@ class Controleur:
         self.paused = not self.paused
 
     def get_population(self):
-        return len(self.metier.walkerlist)
+        self.metier.ressources.population = len(self.metier.walkerlist)
+        return self.metier.ressources.population
+
+    def get_dinars(self):
+        return self.metier.ressources.dinars
 
     def check_if_construction_possible_on_grid(self, grid):
         return self.metier.check_if_construction_possible_on_grid(grid)
 
     def add_building_on_point(self, grid_pos, name):
-        self.metier.add_building_on_point(grid_pos, name)
+        if (name=="panneau" and self.metier.ressources.enough_dinars(1000)):
+            self.metier.add_building_on_point(grid_pos, name)
+        elif ("route" in name):
+            self.metier.add_building_on_point(grid_pos, name)
+        elif ("engeneer" in name and self.metier.ressources.enough_dinars(2000)):
+            self.metier.add_building_on_point(grid_pos, name)
 
     def clear(self, grid_pos):
         self.metier.clear(grid_pos)

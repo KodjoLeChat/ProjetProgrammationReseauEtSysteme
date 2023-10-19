@@ -53,6 +53,7 @@ class IHM:
         self.hud.draw()
         self.carriere.draw_walker()
         draw_text(self.controleur.screen, "Population: {}".format(self.controleur.get_population()), 20, (0,0,0), (self.controleur.screen.get_width()*0.91, self.controleur.screen.get_height()*0.57))
+        draw_text(self.controleur.screen, "Dinars: {}".format(self.controleur.get_dinars()), 20, (0,0,0), (self.controleur.screen.get_width()*0.91, self.controleur.screen.get_height()*0.57+20))
         self.pause_menu.draw()
 
         # actualise l'écran

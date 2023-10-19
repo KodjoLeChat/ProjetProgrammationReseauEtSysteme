@@ -2,6 +2,7 @@
 # classe permettant de gérer la logique géométrique du monde
 from .building import Building
 from .tente import Tente
+from .ressources import Ressources
 import math
 
 class Monde:
@@ -13,13 +14,14 @@ class Monde:
         self.habitations = [] # bâtiment considérés comme habitation
         self.ingenieurs  = [] # bâtiment pour les ingénieurs
 
+
     # réduit pour chaque habitation leur taux d'effondrement 
     def update(self):
         for habitation in self.habitations:
             habitation.reduce_collapsing_state()
 
     # pour chaque case, nous donnons le rectangle permettant de placer une tile à l'avenir
-    def grid_to_board(self, num_lig, num_col, name):
+    def grid_to_board(self, num_lig, num_col, name,ressource):
         rect = [
             (num_lig * self.tile_size                            , num_col * self.tile_size                 ),
             (num_lig * self.tile_size + self.tile_size, num_col * self.tile_size                            ),
@@ -40,7 +42,7 @@ class Monde:
             "cart_rect": rect,          # le rect avec les value géometrique
             "iso": iso,                 # pour les calculs de 2D à 2.5D
             "position_rendu": [minx, miny], # coordonnées de placement au sein d'une surface isométrique
-            "building": self.craft_building(information_building) # bâtiment associé
+            "building": self.craft_building(information_building,ressource) # bâtiment associé
         }
 
         return sortie
@@ -52,14 +54,14 @@ class Monde:
         return iso_x, iso_y
 
     # initialise l'entiéreté du plateau
-    def init_board(self, file_names):
+    def init_board(self, file_names,ressource):
         file_names = self.manage_for_water(file_names)
         file_names = self.manage_for_road (file_names)
 
         for num_lig in range(len(file_names)):
             self.board.append([])
             for num_col in range(len(file_names[num_lig])):
-                tile_board = self.grid_to_board(num_lig, num_col, file_names[num_lig][num_col])
+                tile_board = self.grid_to_board(num_lig, num_col, file_names[num_lig][num_col],ressource)
                 self.board[num_lig].append(tile_board)
 
     # permet de choisir les bons sprites et de construire les bonnes routes pour l'affichage
@@ -311,12 +313,12 @@ class Monde:
         return self.board[grid[0]][grid[1]]["building"].can_be_erase
 
     # construit un bâtiment spécifique selon les informations récupérées
-    def craft_building(self, infos_building):
+    def craft_building(self, infos_building, ressource):
         if ( infos_building[0] == "tente" ): 
             building = Tente(infos_building[0], infos_building[1], infos_building[2], infos_building[3], infos_building[4])
             self.habitations.append(building)
             return building
-        if infos_building[0] ==  "engeneer":
+        if infos_building[0] ==  "engeneer" and ressource.enough_dinars(2000):
             building = Building(infos_building[0], infos_building[1], infos_building[2], infos_building[3], infos_building[4])
             self.ingenieurs.append(building)
             return building
@@ -324,8 +326,46 @@ class Monde:
         return Building(infos_building[0], infos_building[1], infos_building[2], infos_building[3], infos_building[4])
 
     # ajoute un bâtiment dans le plateau à une certaines coordonées
-    def add_building_on_point(self, grid_pos, name):
-        infos_building = self.information_for_each_tile[name]
-        building = self.craft_building(infos_building)
-        building.set_position_reference(grid_pos)
-        self.board[grid_pos[0]][grid_pos[1]]["building"] = building
+    def add_building_on_point(self, grid_pos, name, ressource=None):
+        if ressource != None:
+            if (name=="panneau" and ressource.enough_dinars(1000)):
+                infos_building = self.information_for_each_tile[name]
+                self.building = self.craft_building(infos_building,ressource)
+                self.building.set_position_reference(grid_pos)
+                self.building.owner = self.building.set_mac_address()
+                self.board[grid_pos[0]][grid_pos[1]]["building"] = self.building
+                print(f"Building Attributes:")
+                for key, value in self.building.__dict__.items():
+                    print(f"{key}: {value}")
+            elif ("route" in name):
+                infos_building = self.information_for_each_tile[name]
+                self.building = self.craft_building(infos_building,ressource)
+                self.building.set_position_reference(grid_pos)
+                self.building.owner = self.building.set_mac_address()
+                self.board[grid_pos[0]][grid_pos[1]]["building"] = self.building
+                print(f"Building Attributes:")
+                for key, value in self.building.__dict__.items():
+                    print(f"{key}: {value}")
+
+            elif ("engeneer" in name and ressource.enough_dinars(2000)):
+                infos_building = self.information_for_each_tile[name]
+                self.building = self.craft_building(infos_building,ressource)
+                self.building.set_position_reference(grid_pos)
+                self.building.owner = self.building.set_mac_address()
+                self.board[grid_pos[0]][grid_pos[1]]["building"] = self.building
+                print(f"Building Attributes:")
+                for key, value in self.building.__dict__.items():
+                    print(f"{key}: {value}")
+            else:
+                infos_building = self.information_for_each_tile[name]
+                self.building = self.craft_building(infos_building,ressource)
+                self.building.set_position_reference(grid_pos)
+                self.building.owner = None
+                self.board[grid_pos[0]][grid_pos[1]]["building"] = self.building
+
+
+
+
+
+
+

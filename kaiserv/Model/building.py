@@ -1,9 +1,10 @@
-
+import psutil
+import pygame
+import datetime
 # représente les bâtiments
 # tout ce qui fait partie de la carte, même l'herbe
 class Building:
     nbBuilding = 0
-
     # on affecte des informations permettant d'ajuster le comportement dans le jeu
     def __init__(self, name, can_be_erase, can_constructible_over, can_be_walk_through, square_size):
         self.name                   = name                   # le nom du bâtiment représenté ( herbe, arbre, route, etc.)
@@ -14,7 +15,22 @@ class Building:
         self.position_reference = None                       # emplacement sur la carte
         self.id = Building.nbBuilding+1
         Building.nbBuilding = self.id
+        self.owner                  = None
+        self.current_time = datetime.datetime.now()
+        self.check_interval = 10
+        self.last_action_time = self.current_time
 
+
+    def elapsed_time(self, ressource):
+        self.current_time = datetime.datetime.now()
+        elapsed_time_s = (self.current_time - self.last_action_time).total_seconds()
+        if elapsed_time_s >= self.check_interval:
+            self.moneyEarned(ressource)
+            self.last_action_time = self.current_time
+
+    def moneyEarned(self,ressource):
+        ressource.dinars+=100
+        
     # permet d'affecter la position de reference
     def set_position_reference(self, position_reference):
         self.position_reference = position_reference
@@ -22,3 +38,13 @@ class Building:
     # utile pour le pathfinding 
     def get_canbewalkthrough_into_integer(self):
         return 0 if self.can_be_walk_through else 1
+    
+    def set_mac_address(self):
+        interfaces = psutil.net_if_addrs()
+        for interface, addrs in interfaces.items():
+            for addr in addrs:
+                if addr.family == psutil.AF_LINK:
+                    self.owner = addr.address
+                    #print(self.owner)
+                    return addr.address
+        return None
