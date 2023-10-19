@@ -57,6 +57,12 @@ class Jeu:
         for habitation in self.monde.habitations:
             habitation.elapsed_time(self.ressources)
 
+        for habitation in self.monde.habitations:
+            if habitation.name == "destroyed":
+                print("destroyed " + habitation.name) 
+            
+
+
     # permet de changer les positions des walkers
     def update_move_walker(self, walker):
         walker.set_nbdeplacement()

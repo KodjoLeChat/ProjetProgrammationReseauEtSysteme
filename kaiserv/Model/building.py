@@ -1,6 +1,7 @@
 import psutil
 import pygame
 import datetime
+import random
 # représente les bâtiments
 # tout ce qui fait partie de la carte, même l'herbe
 class Building:
@@ -19,6 +20,9 @@ class Building:
         self.current_time = datetime.datetime.now()
         self.check_interval = 10
         self.last_action_time = self.current_time
+        self.life = 100                      # la vie du bâtiment
+        self.check_fire = False
+
 
 
     def elapsed_time(self, ressource):
@@ -27,6 +31,10 @@ class Building:
         if elapsed_time_s >= self.check_interval:
             self.moneyEarned(ressource)
             self.last_action_time = self.current_time
+            random_number = random.randint(1, 10)
+            if random_number == 10:
+                self.check_fire = True
+            
 
     def moneyEarned(self,ressource):
         ressource.dinars+=100

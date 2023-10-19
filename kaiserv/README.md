@@ -1,4 +1,4 @@
-# kaiserV
+# Romulus Online
 
 ## Installation du package pillow indispensable
 ## Installation du package pygame indispensable

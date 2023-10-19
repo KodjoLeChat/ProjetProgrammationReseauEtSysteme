@@ -5,6 +5,7 @@ import pygame as pg
 HEIGHT_BUTTON = 50
 WIDTH_BUTTON = 300
 GAP = 75      # use it for space between button
+GAPP = 1      # use it for space between button
 #FONT_SIZE = 15
 
 # colors
