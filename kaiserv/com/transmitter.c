@@ -5,9 +5,16 @@
 #include <unistd.h>
 #include <pthread.h>
 
+typedef struct {
+    int socket;
+
+} SocketInfo;
+
+SocketInfo socket_info;
+
 void *client_handler(void *arg) {
     int client_socket = *((int *)arg);
-    char buffer_r[256];
+    char buffer_r[2046];
     ssize_t bytes_received;
 
     while (1) {
@@ -20,7 +27,7 @@ void *client_handler(void *arg) {
             printf("Received: %s", buffer_r);
             
             // Handle the client's request here and send a response if needed.
-             char message[] = "Hello, server!";
+            char message[] = "Hello, server!";
             strcpy(message, buffer_r);
 
             if (send(client_socket, message, strlen(message), 0) < 0) {
@@ -66,6 +73,7 @@ int main() {
 
     while (1) {
         client_socket = accept(server_socket, (struct sockaddr*)&client_address, &client_address_length);
+        printf("le numero de socket : %d\n", client_socket);
         if (client_socket < 0) {
             perror("Error accepting connection");
             continue;
@@ -73,6 +81,12 @@ int main() {
 
         pthread_t client_thread;
         if (pthread_create(&client_thread, NULL, client_handler, &client_socket) != 0) {
+            perror("Error creating client thread");
+            close(client_socket);
+        }
+
+        pthread_t client_thread1;
+        if (pthread_create(&client_thread1, NULL, client_handler, &client_socket) != 0) {
             perror("Error creating client thread");
             close(client_socket);
         }
