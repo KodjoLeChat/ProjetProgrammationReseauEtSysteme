@@ -29,7 +29,9 @@ GUI_COLOUR = (87, 65, 47, 200)
 GUI_BORDER_COLOR = (88, 41, 0, 255)
 GUI_MINIMAP_COLOUR = (0, 0, 0, 200)
 
-background_of_menu = pg.image.load("./assets/backgroud.png")
+background_of_menu = pg.image.load("./assets/14w_00001.png")
+
+# music
 
 paths = path.dirname("./song")
 music_menu = path.join(path.join(paths, "./song"), "song.wav")

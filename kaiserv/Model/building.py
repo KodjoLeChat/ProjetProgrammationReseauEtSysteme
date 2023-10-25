@@ -23,7 +23,13 @@ class Building:
         self.life = 100                      # la vie du bâtiment
         self.check_fire = False
 
-
+    def lower_hp(self):
+        # Reduce the HP of the building
+        self.hp -= 10  # You can adjust the amount by which the HP is lowered
+        if self.hp <= 0:
+            # Building is destroyed
+            self.owner = None
+            self.hp = 0
 
     def elapsed_time(self, ressource):
         self.current_time = datetime.datetime.now()

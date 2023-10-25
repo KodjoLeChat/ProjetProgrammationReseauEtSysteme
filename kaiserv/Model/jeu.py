@@ -142,6 +142,7 @@ class Jeu:
     def add_building_on_point(self, grid_pos, path):
         self.monde.add_building_on_point(grid_pos, path,self.ressources)
 
+
     def init_board(self, file_name):
         return self.monde.init_board(file_name,self.ressources)
 
