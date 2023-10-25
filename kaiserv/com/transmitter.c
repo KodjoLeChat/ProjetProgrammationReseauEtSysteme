@@ -7,10 +7,21 @@
 
 typedef struct {
     int socket;
-
+    char* client_id;
 } SocketInfo;
 
+int connected_player[10]; // 10 limite de joeur connected
+
+void initialize_players_spot(int *connected_player){
+    for (int i = 0; i < sizeof(connected_player); i++){
+    connected_player[i] = 0;
+}
+}
+
+int indice = 0;
 SocketInfo socket_info;
+
+char *uniqueID();
 
 void *client_handler(void *arg) {
     int client_socket = *((int *)arg);
@@ -30,9 +41,14 @@ void *client_handler(void *arg) {
             char message[] = "Hello, server!";
             strcpy(message, buffer_r);
 
-            if (send(client_socket, message, strlen(message), 0) < 0) {
-                perror("Error sending data");
+            for (int i = 0; i < sizeof(connected_player); i++){
+                if((connected_player[i] != 0) && (connected_player[i] != client_socket)){
+                     if (send(connected_player[i], message, strlen(message), 0) < 0) {
+                            perror("Error sending data");
+                        }
+                }
             }
+           
         }
     }
 
@@ -43,6 +59,9 @@ int main() {
     int server_socket, client_socket;
     struct sockaddr_in server_address, client_address;
     socklen_t client_address_length = sizeof(client_address);
+    
+    // Initialize players
+    initialize_players_spot(connected_player);
 
     server_socket = socket(AF_INET, SOCK_STREAM, 0);
     if (server_socket == -1) {
@@ -73,7 +92,14 @@ int main() {
 
     while (1) {
         client_socket = accept(server_socket, (struct sockaddr*)&client_address, &client_address_length);
-        printf("le numero de socket : %d\n", client_socket);
+        //socket_info.socket = client_socket;
+        //socket_info.client_id = uniqueID();
+        connected_player[indice++] = client_socket;
+        //printf("le numero de socket est: %d et le numero client est: %s\n", socket_info.socket, socket_info.client_id);
+        for (int i = 0; i < sizeof(client_socket); i++){
+            if(connected_player[i] != 0)
+            printf("id client connecte %d\n", connected_player[i]);
+        }
         if (client_socket < 0) {
             perror("Error accepting connection");
             continue;
@@ -85,14 +111,41 @@ int main() {
             close(client_socket);
         }
 
-        pthread_t client_thread1;
-        if (pthread_create(&client_thread1, NULL, client_handler, &client_socket) != 0) {
-            perror("Error creating client thread");
-            close(client_socket);
-        }
     }
 
     close(server_socket);
 
     return 0;
+}
+
+char *uniqueID(){
+
+     // Get the current timestamp
+    time_t current_time;
+    time(&current_time);
+    
+    // Convert the timestamp to a string
+    char timestamp_str[20];
+    snprintf(timestamp_str, sizeof(timestamp_str), "%ld", current_time);
+    
+    // Generate a random number
+    int random_number = rand();
+    
+    // Convert the random number to a string
+    char random_number_str[20];
+    snprintf(random_number_str, sizeof(random_number_str), "%d", random_number);
+    
+        // Calculate the length of the unique ID
+    int length = snprintf(NULL, 0, "%s%s", timestamp_str, random_number_str) + 1;
+    
+    // Allocate memory for the unique ID
+    char *unique_id = (char *)malloc(length);
+    
+    // Check if memory allocation was successful
+    if (unique_id != NULL) {
+        // Concatenate the timestamp and random number to create the unique ID
+        snprintf(unique_id, length, "%s%s", timestamp_str, random_number_str);
+    }
+    
+    return unique_id;
 }
