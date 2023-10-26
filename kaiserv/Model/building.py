@@ -1,6 +1,7 @@
 import psutil
 import pygame
 import datetime
+import json
 # représente les bâtiments
 # tout ce qui fait partie de la carte, même l'herbe
 class Building:
@@ -48,3 +49,13 @@ class Building:
                     #print(self.owner)
                     return addr.address
         return None
+
+    def to_json(self):
+        return json.dumps(self.__dict__)
+
+    @classmethod
+    def from_json(cls, json_str):
+        json_dict = json.loads(json_str)
+        building = cls.__new__(cls)
+        building.__dict__.update(json_dict)
+        return building

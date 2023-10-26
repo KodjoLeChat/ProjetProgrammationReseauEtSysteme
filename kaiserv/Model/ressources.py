@@ -1,5 +1,6 @@
 '''class ressources Caesar 3'''
 import pygame
+import json
 
 class Ressources:
     
@@ -70,3 +71,12 @@ class Ressources:
 
     def enough_population(self, population):
         return self.population >= population
+    
+    def to_json(self):
+        return json.dumps(self.__dict__)
+
+    @classmethod
+    def from_json(cls, json_str):
+        json_dict = json.loads(json_str)
+        ressources = cls(**json_dict)
+        return ressources
