@@ -15,6 +15,7 @@ class Monde:
         self.ingenieurs  = [] # bâtiment pour les ingénieurs
 
 
+
     # réduit pour chaque habitation leur taux d'effondrement 
     def update(self):
         for habitation in self.habitations:
@@ -337,6 +338,8 @@ class Monde:
                 print(f"Building Attributes:")
                 for key, value in self.building.__dict__.items():
                     print(f"{key}: {value}")
+                self.building.add_to_json()
+
             elif ("route" in name):
                 infos_building = self.information_for_each_tile[name]
                 self.building = self.craft_building(infos_building,ressource)

@@ -35,10 +35,10 @@ class Menu():
             # buttons
             self.Start_new_career = Button_Menu(self.screen, self.mid_width, self.mid_height - GAP, 'Start new career')
             self.Load_Saved_Game = Button_Menu(self.screen, self.mid_width, self.mid_height, 'Load Saved Game')
-            self.Join_Game = Button_Menu(self.screen, self.mid_width, self.mid_height, 'Join Game')
-            self.Options         = Button_Menu(self.screen, self.mid_width, self.mid_height + GAP, 'Options')
-            self.Creators        = Button_Menu(self.screen, self.mid_width, self.mid_height + (2 * GAP), 'Creators')
-            self.Exit            = Button_Menu(self.screen, self.mid_width, self.mid_height + (3 * GAP), 'Exit')
+            self.Join_Game = Button_Menu(self.screen, self.mid_width, self.mid_height + GAP, 'Join Game')
+            self.Options         = Button_Menu(self.screen, self.mid_width, self.mid_height + (2 * GAP), 'Options')
+            self.Creators        = Button_Menu(self.screen, self.mid_width, self.mid_height + (3 * GAP), 'Creators')
+            self.Exit            = Button_Menu(self.screen, self.mid_width, self.mid_height + (4 * GAP), 'Exit')
             
     def events(self, event):
         if self.Start_new_career.check_button(event):
@@ -59,7 +59,6 @@ class Menu():
                 self.controleur.play()
         
         if self.Join_Game.check_button(event):
-            join = True
             self.current = "Join Game"
             self.display_settings_join()
             run = False
@@ -179,9 +178,6 @@ class Menu():
                         self.current = "Main"
                         self.display_main()
 
-                    if event.type == pg.QUIT:
-                        run = False
-                        pg.quit()
 
                 ip_port_input.draw()
                 username_input.draw()
