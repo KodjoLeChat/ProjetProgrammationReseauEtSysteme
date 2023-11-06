@@ -5,9 +5,24 @@ from Model.jeu import Jeu
 from Vue.IHM   import IHM
 from Model.pathfinding import short_path
 import numpy 
+import socket
 
 class Controleur:
     def __init__(self):
+        
+         # Create a UDP socket
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        # Bind the socket to the address and port
+        client_socket.connect(("127.0.0.1", 2024))
+
+        # data, client_address = server_socket.recvfrom(2024)
+        # print(data)
+        # Send data to the server
+        code_con = 123
+        message = "connection established {}\n".format(code_con)
+        client_socket.sendto(message.encode(), ("127.0.0.1", 2024))
+
         # démarrage de pygame
         pygame.init()
 
