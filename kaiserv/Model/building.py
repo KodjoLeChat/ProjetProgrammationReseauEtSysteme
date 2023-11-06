@@ -62,33 +62,23 @@ class Building:
                     #print(self.owner)
                     return addr.address
         return None
-    
-    '''building convert to json all builds'''
-    def convert_to_json(self):
-        return {
-            "name": self.name,
-            "can_be_erase": self.can_be_erase,
-            "can_constructible_over": self.can_constructible_over,
-            "can_be_walk_through": self.can_be_walk_through,
-            "square_size": self.square_size,
-            "position_reference": self.position_reference,
-            "owner": self.owner,
-            "id": self.id
-        }
-    
-    def add_to_json(self):
-        data = self.convert_to_json()
-        with open("transfer.json", 'a') as file:
-            file.write(json.dumps(data) + '\n')
-    
-    def convert_from_json(self, json):
-        self.name = json["name"]
-        self.can_be_erase = json["can_be_erase"]
-        self.can_constructible_over = json["can_constructible_over"]
-        self.can_be_walk_through = json["can_be_walk_through"]
-        self.square_size = json["square_size"]
-        self.position_reference = json["position_reference"]
-        self.owner = json["owner"]
-        self.id = json["id"]
-        return self
-    
+
+    def to_json(self):
+        building_dict = self.__dict__.copy()
+        building_dict['current_time'] = self.current_time.strftime('%Y-%m-%d %H:%M:%S.%f')
+        building_dict['last_action_time'] = self.last_action_time.strftime('%Y-%m-%d %H:%M:%S.%f')
+        return json.dumps(building_dict, indent=4)
+
+
+    @classmethod
+    def from_json(cls, json_string):
+        json_dict = json.loads(json_string)
+        building = Building(json_dict['name'], json_dict['can_be_erase'], json_dict['can_constructible_over'],
+        json_dict['can_be_walk_through'], json_dict['square_size'])
+        building.position_reference = json_dict['position_reference']
+        building.id = json_dict['id']
+        building.owner = json_dict['owner']
+        building.current_time = datetime.datetime.strptime(json_dict['current_time'], '%Y-%m-%d %H:%M:%S.%f')
+        building.check_interval = json_dict['check_interval']
+        building.last_action_time = datetime.datetime.strptime(json_dict['last_action_time'], '%Y-%m-%d %H:%M:%S.%f')
+        return building

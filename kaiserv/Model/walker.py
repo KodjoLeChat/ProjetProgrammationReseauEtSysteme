@@ -1,3 +1,4 @@
+import json
 class Walker:
     nb_walker = 0
 
@@ -25,3 +26,18 @@ class Walker:
     def set_nextPosition(self):
         if self.chemin != None and self.chemin != False and len(self.chemin) > 1:
             self.nextPosition = self.chemin[1]
+    
+    def to_json(self):
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+
+    @classmethod
+    def from_json(cls, json_string):
+        json_dict = json.loads(json_string)
+        walker = Walker(json_dict['actualPosition'], json_dict['destination'])
+        walker.ID = json_dict['ID']
+        walker.nextPosition = json_dict['nextPosition']
+        walker.name = json_dict['name']
+        walker.chemin = json_dict['chemin']
+        walker.nombreDeplacement = json_dict['nombreDeplacement']
+        walker.nb_deplacement_max = json_dict['nb_deplacement_max']
+        return walker
