@@ -35,7 +35,7 @@ class HUD:
 
         # double boucle, pour pouvoir rajouter de future action
         # permet de gérer ensuite les evenements
-        actions = ["build", "clear", "road", "", "", "", "", "", "", "engeneer", "", ""]
+        actions = ["build", "clear", "road", "", "", "", "", "", "", "engeneer", "attack", ""]
         self.button_hud_right = {}
         for i in range(4):
             for j in range(3):
@@ -86,6 +86,12 @@ class HUD:
                                 image = pg.image.load("assets/upscale_road/Land2a_00094.png")
                                 self.action.initialiser(image)
                         case "engeneer":
+                            if self.action == None: self.action = AddingEngeneer(self.carriere)
+                            if not self.action.is_progress:
+                                self.action.is_progress = True
+                                image = pg.image.load("assets/upscale_land/Land2a_00001.png")
+                                self.action.initialiser(image)
+                        case "stats":
                             if self.action == None: self.action = AddingEngeneer(self.carriere)
                             if not self.action.is_progress:
                                 self.action.is_progress = True

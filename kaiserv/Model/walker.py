@@ -16,6 +16,7 @@ class Walker:
         """
         self.nombreDeplacement = 0           # le nombre de petits déplacements réalisés
         self.nb_deplacement_max = 10         # le nombre de déplacements à faire entre chaque tuile
+        self.life = 100                      # la vie du walker
 
     # permet d'incrémenter le nombre de déplacement 
     def set_nbdeplacement(self):

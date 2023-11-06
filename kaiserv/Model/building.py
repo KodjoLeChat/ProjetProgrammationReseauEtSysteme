@@ -1,7 +1,7 @@
 import psutil
-import pygame
-import datetime
 import json
+import datetime
+import random
 # représente les bâtiments
 # tout ce qui fait partie de la carte, même l'herbe
 class Building:
@@ -20,7 +20,16 @@ class Building:
         self.current_time = datetime.datetime.now()
         self.check_interval = 10
         self.last_action_time = self.current_time
+        self.life = 100                      # la vie du bâtiment
+        self.check_fire = False
 
+    def lower_hp(self):
+        # Reduce the HP of the building
+        self.hp -= 10  # You can adjust the amount by which the HP is lowered
+        if self.hp <= 0:
+            # Building is destroyed
+            self.owner = None
+            self.hp = 0
 
     def elapsed_time(self, ressource):
         self.current_time = datetime.datetime.now()
@@ -28,6 +37,10 @@ class Building:
         if elapsed_time_s >= self.check_interval:
             self.moneyEarned(ressource)
             self.last_action_time = self.current_time
+            random_number = random.randint(1, 10)
+            if random_number == 10:
+                self.check_fire = True
+            
 
     def moneyEarned(self,ressource):
         ressource.dinars+=100
