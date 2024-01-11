@@ -1,4 +1,5 @@
 """ Menu screen"""
+import queue
 from Vue.menu_button import *
 from Vue.menu_settings import *
 from Vue.input import *
@@ -7,6 +8,17 @@ import pygame as pg
 import sys
 import pickle
 import os
+import multiprocessing
+import logging
+import subprocess  # Make sure to import subprocess at the beginning of your file
+
+logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+def join_server(ip_port, username, password):
+        # Logic to connect to the server
+        # Example: connect_to_server(ip_port, username, password)
+        logging.info(f"Joining server with IP:PORT={ip_port}, Username={username}, Password={password}")
+        # Implement the actual server joining logic here
 
 class Menu():
     GRAY = (169, 169, 169)
@@ -25,9 +37,13 @@ class Menu():
         self.save = False
         self.pause = False
         #  next lines is for song
-        pg.mixer.music.load(music_menu)
-        pg.mixer.music.play(-1)
-        self.volume = pg.mixer.music.get_volume()
+        try:
+            pg.mixer.music.load(music_menu)
+            pg.mixer.music.play(-1)
+            self.volume = pg.mixer.music.get_volume()
+        except pg.error as e:
+            print(f"An error occurred: {e}")
+            # Handle the error or fail gracefully
 
     def display_main(self):
         if self.displayed:
@@ -56,6 +72,10 @@ class Menu():
                 self.controleur.grid_width = len(self.controleur.metier.monde.board[0])
 
                 self.controleur.ihm.init_sprite()
+                try:
+                    subprocess.Popen(["./sender"])
+                except Exception as e:
+                    print(f"Failed to execute sender: {e}")
                 self.controleur.play()
         
         if self.Join_Game.check_button(event):
@@ -143,14 +163,15 @@ class Menu():
     def display_settings_join(self):
         if self.displayed:
             pg.display.set_caption(' Romulus Online ')
-
+            print("test")
             # Input buttons
-            ip_port_input = InputButton(self.screen, self.mid_width, self.mid_height + (5*2), 'IP:PORT', '')
-            username_input = InputButton(self.screen, self.mid_width, self.mid_height + (8*20), 'Username', '')
-            password_input = InputButton(self.screen, self.mid_width, self.mid_height + (11*30), 'Password', '')
+            ip_port_input = InputButton(self.screen, self.mid_width, self.mid_height + (5*2), 'IP', '')
+            port_input = InputButton(self.screen, self.mid_width, self.mid_height + (8*20), 'PORT', '')
+            password_input = InputButton(self.screen, self.mid_width, self.mid_height + (11*30), 'Username', '')
 
             # Other buttons
-            Return = Button_Menu(self.screen, self.mid_width, self.mid_height - GAP * 2, 'Return')
+            Return = Button_Menu(self.screen, self.mid_width, self.mid_height - GAP, 'Return')
+            Join = Button_Menu(self.screen, self.mid_width, self.mid_height - GAP * 2, 'Join')
 
             run = True
             while run:
@@ -163,9 +184,9 @@ class Menu():
                         ip_port = ip_port_input.input_text
                         # You may want to parse and store the IP:PORT somewhere
 
-                    if username_input.check_button(event):
+                    if port_input.check_button(event):
                         # Handle username input
-                        username = username_input.input_text
+                        username = port_input.input_text
                         # You may want to store the username somewhere
 
                     if password_input.check_button(event):
@@ -177,14 +198,46 @@ class Menu():
                         run = False
                         self.current = "Main"
                         self.display_main()
+                        
+                    if Join.check_button(event):
+                        ip = ip_port_input.input_text
+                        port = port_input.input_text
+                        password = password_input.input_text
+                        print(f"Joining server with IP={ip}, PORT={port}, Password={password}")
+                        with open('config.txt', 'w') as config_file:
+                            config_file.write(f"{ip} {port}\n")                        
+                        # Execute the receiver program
+                        try:
+                            subprocess.run(["./receiver"])
+                        except Exception as e:
+                            print(f"Failed to execute receiver: {e}")
+                            
+                        if os.path.exists("onlineWorld.sav") and os.path.getsize("onlineWorld.sav") > 0:
+                            with open("onlineWorld.sav", 'rb') as file:
+                                self.controleur.metier = pickle.load(file)                            # fixe la taille du plateau de jeu
+                            self.controleur.grid_height  = len(self.controleur.metier.monde.board)
+                            self.controleur.grid_width = len(self.controleur.metier.monde.board[0])
+
+                            self.controleur.ihm.init_sprite()
+                            self.controleur.is_Joining=True
+                            self.controleur.play()
+                        else:
+                            print("onlineWorld.sav is empty or does not exist")
+                                
+                        run = False
+                        self.current = "Main"
+                        self.display_main()
 
 
                 ip_port_input.draw()
-                username_input.draw()
+                port_input.draw()
                 password_input.draw()
                 Return.draw()
+                Join.draw()
                 pg.display.flip()
 
+
+        
     def display_creators(self):
         if self.displayed:
 

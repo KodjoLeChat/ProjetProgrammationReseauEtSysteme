@@ -3,66 +3,95 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <fcntl.h>
 
-#define PORT 12345
 #define MAX_BUFFER_SIZE 1024
+#define PIPE_NAME "/tmp/netstat_pipe_received"
 
 int main() {
-    int server_socket, client_socket;
-    struct sockaddr_in server_address, client_address;
+    int client_socket, pipe_fd;
+    struct sockaddr_in server_address;
     char buffer[MAX_BUFFER_SIZE];
+    char ip[INET_ADDRSTRLEN];
+    int port;
+    FILE *configFile;
 
-    // Créez un socket
-    if ((server_socket = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
+    // Open the config file
+    configFile = fopen("config.txt", "r");
+    if (configFile == NULL) {
+        perror("Error opening config file");
+        exit(EXIT_FAILURE);
+    }
+
+    // Read IP and port from the config file
+    if (fscanf(configFile, "%s %d", ip, &port) != 2) {
+        perror("Error reading config file");
+        fclose(configFile);
+        exit(EXIT_FAILURE);
+    }
+    fclose(configFile);
+
+    // Create a socket
+    if ((client_socket = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
         perror("Error creating socket");
         exit(EXIT_FAILURE);
     }
 
-    // Configurez l'adresse du serveur
+    // Configure the server address
     server_address.sin_family = AF_INET;
-    server_address.sin_port = htons(PORT);
-    server_address.sin_addr.s_addr = INADDR_ANY;
-
-    // Liez le socket au port
-    if (bind(server_socket, (struct sockaddr*)&server_address, sizeof(server_address)) == -1) {
-        perror("Error binding socket");
+    server_address.sin_port = htons(port);
+    if (inet_pton(AF_INET, ip, &server_address.sin_addr) <= 0) {
+        perror("Invalid address/Address not supported");
         exit(EXIT_FAILURE);
     }
 
-    // Écoutez les connexions entrantes
-    if (listen(server_socket, 5) == -1) {
-        perror("Error listening for connections");
+    // Connect to the server
+    if (connect(client_socket, (struct sockaddr*)&server_address, sizeof(server_address)) == -1) {
+        perror("Error connecting to server");
         exit(EXIT_FAILURE);
     }
 
-    printf("Server listening on port %d...\n", PORT);
-
-    // Acceptez la connexion entrante
-    socklen_t client_address_len = sizeof(client_address);
-    client_socket = accept(server_socket, (struct sockaddr*)&client_address, &client_address_len);
-
-    if (client_socket == -1) {
-        perror("Error accepting connection");
+    // Open the named pipe for writing
+    pipe_fd = open(PIPE_NAME, O_WRONLY);
+    if (pipe_fd == -1) {
+        perror("Error opening named pipe");
         exit(EXIT_FAILURE);
     }
 
-    // Recevez les données JSON
-    ssize_t bytes_received = recv(client_socket, buffer, sizeof(buffer), 0);
-
+// Loop to continuously receive data and write to the named pipe
+ssize_t bytes_received;
+while (1) { // Infinite loop
+    bytes_received = recv(client_socket, buffer, sizeof(buffer), 0);
+    
+    // Check for errors or socket closure
     if (bytes_received == -1) {
         perror("Error receiving data");
-        exit(EXIT_FAILURE);
+        break;
+    } else if (bytes_received == 0) {
+        printf("Socket closed by the server.\n");
+        break;
     }
 
-    // Ajoutez un caractère de fin de chaîne à la fin du buffer pour imprimer correctement
-    buffer[bytes_received] = '\0';
+    // Write received data to the named pipe
+    if (write(pipe_fd, buffer, bytes_received) == -1) {
+        perror("Error writing to named pipe");
+        break;
+    }
 
-    // Affichez les données reçues
-    printf("Received data: %s\n", buffer);
+    // Example condition to exit the loop - you can modify this according to your needs
+    if (strcmp(buffer, "STOP") == 0) {
+        printf("Stop message received. Exiting loop.\n");
+        break;
+    }
+}
 
-    // Fermez les sockets
-    close(client_socket);
-    close(server_socket);
+// Close the named pipe and client socket
+close(pipe_fd);
+close(client_socket);
+
+printf("Client disconnected.\n");
 
     return 0;
 }

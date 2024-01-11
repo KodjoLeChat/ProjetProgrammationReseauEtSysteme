@@ -5,7 +5,8 @@ from Model.jeu import Jeu
 from Vue.IHM   import IHM
 from Model.pathfinding import short_path
 import numpy 
-import socket
+from Model.temp import Temp
+
 
 class Controleur:
     def __init__(self):
@@ -31,6 +32,7 @@ class Controleur:
         running = True
         self.paused = False
 
+        self.is_Joining = False
 
         # initialisation des valeurs de paramètre
         self.TILE_SIZE = set_tile_size("./settings.txt")
@@ -41,25 +43,47 @@ class Controleur:
 
         self.metier = None
         self.ihm    = IHM(self)
+        self.temp = Temp(self)
 
         self.grid_width = self.grid_height = 0
 
         # boucle du menu
         self.ihm.menu.display_main()
-        while running:
-            # boucle du jeu
-            self.ihm.events()
-            self.ihm.menu.draw()
-            self.clock.tick(60)
-            while self.playing:
+
+        if (self.is_Joining==False):
+            while running:
+                # boucle du jeu
+                self.ihm.events()
+                self.ihm.menu.draw()
                 self.clock.tick(60)
-                if self.metier != None:
-                    self.ihm.events()
-                    if not self.paused:
-                        self.metier.update()
-                        self.ihm.update()
-                
-                self.ihm.draw()
+                while self.playing:
+                    self.clock.tick(60)
+                    if self.metier != None:
+                        self.ihm.events()
+                        if not self.paused:
+                            self.metier.update()
+                            self.ihm.update()
+                    
+                    self.ihm.draw()
+        else:
+            while running:
+                # boucle du jeu
+                self.ihm.events()
+                self.ihm.menu.draw()
+                self.clock.tick(60)
+                while self.playing:
+                    self.clock.tick(60)
+                    if self.metier != None:
+                        self.ihm.events()
+                        if not self.paused:
+                            self.metier.update()
+                            self.ihm.update()
+
+                            building_object, last_line_number = self.metier.monde.building.from_json("transfer.json", self.temp.numberLine)
+                            self.temp.numberLine = last_line_number
+                            
+                    
+                    self.ihm.draw()
 
 
         pygame.exit()

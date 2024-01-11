@@ -1,4 +1,3 @@
-
 # classe permettant de gérer la logique géométrique du monde
 from .building import Building
 from .tente import Tente
@@ -13,7 +12,6 @@ class Monde:
         self.information_for_each_tile = self.get_information_for_each_tile() # dictionnaire avec les infos pour la construction de batiment
         self.habitations = [] # bâtiment considérés comme habitation
         self.ingenieurs  = [] # bâtiment pour les ingénieurs
-
 
 
     # réduit pour chaque habitation leur taux d'effondrement 
@@ -338,8 +336,6 @@ class Monde:
                 print(f"Building Attributes:")
                 for key, value in self.building.__dict__.items():
                     print(f"{key}: {value}")
-                self.building.add_to_json()
-
             elif ("route" in name):
                 infos_building = self.information_for_each_tile[name]
                 self.building = self.craft_building(infos_building,ressource)
