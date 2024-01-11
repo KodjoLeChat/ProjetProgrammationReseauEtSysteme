@@ -69,16 +69,58 @@ class Building:
         building_dict['last_action_time'] = self.last_action_time.strftime('%Y-%m-%d %H:%M:%S.%f')
         return json.dumps(building_dict, indent=4)
 
+    def add_to_json(self):
+        # Serialize the current building to JSON
+        building_json = self.to_json()
+
+        try:
+            # Load existing data from "transfer.json" if it exists
+            with open("transfer.json", "r") as file:
+                data = json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError):
+            # If the file doesn't exist yet or is empty, create an empty data structure
+            data = []
+
+        # Append the current building data to the list
+        data.append(json.loads(building_json))
+
+        # Write the updated data back to "transfer.json"
+        with open("transfer.json", "w") as file:
+            json.dump(data, file, indent=4)
+
 
     @classmethod
-    def from_json(cls, json_string):
-        json_dict = json.loads(json_string)
-        building = Building(json_dict['name'], json_dict['can_be_erase'], json_dict['can_constructible_over'],
-        json_dict['can_be_walk_through'], json_dict['square_size'])
-        building.position_reference = json_dict['position_reference']
-        building.id = json_dict['id']
-        building.owner = json_dict['owner']
-        building.current_time = datetime.datetime.strptime(json_dict['current_time'], '%Y-%m-%d %H:%M:%S.%f')
-        building.check_interval = json_dict['check_interval']
-        building.last_action_time = datetime.datetime.strptime(json_dict['last_action_time'], '%Y-%m-%d %H:%M:%S.%f')
-        return building
+    def from_json(cls, json_file="transfer.json", line_number=-1):
+        try:
+            with open(json_file, "r") as file:
+                lines = file.readlines()
+        except (FileNotFoundError, json.JSONDecodeError):
+            # If the file doesn't exist or is empty, return None
+            return None, -1  # Return -1 to indicate that no line was read
+
+        if line_number < 0:
+            # If line_number is negative, start from the end of the file
+            line_number = len(lines) + line_number
+
+        if 0 <= line_number < len(lines):
+            json_string = lines[line_number]
+            json_dict = json.loads(json_string)
+            building = Building(
+                json_dict['name'],
+                json_dict['can_be_erase'],
+                json_dict['can_constructible_over'],
+                json_dict['can_be_walk_through'],
+                json_dict['square_size']
+            )
+            building.position_reference = json_dict['position_reference']
+            building.id = json_dict['id']
+            building.owner = json_dict['owner']
+            building.current_time = datetime.datetime.strptime(json_dict['current_time'], '%Y-%m-%d %H:%M:%S.%f')
+            building.check_interval = json_dict['check_interval']
+            building.last_action_time = datetime.datetime.strptime(json_dict['last_action_time'], '%Y-%m-%d %H:%M:%S.%f')
+            
+            # Return the building object and the last line number read
+            return building, line_number
+
+        # Return None and -1 if the specified line number is out of bounds
+        return None, -1

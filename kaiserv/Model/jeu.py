@@ -3,6 +3,7 @@ from .monde import Monde
 from .walker import Walker
 from .ingenieur import Ingenieur
 from .ressources import Ressources
+from .medi import Test
 from .pathfinding import short_path
 import numpy
 
@@ -14,6 +15,8 @@ class Jeu:
         self.walkerlist = []                                        # liste de tous les walkers présents
         self.should_refresh = False                                 # permet de savoir si la carte doit être rechargée
         self.ressources = Ressources(0, 0, 4000, 0)
+
+
 
     def add_engeneer(self, grid_start):
         # ajout de l'ingénieur sur la positition du bâtiment d'ingénieur
