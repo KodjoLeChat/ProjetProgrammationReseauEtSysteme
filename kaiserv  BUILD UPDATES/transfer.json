@@ -1,0 +1,1406 @@
+[
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            22,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:54.145045",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:54.145045",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            22,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:54.145045",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:54.145045",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            22,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:54.145045",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:54.145045",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            22,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:54.145045",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:54.145045",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            22,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:54.145045",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:54.145045",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            22,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:54.145045",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:54.145045",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            22,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:54.145045",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:54.145045",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            22,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:54.145045",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:54.145045",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            22,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:54.145045",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:54.145045",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            22,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:54.145045",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:54.145045",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            22,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:54.145045",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:54.145045",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            22,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:54.145045",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:54.145045",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            22,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:54.145045",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:54.145045",
+        "life": 100,
+        "check_fire": false
+    }
+]

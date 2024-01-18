@@ -1,0 +1,11 @@
+ENfaite, il faut que j'override à chaque fois transfer.json avec la data
+de ma map update et je transmet toujours les building updates aux autres
+
+Les autres doivent avoir un receiver prêt qui tourne toujours et vérifie
+
+s'il reçoit un fichier, il override modif.json et ajoute la data
+
+le sender doit aussi toujours tourner pour être executer s'il y a une modificaiton
+
+il devra prendre en compte le nombre de connexion et vérifier qui a success
+reçu non

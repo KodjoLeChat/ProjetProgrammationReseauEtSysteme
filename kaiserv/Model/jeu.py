@@ -3,6 +3,7 @@ from .monde import Monde
 from .walker import Walker
 from .ingenieur import Ingenieur
 from .ressources import Ressources
+from .temp import Temp
 from .pathfinding import short_path
 import numpy
 
@@ -14,6 +15,7 @@ class Jeu:
         self.walkerlist = []                                        # liste de tous les walkers présents
         self.should_refresh = False                                 # permet de savoir si la carte doit être rechargée
         self.ressources = Ressources(0, 0, 4000, 0)
+        self.temp = Temp(1)
 
     def add_engeneer(self, grid_start):
         # ajout de l'ingénieur sur la positition du bâtiment d'ingénieur
@@ -141,6 +143,7 @@ class Jeu:
 
     def add_building_on_point(self, grid_pos, path):
         self.monde.add_building_on_point(grid_pos, path,self.ressources)
+        print(self.temp.numberLine)
 
 
     def init_board(self, file_name):
