@@ -10,8 +10,8 @@ import socket
 class Controleur:
     def __init__(self):
         
-         # Create a UDP socket
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+         # Create a TCP socket for 
+        '''client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
         # Bind the socket to the address and port
         client_socket.connect(("127.0.0.1", 2024))
@@ -21,7 +21,7 @@ class Controleur:
         # Send data to the server
         code_con = 123
         message = "connection established {}\n".format(code_con)
-        client_socket.sendto(message.encode(), ("127.0.0.1", 2024))
+        client_socket.sendto(message.encode(), ("127.0.0.1", 12345))'''
 
         # démarrage de pygame
         pygame.init()
