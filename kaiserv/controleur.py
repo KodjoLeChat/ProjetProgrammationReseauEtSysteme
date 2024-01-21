@@ -24,7 +24,9 @@ class Controleur:
         self.TILE_SIZE = set_tile_size("./settings.txt")
 
         # initialisation des attributs
-        self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+        largeur_fenetre = 800
+        hauteur_fenetre = 600
+        self.screen = pygame.display.set_mode((largeur_fenetre, hauteur_fenetre))
         self.clock  = pygame.time.Clock()
 
         self.metier = None
