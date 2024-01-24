@@ -3,7 +3,6 @@ from .monde import Monde
 from .walker import Walker
 from .ingenieur import Ingenieur
 from .ressources import Ressources
-from .medi import Test
 from .pathfinding import short_path
 import numpy
 
