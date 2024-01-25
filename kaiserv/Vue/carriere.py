@@ -67,12 +67,18 @@ class Carriere:
         if event.type == pygame.MOUSEWHEEL:
                 self.zoom.update(event.y)
        
-    # permet d'enregistrer la partie
+
     def Save_game(self):
-        object = self.controleur.metier
+        habitation_buildings = self.controleur.metier.monde.habitations  # Assuming habitation buildings are stored in self.habitations
+
         filename = "save.sav"
-        filehandler = open(filename, 'wb') 
-        pickle.dump(object, filehandler)
+
+        try:
+            with open(filename, 'wb') as filehandler:
+                pickle.dump(habitation_buildings, filehandler)
+        except Exception as e:
+            print(f"Error while pickling: {e}")
+
 
     # permet de recharger la surface principale du jeu, utile si notamment, nous changeons des batiments dans la partie
     def reload_board(self):
