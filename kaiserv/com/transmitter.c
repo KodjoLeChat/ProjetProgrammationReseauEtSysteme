@@ -5,6 +5,7 @@
 #include <arpa/inet.h>
 #include <errno.h>
 #include <sys/select.h>
+#include "queue.h"
 
 #define MAX_CLIENTS 10
 #define BUFFER_SIZE 1024
@@ -14,10 +15,22 @@
 
 
 int main() {
+
+    // file pour organiser les messages entrants
+    struct Queue incomingQueue;
+    initializeQueue(&incomingQueue);
+
+    // file pour organiser les messages sortants
+    struct Queue outgoingQueue;
+    initializeQueue(&outgoingQueue);
+
     int tcpServerSocket, newSocket, udpServerSocket;
     struct sockaddr_in tcpServerAddr, udpServerAddr, broadcast_address;
     fd_set readfds;
     char buffer[BUFFER_SIZE];
+    char incomingBuffer[BUFFER_SIZE];
+    char outgoingBuffer[BUFFER_SIZE];
+    
     int maxSocket, valread;
     int python_client_socket = 0;
 
@@ -104,11 +117,16 @@ int main() {
                 exit(EXIT_FAILURE);
             }
 
+            enqueue(&incomingQueue, buffer);
+
             printf("Received UDP message from %s:%d - %.*s\n",
                    inet_ntoa(udpServerAddr.sin_addr), ntohs(udpServerAddr.sin_port), bytesRead, buffer);
+            
+
+            strncpy(incomingBuffer, dequeue(&incomingQueue), BUFFER_SIZE);
 
             if (python_client_socket > 0) {
-                send(python_client_socket, buffer, bytesRead, 0);
+                send(python_client_socket, incomingBuffer, bytesRead, 0);
             } 
         
         }
@@ -123,23 +141,30 @@ int main() {
                 } else {
                     
                     buffer[valread] = '\0';
-                    printf("Données reçues du client, socket fd : %d : %s\n", python_client_socket, buffer);
+
+                    // ajouter le message entrant dans la file
+                    enqueue(&outgoingQueue, buffer);
+
+                    // printf("Données reçues du client, socket fd : %d : %s\n", python_client_socket, buffer);
                     
                     // send(python_client_socket, "Message reçu avec succès\n", strlen("Message reçu avec succès\n"), 0);
 
                     
                 if (udpServerSocket > 0) {
+                    // recuperer le message en tete de file
+                    strncpy(outgoingBuffer, dequeue(&outgoingQueue), BUFFER_SIZE);
                     // TODO Ayet
                     // Ajout des adresses des joueurs dans une liste
                     // faire une boucle while pour envoyer msg a tous les joueurs
+                    // faire varier aussi le numero de port
                     memset(&broadcast_address, 0, sizeof(broadcast_address));
                     broadcast_address.sin_family = AF_INET;
                     broadcast_address.sin_port = htons(UDP_PORT);
                     inet_pton(AF_INET, "192.168.0.101", &(broadcast_address.sin_addr));
                     
-                    printf("the message: %s", buffer);
+                    printf("the message: %s", outgoingBuffer);
     
-                    sendto(udpServerSocket, buffer, strlen(buffer), 0, (struct sockaddr*)&broadcast_address, sizeof(broadcast_address));
+                    sendto(udpServerSocket, outgoingBuffer, strlen(outgoingBuffer), 0, (struct sockaddr*)&broadcast_address, sizeof(broadcast_address));
 
                 }
                 }
