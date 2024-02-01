@@ -1,12 +1,23 @@
 import socket
+import select
+import json
+import pickle
+import threading
+import re
+
 
 class TcpClient:
     def __init__(self, connecting=False):
         self.server_address = "127.0.0.1"
         self.port = 2024
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
         self.buffer_size = 1024
         self.connecting = connecting
+
+        self.received_data = []  # List to store received data
+        self.received_data_ADDING_BUILDING = []  # List to store received data ADDING BUILDING METHOD
+        self.receiving_thread = None
 
     @staticmethod
     def read_config(config_file):
@@ -18,25 +29,84 @@ class TcpClient:
     def connect(self):
         self.client_socket.connect((self.server_address, self.port))
         code_con = 123
-        message = f"connection established {code_con}\n"
+        message = f"{code_con}\n"
         self.client_socket.sendall(message.encode())
         print(f"{message.strip()}")
 
     def send(self, message):
-        self.client_socket.sendall(message.encode())
+        if not isinstance(message, str):
+            message = json.dumps(message)
+        self.client_socket.sendall(message.encode('utf-8'))
         print(f"{message.strip()}")
 
     def receive(self):
-        data = self.client_socket.recv(self.buffer_size)
-
         try:
-            text = data.decode('utf-8')  # Try to decode as UTF-8
-            print(f"Received UTF-8 Text: {text}")
-            return text
-        except UnicodeDecodeError:
-            # Handle binary data (file content or serialized data)
-            print(f"Received Binary Data: {data}")
-            return data
+            data = self.client_socket.recv(self.buffer_size)
+            try:
+                text = data.decode('utf-8')  # Try to decode as UTF-8
+                print(f"Received UTF-8 Text: {text}")
+                return text
+            except UnicodeDecodeError:
+                # Handle binary data (file content or serialized data)
+                print(f"Received Binary Data: {data}")
+                return data
+
+
+        except socket.error as e:
+            return None
+
+    def data_sanitize(self, data_list):
+        sanitized_data = []
+        sanitized_data_adding_building = []  # Liste pour les données "Adding_Building"
+
+        for item in data_list:
+            try:
+                start_index = item.find('{')
+                end_index = item.rfind('}') + 1
+                if start_index != -1 and end_index != -1:
+                    # Extraire la sous-chaîne JSON
+                    json_str = item[start_index:end_index]
+                    json_item = json.loads(json_str)
+                    if isinstance(json_item, dict) and "method" in json_item:
+                        if json_item["method"] == "Adding_Building":
+                            sanitized_data_adding_building.append(json_item)
+                        else:
+                            sanitized_data.append(json_item)
+                else:
+                    print(f"Aucun JSON valide trouvé dans l'élément : {item}")
+            except json.JSONDecodeError:
+                print(f"Erreur de décodage JSON pour l'élément : {item}")
+                continue
+
+        return sanitized_data, sanitized_data_adding_building
+
+    def start_receiving_thread(self):
+        if self.receiving_thread is not None and self.receiving_thread.is_alive():
+            # If there's already a receiving thread running, do nothing
+            return
+
+        # Create and start a new thread for receiving data
+        self.receiving_thread = threading.Thread(target=self.receive_and_store)
+        self.receiving_thread.daemon = True
+        self.receiving_thread.start()
+
+    def receive_and_store(self):
+        data = self.receive()
+        if data:
+            # Séparer les données reçues et les nettoyer
+            data_list = data.split('\n')
+            sanitized_data, sanitized_data_adding_building = self.data_sanitize(data_list)
+            # Ajouter les données nettoyées aux listes appropriées
+            self.received_data.extend(sanitized_data)
+            self.received_data_ADDING_BUILDING.extend(sanitized_data_adding_building)
+        self.start_receiving_thread()  # Démarrer un nouveau thread pour les prochaines données
+
+    '''def receive_loop(self):
+        while True:
+            data = self.receive_event()
+            if data:
+                # Process the data or store it to be processed in the main thread
+                print("test")'''
 
     def receive_forever(self):
         try:
@@ -58,16 +128,17 @@ class TcpClient:
         self.client_socket.close()
         print("Connection closed.")
 
+
 # Example usage
 '''
 if __name__ == "__main__":
     client = TcpClient(connecting=True)
     client.connect()
     client.send("Hello, server! from player2")
-    
+
     client.receive_forever()
     client.receive()
-    
+
     print("end")
     client.close()
 '''

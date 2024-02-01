@@ -12,16 +12,20 @@ import multiprocessing
 import logging
 import subprocess  # Make sure to import subprocess at the beginning of your file
 import time
+
 logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+
 def join_server(ip_port, username, password):
-        # Logic to connect to the server
-        # Example: connect_to_server(ip_port, username, password)
-        logging.info(f"Joining server with IP:PORT={ip_port}, Username={username}, Password={password}")
-        # Implement the actual server joining logic here
+    # Logic to connect to the server
+    # Example: connect_to_server(ip_port, username, password)
+    logging.info(f"Joining server with IP:PORT={ip_port}, Username={username}, Password={password}")
+    # Implement the actual server joining logic here
+
 
 class Menu():
     GRAY = (169, 169, 169)
+
     def __init__(self, screen, controleur):
         self.controleur = controleur
         self.displayed = True
@@ -47,22 +51,21 @@ class Menu():
 
     def display_main(self):
         if self.displayed:
-
             # buttons
             self.Start_new_career = Button_Menu(self.screen, self.mid_width, self.mid_height - GAP, 'Start new career')
             self.Load_Saved_Game = Button_Menu(self.screen, self.mid_width, self.mid_height, 'Load Saved Game')
             self.Join_Game = Button_Menu(self.screen, self.mid_width, self.mid_height + GAP, 'Join Game')
-            self.Options         = Button_Menu(self.screen, self.mid_width, self.mid_height + (2 * GAP), 'Options')
-            self.Creators        = Button_Menu(self.screen, self.mid_width, self.mid_height + (3 * GAP), 'Creators')
-            self.Exit            = Button_Menu(self.screen, self.mid_width, self.mid_height + (4 * GAP), 'Exit')
-            
+            self.Options = Button_Menu(self.screen, self.mid_width, self.mid_height + (2 * GAP), 'Options')
+            self.Creators = Button_Menu(self.screen, self.mid_width, self.mid_height + (3 * GAP), 'Creators')
+            self.Exit = Button_Menu(self.screen, self.mid_width, self.mid_height + (4 * GAP), 'Exit')
+
     def events(self, event):
         if self.Start_new_career.check_button(event):
             try:
                 subprocess.Popen(["./com/transmitter"])
             except Exception as e:
                 print(f"Failed to execute sender: {e}")
-            
+
             self.Start_new_career.current_col = self.Start_new_career.button_col
             self.controleur.create_new_game()
             self.controleur.metier.init_board(reader_bmp_map(1, self.controleur))
@@ -81,14 +84,14 @@ class Menu():
                     self.controleur.ihm.init_sprite()
 
                 # Append the loaded data to the list of habitations (buildings)
-                self.controleur.metier.monde.habitations.extend(saved_data)  # Assuming 'habitation' is where building data is stored
+                self.controleur.metier.monde.habitations.extend(
+                    saved_data)  # Assuming 'habitation' is where building data is stored
 
                 # Continue the game
                 self.controleur.play()
             else:
                 # Handle the case where the "save.sav" file does not exist
                 print("No saved game data found.")
-
 
         if self.Join_Game.check_button(event):
             self.current = "Join Game"
@@ -108,7 +111,7 @@ class Menu():
             self.current = "Creators"
             self.display_creators()
             run = False
-        
+
         if event.type == pg.QUIT:
             run = False
             sys.exit()
@@ -132,15 +135,16 @@ class Menu():
             pg.display.set_caption(' Romulus Online ')
 
             # buttons
-            Exit        = Button_Menu(self.screen, self.mid_width, self.mid_height + (5*GAP), 'Exit')
-            Volume_up   = Button_Menu(self.screen, self.mid_width + (3.5 * GAP), self.mid_height + GAP, '+ Volume Up')
-            Volume_down = Button_Menu(self.screen, self.mid_width - (3*GAP), self.mid_height + GAP, '- Volume Down')
-            Return      = Button_Menu(self.screen, self.mid_width, self.mid_height - GAP * 2, 'Return')
+            Exit = Button_Menu(self.screen, self.mid_width, self.mid_height + (5 * GAP), 'Exit')
+            Volume_up = Button_Menu(self.screen, self.mid_width + (3.5 * GAP), self.mid_height + GAP, '+ Volume Up')
+            Volume_down = Button_Menu(self.screen, self.mid_width - (3 * GAP), self.mid_height + GAP, '- Volume Down')
+            Return = Button_Menu(self.screen, self.mid_width, self.mid_height - GAP * 2, 'Return')
 
             run = True
             while run:
                 self.screen.blit(self.background, (0, 0))
-                self.screen.blit(self.font.render("Settings", True, RED,(249, 231, 159)), (self.mid_width +30, self.mid_height - GAP*3.25))
+                self.screen.blit(self.font.render("Settings", True, RED, (249, 231, 159)),
+                                 (self.mid_width + 30, self.mid_height - GAP * 3.25))
 
                 for event in pg.event.get():
                     if Volume_down.check_button(event):
@@ -177,9 +181,9 @@ class Menu():
             pg.display.set_caption(' Romulus Online ')
             print("test")
             # Input buttons
-            ip_port_input = InputButton(self.screen, self.mid_width, self.mid_height + (5*2), 'IP', '')
-            port_input = InputButton(self.screen, self.mid_width, self.mid_height + (8*20), 'PORT', '')
-            password_input = InputButton(self.screen, self.mid_width, self.mid_height + (11*30), 'Username', '')
+            ip_port_input = InputButton(self.screen, self.mid_width, self.mid_height + (5 * 2), 'IP', '')
+            port_input = InputButton(self.screen, self.mid_width, self.mid_height + (8 * 20), 'PORT', '')
+            password_input = InputButton(self.screen, self.mid_width, self.mid_height + (11 * 30), 'Username', '')
 
             # Other buttons
             Return = Button_Menu(self.screen, self.mid_width, self.mid_height - GAP, 'Return')
@@ -188,7 +192,8 @@ class Menu():
             run = True
             while run:
                 self.screen.blit(self.background, (0, 0))
-                self.screen.blit(self.font.render("Settings", True, RED, (249, 231, 159)), (self.mid_width + 30, self.mid_height - GAP*3.25))
+                self.screen.blit(self.font.render("Settings", True, RED, (249, 231, 159)),
+                                 (self.mid_width + 30, self.mid_height - GAP * 3.25))
 
                 for event in pg.event.get():
                     if ip_port_input.check_button(event):
@@ -205,12 +210,12 @@ class Menu():
                         # Handle password input
                         password = password_input.input_text
                         # You may want to store the password somewhere (consider security implications)
-           
+
                     if Return.check_button(event):
                         run = False
                         self.current = "Main"
                         self.display_main()
-                        
+
                     if Join.check_button(event):
                         ip = ip_port_input.input_text
                         port = port_input.input_text
@@ -223,7 +228,7 @@ class Menu():
                             subprocess.Popen(["./com/transmitter"])
                         except Exception as e:
                             print(f"Failed to execute sender: {e}")
-            
+
                         self.Start_new_career.current_col = self.Start_new_career.button_col
                         self.controleur.create_new_game()
                         self.controleur.metier.init_board(reader_bmp_map(1, self.controleur))
@@ -246,7 +251,6 @@ class Menu():
                         self.current = "Main"
                         self.display_main()
 
-
                 ip_port_input.draw()
                 port_input.draw()
                 password_input.draw()
@@ -254,27 +258,25 @@ class Menu():
                 Join.draw()
                 pg.display.flip()
 
-
-        
     def display_creators(self):
         if self.displayed:
 
-            #pg.display.set_caption(' keaserV ')
+            # pg.display.set_caption(' keaserV ')
             Return = Button_Menu(self.screen, self.mid_width, self.mid_height - GAP * 2, 'Return')
 
             run = True
             while run:
                 self.screen.blit(self.background, (0, 0))
-                self.screen.blit(self.font.render("Awa", True, GREEN_DARK ,(255, 255, 255)),
-                                (self.mid_width*0.95, self.mid_height - 40))
-                self.screen.blit(self.font.render("Rayane", True, GREEN_DARK,(255, 255, 255)),
-                                (self.mid_width * 0.95, self.mid_height + 35))
-                self.screen.blit(self.font.render("Philémon", True, GREEN_DARK,(255, 255, 255)),
-                                (self.mid_width * 0.95, self.mid_height + (GAP+35)))
-                self.screen.blit(self.font.render("Ayet", True, GREEN_DARK,(255, 255, 255)),
-                                (self.mid_width * 0.95, self.mid_height + GAP * 2 +35))
-                self.screen.blit(self.font.render("Pérès", True, GREEN_DARK,(255, 255, 255)),
-                                (self.mid_width * 0.95, self.mid_height + GAP * 3 + 35))
+                self.screen.blit(self.font.render("Awa", True, GREEN_DARK, (255, 255, 255)),
+                                 (self.mid_width * 0.95, self.mid_height - 40))
+                self.screen.blit(self.font.render("Rayane", True, GREEN_DARK, (255, 255, 255)),
+                                 (self.mid_width * 0.95, self.mid_height + 35))
+                self.screen.blit(self.font.render("Philémon", True, GREEN_DARK, (255, 255, 255)),
+                                 (self.mid_width * 0.95, self.mid_height + (GAP + 35)))
+                self.screen.blit(self.font.render("Ayet", True, GREEN_DARK, (255, 255, 255)),
+                                 (self.mid_width * 0.95, self.mid_height + GAP * 2 + 35))
+                self.screen.blit(self.font.render("Pérès", True, GREEN_DARK, (255, 255, 255)),
+                                 (self.mid_width * 0.95, self.mid_height + GAP * 3 + 35))
                 Return.draw()
                 for event in pg.event.get():
                     if Return.check_button(event):
@@ -285,6 +287,5 @@ class Menu():
                     if event.type == pg.QUIT:
                         run = False
                         sys.exit()
-
 
                 pg.display.update()

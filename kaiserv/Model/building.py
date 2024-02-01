@@ -2,25 +2,28 @@ import psutil
 import json
 import datetime
 import random
+
+
 # représente les bâtiments
 # tout ce qui fait partie de la carte, même l'herbe
 class Building:
     nbBuilding = 0
+
     # on affecte des informations permettant d'ajuster le comportement dans le jeu
     def __init__(self, name, can_be_erase, can_constructible_over, can_be_walk_through, square_size):
-        self.name                   = name                   # le nom du bâtiment représenté ( herbe, arbre, route, etc.)
-        self.can_be_erase           = can_be_erase           # le bâtiment peut-il être effacer, action de clear
-        self.can_constructible_over = can_constructible_over # peut-on construire par dessus le bâtiment, ( herbe )
-        self.can_be_walk_through    = can_be_walk_through    # peut-on passer à travers ce bâtiments, ( ex: False pour l'eau )
-        self.square_size            = square_size            # inutile, pour le moment, anticipation de tuile d'une certaine taille
-        self.position_reference = None                       # emplacement sur la carte
-        self.id = Building.nbBuilding+1
+        self.name = name  # le nom du bâtiment représenté ( herbe, arbre, route, etc.)
+        self.can_be_erase = can_be_erase  # le bâtiment peut-il être effacer, action de clear
+        self.can_constructible_over = can_constructible_over  # peut-on construire par dessus le bâtiment, ( herbe )
+        self.can_be_walk_through = can_be_walk_through  # peut-on passer à travers ce bâtiments, ( ex: False pour l'eau )
+        self.square_size = square_size  # inutile, pour le moment, anticipation de tuile d'une certaine taille
+        self.position_reference = None  # emplacement sur la carte
+        self.id = Building.nbBuilding + 1
         Building.nbBuilding = self.id
-        self.owner                  = None
+        self.owner = None
         self.current_time = datetime.datetime.now()
         self.check_interval = 10
         self.last_action_time = self.current_time
-        self.life = 100                      # la vie du bâtiment
+        self.life = 100  # la vie du bâtiment
         self.check_fire = False
 
     def lower_hp(self):
@@ -40,26 +43,25 @@ class Building:
             random_number = random.randint(1, 10)
             if random_number == 10:
                 self.check_fire = True
-            
 
-    def moneyEarned(self,ressource):
-        ressource.dinars+=100
-        
+    def moneyEarned(self, ressource):
+        ressource.dinars += 100
+
     # permet d'affecter la position de reference
     def set_position_reference(self, position_reference):
         self.position_reference = position_reference
 
-    # utile pour le pathfinding 
+    # utile pour le pathfinding
     def get_canbewalkthrough_into_integer(self):
         return 0 if self.can_be_walk_through else 1
-    
+
     def set_mac_address(self):
         interfaces = psutil.net_if_addrs()
         for interface, addrs in interfaces.items():
             for addr in addrs:
                 if addr.family == psutil.AF_LINK:
                     self.owner = addr.address
-                    #print(self.owner)
+                    # print(self.owner)
                     return addr.address
         return None
 
@@ -88,13 +90,12 @@ class Building:
         with open("transfer.json", "w") as file:
             json.dump(data, file, indent=4)
 
-
     @classmethod
     def from_json(cls, json_buffer):
         try:
             # Load the JSON data from the provided buffer
             json_dict = json.loads(json_buffer)
-            
+
             # Create a new Building object using the JSON data
             building = Building(
                 json_dict['name'],
@@ -108,8 +109,9 @@ class Building:
             building.owner = json_dict['owner']
             building.current_time = datetime.datetime.strptime(json_dict['current_time'], '%Y-%m-%d %H:%M:%S.%f')
             building.check_interval = json_dict['check_interval']
-            building.last_action_time = datetime.datetime.strptime(json_dict['last_action_time'], '%Y-%m-%d %H:%M:%S.%f')
-            
+            building.last_action_time = datetime.datetime.strptime(json_dict['last_action_time'],
+                                                                   '%Y-%m-%d %H:%M:%S.%f')
+
             # Return the created building object
             return building
         except json.JSONDecodeError:

@@ -2,15 +2,21 @@ import pygame
 
 from file_reader import set_tile_size
 from Model.jeu import Jeu
-from Vue.IHM   import IHM
+from Vue.IHM import IHM
 from Model.pathfinding import short_path
-import numpy 
+import numpy
 from Model.temp import Temp
 from Model.netstat import TcpClient
+import json
 
 
 class Controleur:
     def __init__(self):
+
+        self.netstat = TcpClient(connecting=True)
+        self.netstat.connect()
+        self.netstat.send("Hello, server! from PLAYER2")
+
         # démarrage de pygame
         pygame.init()
 
@@ -19,29 +25,25 @@ class Controleur:
         running = True
         self.paused = False
 
-
         self.is_Joining = False
 
         # initialisation des valeurs de paramètre
         self.TILE_SIZE = set_tile_size("./settings.txt")
 
         # initialisation des attributs
-        self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
-        self.clock  = pygame.time.Clock()
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.clock = pygame.time.Clock()
 
         self.metier = None
-        self.ihm    = IHM(self)
+        self.ihm = IHM(self)
         self.temp = Temp(self)
 
         self.grid_width = self.grid_height = 0
 
         # boucle du menu
         self.ihm.menu.display_main()
-        self.netstat = TcpClient(connecting=True)
-        self.netstat.connect()
-        self.netstat.send("Hello, server! from PLAYER2")
 
-        if (self.is_Joining==False):
+        if (self.is_Joining == False):
             while running:
                 # boucle du jeu
                 self.ihm.events()
@@ -54,7 +56,7 @@ class Controleur:
                         if not self.paused:
                             self.metier.update()
                             self.ihm.update()
-                    
+
                     self.ihm.draw()
         else:
             while running:
@@ -70,12 +72,11 @@ class Controleur:
                             self.metier.update()
                             self.ihm.update()
 
-                            building_object, last_line_number = self.metier.monde.building.from_json("transfer.json", self.temp.numberLine)
+                            building_object, last_line_number = self.metier.monde.building.from_json("transfer.json",
+                                                                                                     self.temp.numberLine)
                             self.temp.numberLine = last_line_number
-                            
-                    
-                    self.ihm.draw()
 
+                    self.ihm.draw()
 
         pygame.exit()
 
@@ -100,7 +101,11 @@ class Controleur:
         return self.metier.check_if_construction_possible_on_grid(grid)
 
     def add_building_on_point(self, grid_pos, name):
-        if (name=="panneau" and self.metier.ressources.enough_dinars(1000)):
+        # print("ce que je pose : " +str(grid_pos))
+        '''message = json.dumps(grid_pos)
+        self.netstat.send(message)'''
+
+        if (name == "panneau" and self.metier.ressources.enough_dinars(1000)):
             self.metier.add_building_on_point(grid_pos, name)
         elif ("route" in name):
             self.metier.add_building_on_point(grid_pos, name)
@@ -118,18 +123,20 @@ class Controleur:
 
     def create_new_game(self):
         self.metier = Jeu(self, self.TILE_SIZE)
-    
-    def find_path(self,spawn,end, is_manhatan=True):
-        return short_path(numpy.array(self.metier.monde.define_matrix_for_path_finding()),spawn,end, is_manhatan)
 
-    def find_path_for_road(self,spawn,end, is_manhatan=True):
-        return short_path(numpy.array(self.metier.monde.define_matrix_for_path_finding_road_without_panneau()),spawn,end, is_manhatan)
+    def find_path(self, spawn, end, is_manhatan=True):
+        return short_path(numpy.array(self.metier.monde.define_matrix_for_path_finding()), spawn, end, is_manhatan)
 
-    def walker_creation(self,depart,destination):
-        self.metier.walker_creation(depart,destination)
+    def find_path_for_road(self, spawn, end, is_manhatan=True):
+        return short_path(numpy.array(self.metier.monde.define_matrix_for_path_finding_road_without_panneau()), spawn,
+                          end, is_manhatan)
+
+    def walker_creation(self, depart, destination):
+        self.metier.walker_creation(depart, destination)
 
     def check_if_path_exist_from_spawn_walker(self, end):
-        return True if short_path(numpy.array(self.metier.monde.define_matrix_for_path_finding()), (20,39), end) != False else False
+        return True if short_path(numpy.array(self.metier.monde.define_matrix_for_path_finding()), (20, 39),
+                                  end) != False else False
 
     def get_walker_infos(self):
         citizens = []
@@ -143,5 +150,6 @@ class Controleur:
 
     def should_refresh_from_model(self):
         return self.metier.should_refresh
+
 
 Controleur()

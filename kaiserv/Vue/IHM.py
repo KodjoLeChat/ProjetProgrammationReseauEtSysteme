@@ -7,6 +7,7 @@ from .hud import HUD
 from .Paused_menu import *
 from .utils import draw_text
 
+
 class IHM:
     def __init__(self, controleur):
         self.controleur = controleur
@@ -15,9 +16,9 @@ class IHM:
         # carriere de jeu actuelle
         self.carriere = Carriere(self.controleur)
         # hud
-        self.hud = HUD(self.controleur.screen, self.carriere)
+        self.hud = HUD(self.controleur.screen, self.carriere, self.controleur.netstat)
 
-        #Menu pause
+        # Menu pause
         self.pause_menu = Pause_menu(self.controleur.screen, self.controleur)
 
     # gestion événementielles au clavier
@@ -30,19 +31,19 @@ class IHM:
                 self.menu.events(event)
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    self.pause_menu.displayed = not self.pause_menu.displayed  
-                    self.controleur.paused = not self.controleur.paused         
+                    self.pause_menu.displayed = not self.pause_menu.displayed
+                    self.controleur.paused = not self.controleur.paused
             elif self.controleur.playing:
                 self.carriere.events(event)
                 self.hud.events(event)
-    
+
             self.pause_menu.events(event)
 
     def exit_game(self):
         pygame.quit()
         sys.exit()
 
-    def update(self): 
+    def update(self):
         self.carriere.update()
 
     def draw(self):
@@ -52,13 +53,15 @@ class IHM:
         self.carriere.draw_main_components()
         self.hud.draw()
         self.carriere.draw_walker()
-        draw_text(self.controleur.screen, "Population: {}".format(self.controleur.get_population()), 20, (0,0,0), (self.controleur.screen.get_width()*0.91, self.controleur.screen.get_height()*0.57))
-        draw_text(self.controleur.screen, "Dinars: {}".format(self.controleur.get_dinars()), 20, (0,0,0), (self.controleur.screen.get_width()*0.91, self.controleur.screen.get_height()*0.57+20))
+        draw_text(self.controleur.screen, "Population: {}".format(self.controleur.get_population()), 20, (0, 0, 0),
+                  (self.controleur.screen.get_width() * 0.91, self.controleur.screen.get_height() * 0.57))
+        draw_text(self.controleur.screen, "Dinars: {}".format(self.controleur.get_dinars()), 20, (0, 0, 0),
+                  (self.controleur.screen.get_width() * 0.91, self.controleur.screen.get_height() * 0.57 + 20))
         self.pause_menu.draw()
 
         # actualise l'écran
         pygame.display.flip()
 
-    # initialise chaque sprite à afficher 
+    # initialise chaque sprite à afficher
     def init_sprite(self):
         self.carriere.init_sprite()
