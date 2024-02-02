@@ -261,7 +261,7 @@ socklen_t addrlen = sizeof(tcpServerAddr);
         }
     
 
-    sleep(3); // Send and receive messages every 1 second
+    sleep(.5); // Send and receive messages every 1 second
   }
 
   // Close the sockets

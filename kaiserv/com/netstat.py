@@ -66,6 +66,6 @@ while 1:
     response = client.receive()
     print(f"Je recois {response}\n")
     count = count + 1
-    time.sleep(5)
+    time.sleep(.5)
 
 client.close()
