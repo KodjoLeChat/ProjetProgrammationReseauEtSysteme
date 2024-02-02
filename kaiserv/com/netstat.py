@@ -1,11 +1,21 @@
 import socket
 import selectors
-import time
+import time, sys
 
 class TcpClient:
     def __init__(self):
+
+        script_name = sys.argv[0]
+    
+        # Check if the correct number of arguments is provided
+        if len(sys.argv) != 2:
+            print(f"Usage: {script_name} <port number>")
+            sys.exit(1)  # Exit with an error code
+
+        arg_port = int(sys.argv[1])
+
         self.server_address = "127.0.0.1"
-        self.port = 2024
+        self.port = arg_port
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.buffer_size = 1024
 
@@ -51,10 +61,8 @@ client.connect()
 count = 0
 n = 0
 while 1:
-    client.send("Hello\n")
-    while n < 100:
-        print(f"test {n} - ")
-        time.sleep(1)
+    client.send(f"Hello {n}\n")
+    n = n + 1
     response = client.receive()
     print(f"Je recois {response}\n")
     count = count + 1
