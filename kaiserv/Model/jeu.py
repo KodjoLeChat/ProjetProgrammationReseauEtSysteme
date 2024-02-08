@@ -3,7 +3,6 @@ from .monde import Monde
 from .walker import Walker
 from .ingenieur import Ingenieur
 from .ressources import Ressources
-from .medi import Test
 from .pathfinding import short_path
 import numpy
 
@@ -14,7 +13,25 @@ class Jeu:
         self.monde = Monde(size_tile, controleur.screen.get_size()) # plateau de jeu
         self.walkerlist = []                                        # liste de tous les walkers présents
         self.should_refresh = False                                 # permet de savoir si la carte doit être rechargée
-        self.ressources = Ressources(0, 0, 4000, 0)
+        self.ressources = Ressources(0, 0, 4000, 0, "rayaneGamer")
+        self.ressources_local = Ressources(0, 0, 100000, 0, "player2") # pour test, à supprimer
+        self.ressources_local_list = [] #list qui contient plusieurs Ressources qui viennent des autres joueurs object
+
+    def trouver_ou_creer_ressource(self, food, water, dinars, population, username):
+        # Vérifier si un objet Ressources avec le nom d'utilisateur existe déjà
+        for ressource in self.ressources_local_list:
+            if ressource.username == username:
+                # Update the attributes of the existing Ressources object
+                ressource.food = food
+                ressource.water = water
+                ressource.dinars = dinars
+                ressource.population = population
+                return ressource  # Retourne l'objet Ressources mis à jour
+
+        # Si le nom d'utilisateur n'existe pas, créer un nouvel objet Ressources
+        nouvelle_ressource = Ressources(food, water, dinars, population, username)
+        self.ressources_local_list.append(nouvelle_ressource)
+        return nouvelle_ressource  # Retourne le nouvel objet Ressources créé
 
 
 
@@ -160,8 +177,16 @@ class Jeu:
     def walker_creation(self,depart,destination):
         if self.ressources.enough_dinars(1000):
             walker = Walker(depart,destination)
+
             self.walkerlist.append(walker)
             self.ressources.dinars -= 1000
 
             walker.chemin = short_path(numpy.array(self.monde.define_matrix_for_path_finding()),walker.actualPosition,walker.destination)
             walker.set_nextPosition()
+
+    def walker_creation_local(self,depart,destination):
+        walker = Walker(depart,destination)
+        self.walkerlist.append(walker)
+
+        walker.chemin = short_path(numpy.array(self.monde.define_matrix_for_path_finding()),walker.actualPosition,walker.destination)
+        walker.set_nextPosition()

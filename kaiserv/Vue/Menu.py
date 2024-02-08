@@ -11,7 +11,7 @@ import os
 import multiprocessing
 import logging
 import subprocess  # Make sure to import subprocess at the beginning of your file
-
+import time
 logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def join_server(ip_port, username, password):
@@ -58,6 +58,11 @@ class Menu():
             
     def events(self, event):
         if self.Start_new_career.check_button(event):
+            try:
+                subprocess.Popen(["./com/transmitter"])
+            except Exception as e:
+                print(f"Failed to execute sender: {e}")
+            
             self.Start_new_career.current_col = self.Start_new_career.button_col
             self.controleur.create_new_game()
             self.controleur.metier.init_board(reader_bmp_map(1, self.controleur))
@@ -66,18 +71,25 @@ class Menu():
 
         if self.Load_Saved_Game.check_button(event):
             if os.path.exists("save.sav"):
-                self.controleur.metier = pickle.load(open("save.sav", 'rb'))
-                # fixe la taille du plateau de jeu
-                self.controleur.grid_height  = len(self.controleur.metier.monde.board)
-                self.controleur.grid_width = len(self.controleur.metier.monde.board[0])
+                # Load the saved data from the file
+                saved_data = pickle.load(open("save.sav", 'rb'))
 
-                self.controleur.ihm.init_sprite()
-                try:
-                    subprocess.Popen(["./sender"])
-                except Exception as e:
-                    print(f"Failed to execute sender: {e}")
+                # Initialize a new game if not already initialized
+                if not self.controleur.is_game_initialized():
+                    self.controleur.create_new_game()
+                    self.controleur.metier.init_board(reader_bmp_map(1, self.controleur))
+                    self.controleur.ihm.init_sprite()
+
+                # Append the loaded data to the list of habitations (buildings)
+                self.controleur.metier.monde.habitations.extend(saved_data)  # Assuming 'habitation' is where building data is stored
+
+                # Continue the game
                 self.controleur.play()
-        
+            else:
+                # Handle the case where the "save.sav" file does not exist
+                print("No saved game data found.")
+
+
         if self.Join_Game.check_button(event):
             self.current = "Join Game"
             self.display_settings_join()
@@ -205,13 +217,19 @@ class Menu():
                         password = password_input.input_text
                         print(f"Joining server with IP={ip}, PORT={port}, Password={password}")
                         with open('config.txt', 'w') as config_file:
-                            config_file.write(f"{ip} {port}\n")                        
-                        # Execute the receiver program
+                            config_file.write(f"{ip}\n{port}\n")  # IP and PORT are on separate lines
+                        # Execute the transmitter program
                         try:
-                            subprocess.run(["./receiver"])
+                            subprocess.Popen(["./com/transmitter"])
                         except Exception as e:
-                            print(f"Failed to execute receiver: {e}")
-                            
+                            print(f"Failed to execute sender: {e}")
+            
+                        self.Start_new_career.current_col = self.Start_new_career.button_col
+                        self.controleur.create_new_game()
+                        self.controleur.metier.init_board(reader_bmp_map(1, self.controleur))
+                        self.controleur.ihm.init_sprite()
+                        self.controleur.play()
+                        '''
                         if os.path.exists("onlineWorld.sav") and os.path.getsize("onlineWorld.sav") > 0:
                             with open("onlineWorld.sav", 'rb') as file:
                                 self.controleur.metier = pickle.load(file)                            # fixe la taille du plateau de jeu
@@ -223,7 +241,7 @@ class Menu():
                             self.controleur.play()
                         else:
                             print("onlineWorld.sav is empty or does not exist")
-                                
+                                '''
                         run = False
                         self.current = "Main"
                         self.display_main()

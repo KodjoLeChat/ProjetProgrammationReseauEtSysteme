@@ -1,14 +1,25 @@
 '''class ressources Caesar 3'''
 import pygame
+import json
 
 class Ressources:
     
-    def __init__(self, food, water, dinars,population):
+    def __init__(self, food, water, dinars,population,username):
         self.food = food
         self.water = water
         self.dinars = dinars
         self.population = population
+        self.username = username
 
+
+    def to_json(self):
+        return json.dumps({
+            "food": self.food,
+            "water": self.water,
+            "dinars": self.dinars,
+            "population": self.population,
+            "username": self.username
+        })
 
     def get_food(self):
         return self.food

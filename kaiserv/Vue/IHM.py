@@ -15,7 +15,7 @@ class IHM:
         # carriere de jeu actuelle
         self.carriere = Carriere(self.controleur)
         # hud
-        self.hud = HUD(self.controleur.screen, self.carriere)
+        self.hud = HUD(self.controleur.screen, self.carriere, self.controleur.netstat)
 
         #Menu pause
         self.pause_menu = Pause_menu(self.controleur.screen, self.controleur)

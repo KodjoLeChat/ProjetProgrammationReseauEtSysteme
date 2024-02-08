@@ -6,20 +6,23 @@ from .bouton_hud import Button_HUD
 from .adding_building import Adding_Building
 from .clear import Clear
 from .addingRoad import Adding_Road
+import threading
+import json
+
 
 # permet de gerer les HUD du haut et de la droite
 class HUD:
-    def __init__(self, screen, carriere):
+    def __init__(self, screen, carriere, netstat):
         self.screen   = screen
         self.carriere = carriere
         self.longueur = self.screen.get_width() 
         self.hauteur = self.screen.get_height()
         self.action = None
-
+        self.netstat = netstat
         #dimension image
         REFERENCE_SIZE_X = 1920
         REFERENCE_SIZE_Y = 1080
-
+        self.count2 = 0 # for test
         # ecart entre chaque action de l'hud de droite 
         HORIZONTAL_GAP = self.longueur*0.032
         VERTICAL_GAP   = self.hauteur *0.0415
@@ -68,29 +71,50 @@ class HUD:
                     match button:
                         # si nous voulons rajouter des actions, cela devient donc très simple
                         case "build":
-                            if self.action == None: self.action = Adding_Building(self.carriere, "assets/upscale_house/Housng1a_00045.png")
+                            if self.action == None: 
+                                self.action = Adding_Building(self.carriere, "assets/upscale_house/Housng1a_00045.png",self.netstat)
+                                method = "Adding_Building"
+                                params = {
+                                    "image_path": "assets/upscale_house/Housng1a_00045.png"
+                                }                           
+                                message = {
+                                    "method": method,
+                                    "params": params
+                                }                                
+                                self.netstat.send(message)
                             if not self.action.is_progress:
                                 self.action.is_progress = True
                                 image = pg.image.load("assets/upscale_land/Land2a_00001.png")
                                 self.action.initialiser(image)
                         case "clear":
                             if self.action == None: self.action = Clear(self.carriere, "assets/upscale_land/red_image.png")
+
                             if not self.action.is_progress:
                                 self.action.is_progress = True
                                 image = pg.image.load("assets/upscale_land/red_image.png")
                                 self.action.initialiser(image)
                         case "road":
                             if self.action == None: self.action = Adding_Road(self.carriere)
+
                             if not self.action.is_progress:
                                 self.action.is_progress = True
                                 image = pg.image.load("assets/upscale_road/Land2a_00094.png")
                                 self.action.initialiser(image)
                         case "engeneer":
                             if self.action == None: self.action = AddingEngeneer(self.carriere)
+
                             if not self.action.is_progress:
                                 self.action.is_progress = True
                                 image = pg.image.load("assets/upscale_land/Land2a_00001.png")
                                 self.action.initialiser(image)
+                                method = "Adding_Building"
+                                params = {
+                                    "image_path": "assets/upscale_house/Housng1a_00045.png"
+                                }                           
+                                message = {
+                                    "method": method,
+                                    "params": params
+                                }      
                         case "stats":
                             if self.action == None: self.action = AddingEngeneer(self.carriere)
                             if not self.action.is_progress:
@@ -102,14 +126,94 @@ class HUD:
 
             else:
                 self.button_hud_right[button].who_is_visible = ""
+        
+        if self.count2 == 0:  # pour test, à supprimer
+            self.netstat.received_data_ADDING_BUILDING.append({"method": "Adding_Building", "params": {"image_path": "assets/upscale_house/Housng1a_00045.png"}})
+            self.netstat.received_data.append({"method": "treat_event", "grid_pos": [20, 13], "last_grid": [20, 13], "SelectionneurZone": [116, 60], "pos": [1417, 509], "Ressources": "{\"food\": 0, \"water\": 0, \"dinars\": 4000, \"population\": 0, \"username\": \"player2\"}"})
+            self.count2+=1
+        #print("avant TOUT: AAAAAAAAAAAAAAAAA" + str(self.netstat.received_data))
+
+        # Check if there is any data received
+        net_event = self.netstat.start_receiving_thread()
+
+        if self.netstat.received_data_ADDING_BUILDING:
+            # Look at the first item in the list without removing it
+            action_data = self.netstat.received_data_ADDING_BUILDING[0]
+
+            if action_data.get("method") == "Adding_Building":
+                # Pop the first item from the list as it's an 'Adding_Building' action
+                print("avant: AAAAAAAAAAAAAAAAA" + str(self.netstat.received_data_ADDING_BUILDING))
+                action_data = self.netstat.received_data_ADDING_BUILDING.pop(0)
+                print("après: AAAAAAAAAAAAAAAAA" + str(self.netstat.received_data_ADDING_BUILDING))
+
+                self.execute_action(action_data)
+                #print(action_data)
+            else:
+                # Handle other methods or leave the item in the list
+                pass  # Replace with your handling logic for other methods
+
+
+    def execute_action(self, action_data):
+        print("TESTTTTTTTTTTTTTTTTTTTTT RAYANE")
+        if "method" in action_data and "params" in action_data:
+            method = action_data["method"]
+            params = action_data["params"]
+            
+            match method:
+                case "Adding_Building":
+                    # Handle 'build' action
+                    print("constructing building")
+
+                    if self.action is None:
+                        # Create the action and start the waiting thread
+                        self.action = Adding_Building(self.carriere, "assets/upscale_house/Housng1a_00045.png", self.netstat)
+                        threading.Thread(target=self.wait_for_treat_event, daemon=True).start()
+
+                case "AddingEngeneer":
+                    # Handle 'clear' action
+                    print("constructing engeneer")
+
+                    if self.action is None:
+                        # Create the action and start the waiting thread
+                        self.action = Adding_Building(self.carriere, "assets/upscale_house/Housng1a_00045.png", self.netstat)
+                        threading.Thread(target=self.wait_for_treat_event, daemon=True).start()
+    def wait_for_treat_event(self):
+        while True:
+            print(self.netstat.received_data)
+            # Use a thread lock if needed to safely access self.netstat.received_data
+            if self.netstat.received_data:  # Vérifiez si la liste n'est pas vide
+                print("BRAVOOO ! ")
+                action_data = self.netstat.received_data[-1]  # Accédez au dernier élément de la liste                print(action_data)
+                if action_data.get("method") == "treat_event":
+                    if action_data.get("grid_pos"):
+                        grid = action_data.get("grid_pos")
+                        ressources_json = action_data.get("Ressources")
+                        ressources = json.loads(ressources_json)  # Parse the JSON string
+                        print(ressources)
+                        test = action_data.get("SelectionneurZone")
+                        test2 = action_data.get("pos")
+                        self.action.test = test
+                        self.action.pos_start = test2
+                        self.action.original_surface = test
+                        print("PARFAIT ! ")
+
+                        if grid and ressources:
+                            # Call the treat_event_local method with the extracted data
+                            self.action.treat_event_local(grid, ressources,action_data.get("method") )
+                            # Remove the processed item from received_data
+                            return  # Exit the loop and thread after processing
+                    if action_data.get("method") == "treat_event_enge":
+                        print("LETS GOO")
+
+            # Optionally, add a small delay here to prevent high CPU usage
+
 
     # affiche les images et les boutons suite aux evenements
     def draw(self):
-        if self.action != None: self.action.draw()
+        if self.action is not None: self.action.draw()
 
         self.screen.blit(self.hud_right, (self.longueur*0.895, self.hauteur*0.0235))
         self.screen.blit(self.hud_top, (0, 0))
-        
+
         for button in self.button_hud_right:
             self.button_hud_right[button].draw()
-

@@ -1,8 +1,9 @@
 # classe permettant de gérer la logique géométrique du monde
 from .building import Building
 from .tente import Tente
-from .ressources import Ressources
+import json
 import math
+import threading
 
 class Monde:
     def __init__(self, tile_size, screen_size):
@@ -14,8 +15,12 @@ class Monde:
         self.ingenieurs  = [] # bâtiment pour les ingénieurs
 
 
+
+
     # réduit pour chaque habitation leur taux d'effondrement 
     def update(self):
+        #self.thread = threading.Thread(target=self.add_building_from_netstat)
+        #self.thread.start()
         for habitation in self.habitations:
             habitation.reduce_collapsing_state()
 
@@ -324,18 +329,48 @@ class Monde:
         
         return Building(infos_building[0], infos_building[1], infos_building[2], infos_building[3], infos_building[4])
 
+    def local_building(self, grid_pos, name, ressource=None):
+            #name = "engeneer"
+        if (name=="tente" and ressource.enough_dinars(1000)):
+            print("tu construits pas mal 1")
+            infos_building = self.information_for_each_tile[name]
+            self.building = self.craft_building(infos_building,ressource)
+            self.building.set_position_reference(grid_pos)
+            self.building.owner = self.building.set_mac_address()
+            self.board[grid_pos[0]][grid_pos[1]]["building"] = self.building
+            print(f"Building Attributes: 1")
+            building = Tente(infos_building[0], infos_building[1], infos_building[2], infos_building[3], infos_building[4])
+            self.habitations.append(building)
+
+        if (name=="engeneer" and ressource.enough_dinars(2000)):
+            #name = "engeneer"
+            print("tu construits pas mal 1")
+            infos_building = self.information_for_each_tile[name]
+            self.building = self.craft_building(infos_building,ressource)
+            self.building.set_position_reference(grid_pos)
+            self.building.owner = self.building.set_mac_address()
+            self.board[grid_pos[0]][grid_pos[1]]["building"] = self.building
+            print(f"Building Attributes: 1")
+            building = Building(infos_building[0], infos_building[1], infos_building[2], infos_building[3], infos_building[4])
+            self.ingenieurs.append(building)
+        return Building(infos_building[0], infos_building[1], infos_building[2], infos_building[3], infos_building[4])
+
     # ajoute un bâtiment dans le plateau à une certaines coordonées
     def add_building_on_point(self, grid_pos, name, ressource=None):
+        print("tu construits")
         if ressource != None:
             if (name=="panneau" and ressource.enough_dinars(1000)):
+                print("tu construits pas mal 2")
                 infos_building = self.information_for_each_tile[name]
                 self.building = self.craft_building(infos_building,ressource)
                 self.building.set_position_reference(grid_pos)
                 self.building.owner = self.building.set_mac_address()
                 self.board[grid_pos[0]][grid_pos[1]]["building"] = self.building
-                print(f"Building Attributes:")
-                for key, value in self.building.__dict__.items():
-                    print(f"{key}: {value}")
+                print(f"Building Attributes: 2")
+                #for key, value in self.building.__dict__.items():
+                    #print(f"{key}: {value}")
+                    #self.netstat.send(self.building.to_json())
+
             elif ("route" in name):
                 infos_building = self.information_for_each_tile[name]
                 self.building = self.craft_building(infos_building,ressource)
@@ -343,8 +378,9 @@ class Monde:
                 self.building.owner = self.building.set_mac_address()
                 self.board[grid_pos[0]][grid_pos[1]]["building"] = self.building
                 print(f"Building Attributes:")
-                for key, value in self.building.__dict__.items():
-                    print(f"{key}: {value}")
+                #for key, value in self.building.__dict__.items():
+                    #print(f"{key}: {value}")
+                    #self.netstat.send(self.building.to_json())
 
             elif ("engeneer" in name and ressource.enough_dinars(2000)):
                 infos_building = self.information_for_each_tile[name]
@@ -353,18 +389,58 @@ class Monde:
                 self.building.owner = self.building.set_mac_address()
                 self.board[grid_pos[0]][grid_pos[1]]["building"] = self.building
                 print(f"Building Attributes:")
-                for key, value in self.building.__dict__.items():
-                    print(f"{key}: {value}")
+                method = "treat_event_enge"
+                event_data = {
+                                "method": method,
+                                "builds": self.building.to_json(),
+                                "ressource":ressource.to_json()
+                }
+    
+                            # Convert the dictionary to a JSON string
+                event_json = json.dumps(event_data)
+
+                            # Send the JSON string over the network
+                print(event_data)
+                #for key, value in self.building.__dict__.items():
+                    #print(f"{key}: {value}")
+                    #self.netstat.send(self.building.to_json())
+
             else:
                 infos_building = self.information_for_each_tile[name]
                 self.building = self.craft_building(infos_building,ressource)
                 self.building.set_position_reference(grid_pos)
                 self.building.owner = None
                 self.board[grid_pos[0]][grid_pos[1]]["building"] = self.building
+                #self.netstat.send(self.building.to_json())
+'''
 
+    def add_building_from_netstat(self):
+        message = self.netstat.receive()
+        if (message!= None and len(message) > 100):
+            return Building.from_json(self.netstat.receive())
+        
 
+    def to_json(self):
+        monde_dict = self.__dict__.copy()
+        return json.dumps(monde_dict, indent=4)
 
+    def map_init(self):
+        self.netstatINIT = Netstat("/tmp/netstat_pipe")
+        self.netstatINIT.add_to_buffer(self.to_json())
 
+    def map_received(self):
+        self.netstatReINIT = NetstatReceived("/tmp/netstat_pipe")
+        self.from_json(self.netstatReINIT.read_from_pipe())
 
-
-
+    @classmethod
+    def from_json(cls, json_buffer):
+        try:
+            json_dict = json.loads(json_buffer)
+            # Extract the values from the JSON data and pass them to the constructor
+            return cls(
+                json_dict['tile_size'],
+                json_dict['screen_size']
+            )
+        except json.JSONDecodeError:
+            # If there is an error decoding the JSON data, return None
+            return None'''

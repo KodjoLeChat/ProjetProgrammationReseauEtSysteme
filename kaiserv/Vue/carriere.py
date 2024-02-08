@@ -45,10 +45,15 @@ class Carriere:
     # permet d'afficher les walkers de la carte
     def draw_walker(self):
         walkers_infos = self.controleur.get_walker_infos()
+        #print(self.controleur.get_walker_infos())
+
         if walkers_infos != None:
+            #print("walker info " + str(walkers_infos))
             for walker in walkers_infos:
-                if ( walker.name == "citizen" and walker.destination != walker.actualPosition or walker.name == "citizen_engeneer" )and self.informations_tiles[walker.actualPosition[0]][walker.actualPosition[1]]["position_rendu"] != None \
-                    and self.informations_tiles[walker.nextPosition[0]][walker.nextPosition[1]]["position_rendu"] != None:
+                if ( walker.name == "citizen" and walker.destination != walker.actualPosition or walker.name == "citizen_engeneer" )and self.informations_tiles[walker.actualPosition[0]][walker.actualPosition[1]]["position_rendu"] != None:
+                    # walker qui ramasse leurs affaires sur le checmin, walker PAR ICI.
+                    #walker.nextPosition = (19, walker.nextPosition[1])
+                    #walker.nextPosition = (walker.nextPosition[0], 38)    
                     coef = walker.nombreDeplacement / walker.nb_deplacement_max
                     image = self.dictionnaire[walker.name]
                     image = pygame.transform.scale(image, (image.get_width()*self.zoom.multiplier, image.get_height()*self.zoom.multiplier))
@@ -67,12 +72,18 @@ class Carriere:
         if event.type == pygame.MOUSEWHEEL:
                 self.zoom.update(event.y)
        
-    # permet d'enregistrer la partie
+
     def Save_game(self):
-        object = self.controleur.metier
+        habitation_buildings = self.controleur.metier.monde.habitations  # Assuming habitation buildings are stored in self.habitations
+
         filename = "save.sav"
-        filehandler = open(filename, 'wb') 
-        pickle.dump(object, filehandler)
+
+        try:
+            with open(filename, 'wb') as filehandler:
+                pickle.dump(habitation_buildings, filehandler)
+        except Exception as e:
+            print(f"Error while pickling: {e}")
+
 
     # permet de recharger la surface principale du jeu, utile si notamment, nous changeons des batiments dans la partie
     def reload_board(self):
@@ -199,6 +210,7 @@ class Carriere:
 
         return dictionnaire
 
+
     # dictionnaire inverse, utile pour recuper, un nom de sprite selon le path
     # utilise pour peu de nom en réalité, mais dans un souvis d'anticipation, nous avons set pour tout le monde
     def get_dictionnary_by_path(self):
@@ -254,4 +266,3 @@ class Carriere:
             dictionnaire["assets/upscale_land/Land1a_00{}.png".format(i)] = "herbe_{}".format(i)
 
         return dictionnaire
-
