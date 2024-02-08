@@ -1,3 +1,7 @@
+ouvrir un terminal dans com et faire "gcc transmitter.c queue.c -o transmitter"
+dans un autre terminal, se rendre dans kaiserv et faire :
+python3 controleur.py
+
 # Romulus Online
 
 ## Installation du package pillow indispensable

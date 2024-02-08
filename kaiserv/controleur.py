@@ -6,23 +6,16 @@ from Vue.IHM   import IHM
 from Model.pathfinding import short_path
 import numpy 
 from Model.temp import Temp
-
+from Model.netstat import TcpClient
+import json
 
 class Controleur:
     def __init__(self):
-        
-         # Create a UDP socket
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        # Bind the socket to the address and port
-        client_socket.connect(("127.0.0.1", 2024))
+        self.netstat = TcpClient(connecting=True)
+        self.netstat.connect()
+        self.netstat.send("Hello, server! from PLAYER2")
 
-        # data, client_address = server_socket.recvfrom(2024)
-        # print(data)
-        # Send data to the server
-        code_con = 123
-        message = "connection established {}\n".format(code_con)
-        client_socket.sendto(message.encode(), ("127.0.0.1", 2024))
 
         # démarrage de pygame
         pygame.init()
@@ -109,6 +102,10 @@ class Controleur:
         return self.metier.check_if_construction_possible_on_grid(grid)
 
     def add_building_on_point(self, grid_pos, name):
+        #print("ce que je pose : " +str(grid_pos))
+        '''message = json.dumps(grid_pos)
+        self.netstat.send(message)'''
+        
         if (name=="panneau" and self.metier.ressources.enough_dinars(1000)):
             self.metier.add_building_on_point(grid_pos, name)
         elif ("route" in name):
@@ -137,10 +134,14 @@ class Controleur:
     def walker_creation(self,depart,destination):
         self.metier.walker_creation(depart,destination)
 
+    def walker_creation_local(self,depart,destination):
+        self.metier.walker_creation_local(depart,destination)
+
     def check_if_path_exist_from_spawn_walker(self, end):
         return True if short_path(numpy.array(self.metier.monde.define_matrix_for_path_finding()), (20,39), end) != False else False
 
     def get_walker_infos(self):
+        #self.walker_creation_local((20, 39), (20, 39))
         citizens = []
         for walker in self.metier.walkerlist:
             citizens.append(walker)

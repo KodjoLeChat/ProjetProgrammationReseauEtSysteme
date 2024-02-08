@@ -54,14 +54,14 @@ class Building:
         return 0 if self.can_be_walk_through else 1
     
     def set_mac_address(self):
-        interfaces = psutil.net_if_addrs()
+        '''interfaces = psutil.net_if_addrs()
         for interface, addrs in interfaces.items():
             for addr in addrs:
                 if addr.family == psutil.AF_LINK:
                     self.owner = addr.address
                     #print(self.owner)
-                    return addr.address
-        return None
+                    return addr.address'''
+        return "rayaneGamer"
 
     def to_json(self):
         building_dict = self.__dict__.copy()
@@ -90,21 +90,12 @@ class Building:
 
 
     @classmethod
-    def from_json(cls, json_file="transfer.json", line_number=-1):
+    def from_json(cls, json_buffer):
         try:
-            with open(json_file, "r") as file:
-                lines = file.readlines()
-        except (FileNotFoundError, json.JSONDecodeError):
-            # If the file doesn't exist or is empty, return None
-            return None, -1  # Return -1 to indicate that no line was read
-
-        if line_number < 0:
-            # If line_number is negative, start from the end of the file
-            line_number = len(lines) + line_number
-
-        if 0 <= line_number < len(lines):
-            json_string = lines[line_number]
-            json_dict = json.loads(json_string)
+            # Load the JSON data from the provided buffer
+            json_dict = json.loads(json_buffer)
+            
+            # Create a new Building object using the JSON data
             building = Building(
                 json_dict['name'],
                 json_dict['can_be_erase'],
@@ -119,8 +110,8 @@ class Building:
             building.check_interval = json_dict['check_interval']
             building.last_action_time = datetime.datetime.strptime(json_dict['last_action_time'], '%Y-%m-%d %H:%M:%S.%f')
             
-            # Return the building object and the last line number read
-            return building, line_number
-
-        # Return None and -1 if the specified line number is out of bounds
-        return None, -1
+            # Return the created building object
+            return building
+        except json.JSONDecodeError:
+            # If there is an error decoding the JSON data, return None
+            return None
