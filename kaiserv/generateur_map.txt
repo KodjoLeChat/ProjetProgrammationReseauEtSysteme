@@ -1,0 +1,6 @@
+Genrating a map can be achieve by this way:
+    - Create a Bitmap file and save it in assets folder
+    - With your favorite Bitmap editor ( Paint for ever ) assign a color to each color according to this dictionnary:
+     { (0,255,0): grass,
+       (0,180,0): tree,
+       (0,0,255): water }

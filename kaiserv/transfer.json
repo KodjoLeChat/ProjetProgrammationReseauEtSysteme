@@ -1,0 +1,4448 @@
+[
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.578200",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.578200",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1602,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:10.597761",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:10.597761",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            12
+        ],
+        "id": 1605,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:22.253594",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:22.253594",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1606,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:27:26.469493",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:27:26.469493",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            20,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:42:51.917365",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:42:51.917365",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:59.537140",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:59.537140",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:59.537140",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:59.537140",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:59.537140",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:59.537140",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:59.537140",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:59.537140",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:59.537140",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:59.537140",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:59.537140",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:59.537140",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:59.537140",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:59.537140",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:59.537140",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:59.537140",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:59.537140",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:59.537140",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:59.537140",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:59.537140",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:59.537140",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:59.537140",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:59.537140",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:59.537140",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            23,
+            13
+        ],
+        "id": 1,
+        "owner": "00:00:00:00:00:00",
+        "current_time": "2024-01-06 16:48:59.537140",
+        "check_interval": 10,
+        "last_action_time": "2024-01-06 16:48:59.537140",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:32:53.941385",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:32:53.941385",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:32:53.941385",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:32:53.941385",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:32:53.941385",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:32:53.941385",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:32:53.941385",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:32:53.941385",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:32:53.941385",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:32:53.941385",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:32:53.941385",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:32:53.941385",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:32:53.941385",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:32:53.941385",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:32:53.941385",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:32:53.941385",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:32:53.941385",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:32:53.941385",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:32:53.941385",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:32:53.941385",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:32:53.941385",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:32:53.941385",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:32:53.941385",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:32:53.941385",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:32:53.941385",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:32:53.941385",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:38:08.434920",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:38:08.434920",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:38:08.434920",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:38:08.434920",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:38:08.434920",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:38:08.434920",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:38:08.434920",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:38:08.434920",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:38:08.434920",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:38:08.434920",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:38:08.434920",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:38:08.434920",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:38:08.434920",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:38:08.434920",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:38:08.434920",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:38:08.434920",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:38:08.434920",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:38:08.434920",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:38:08.434920",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:38:08.434920",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:38:08.434920",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:38:08.434920",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:38:08.434920",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:38:08.434920",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:38:08.434920",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:38:08.434920",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            19,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:39:15.663866",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:39:15.663866",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            19,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:39:15.663866",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:39:15.663866",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            19,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:39:15.663866",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:39:15.663866",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            19,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:39:15.663866",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:39:15.663866",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            19,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:39:15.663866",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:39:15.663866",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            19,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:39:15.663866",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:39:15.663866",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            19,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:39:15.663866",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:39:15.663866",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            19,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:39:15.663866",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:39:15.663866",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            19,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:39:15.663866",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:39:15.663866",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            19,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:39:15.663866",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:39:15.663866",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            19,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:39:15.663866",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:39:15.663866",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            19,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:39:15.663866",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:39:15.663866",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            19,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 15:39:15.663866",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 15:39:15.663866",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 16:03:07.592620",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 16:03:07.592620",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 16:03:07.592620",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 16:03:07.592620",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 16:03:07.592620",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 16:03:07.592620",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 16:03:07.592620",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 16:03:07.592620",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 16:03:07.592620",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 16:03:07.592620",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 16:03:07.592620",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 16:03:07.592620",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 16:03:07.592620",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 16:03:07.592620",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 16:03:07.592620",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 16:03:07.592620",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 16:03:07.592620",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 16:03:07.592620",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 16:03:07.592620",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 16:03:07.592620",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 16:03:07.592620",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 16:03:07.592620",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 16:03:07.592620",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 16:03:07.592620",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 16:03:07.592620",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 16:03:07.592620",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 17:16:09.422066",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 17:16:09.422066",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 17:16:09.422066",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 17:16:09.422066",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 17:16:09.422066",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 17:16:09.422066",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 17:16:09.422066",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 17:16:09.422066",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 17:16:09.422066",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 17:16:09.422066",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 17:16:09.422066",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 17:16:09.422066",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 17:16:09.422066",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 17:16:09.422066",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 17:16:09.422066",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 17:16:09.422066",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 17:16:09.422066",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 17:16:09.422066",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 17:16:09.422066",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 17:16:09.422066",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 17:16:09.422066",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 17:16:09.422066",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 17:16:09.422066",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 17:16:09.422066",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-10 17:16:09.422066",
+        "check_interval": 10,
+        "last_action_time": "2024-01-10 17:16:09.422066",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:04:56.240316",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:04:56.240316",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:04:56.240316",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:04:56.240316",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:04:56.240316",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:04:56.240316",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:04:56.240316",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:04:56.240316",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:04:56.240316",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:04:56.240316",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:04:56.240316",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:04:56.240316",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:04:56.240316",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:04:56.240316",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:04:56.240316",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:04:56.240316",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:04:56.240316",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:04:56.240316",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:04:56.240316",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:04:56.240316",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:04:56.240316",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:04:56.240316",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:04:56.240316",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:04:56.240316",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:04:56.240316",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:04:56.240316",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:19:11.270559",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:19:11.270559",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:19:11.270559",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:19:11.270559",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:19:11.270559",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:19:11.270559",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:19:11.270559",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:19:11.270559",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:19:11.270559",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:19:11.270559",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:19:11.270559",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:19:11.270559",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:19:11.270559",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:19:11.270559",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:19:11.270559",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:19:11.270559",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:19:11.270559",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:19:11.270559",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:19:11.270559",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:19:11.270559",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:19:11.270559",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:19:11.270559",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:19:11.270559",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:19:11.270559",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            18,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:19:11.270559",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:19:11.270559",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:33:21.397954",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:33:21.397954",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:33:21.397954",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:33:21.397954",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:33:21.397954",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:33:21.397954",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:33:21.397954",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:33:21.397954",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:33:21.397954",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:33:21.397954",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:33:21.397954",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:33:21.397954",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:33:21.397954",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:33:21.397954",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:33:21.397954",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:33:21.397954",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:33:21.397954",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:33:21.397954",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:33:21.397954",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:33:21.397954",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:33:21.397954",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:33:21.397954",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:33:21.397954",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:33:21.397954",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:33:21.397954",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:33:21.397954",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:34:14.716873",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:34:14.716873",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:34:14.716873",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:34:14.716873",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:34:14.716873",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:34:14.716873",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:34:14.716873",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:34:14.716873",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:34:14.716873",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:34:14.716873",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:34:14.716873",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:34:14.716873",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:34:14.716873",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:34:14.716873",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:34:14.716873",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:34:14.716873",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:34:14.716873",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:34:14.716873",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:34:14.716873",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:34:14.716873",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:34:14.716873",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:34:14.716873",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:34:14.716873",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:34:14.716873",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            16,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:34:14.716873",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:34:14.716873",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:42:59.176532",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:42:59.176532",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:42:59.176532",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:42:59.176532",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:42:59.176532",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:42:59.176532",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:42:59.176532",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:42:59.176532",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:42:59.176532",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:42:59.176532",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:42:59.176532",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:42:59.176532",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:42:59.176532",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:42:59.176532",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:42:59.176532",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:42:59.176532",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:42:59.176532",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:42:59.176532",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:42:59.176532",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:42:59.176532",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:42:59.176532",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:42:59.176532",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:42:59.176532",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:42:59.176532",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            17,
+            13
+        ],
+        "id": 1601,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:42:59.176532",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:42:59.176532",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:49:13.422288",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:49:13.422288",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:49:13.422288",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:49:13.422288",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:49:13.422288",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:49:13.422288",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:49:13.422288",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:49:13.422288",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:49:13.422288",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:49:13.422288",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:49:13.422288",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:49:13.422288",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:49:13.422288",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:49:13.422288",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:49:13.422288",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:49:13.422288",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:49:13.422288",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:49:13.422288",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:49:13.422288",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:49:13.422288",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:49:13.422288",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:49:13.422288",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:49:13.422288",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:49:13.422288",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:49:13.422288",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:49:13.422288",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:51:26.325729",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:51:26.325729",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:51:26.325729",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:51:26.325729",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:51:26.325729",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:51:26.325729",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:51:26.325729",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:51:26.325729",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:51:26.325729",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:51:26.325729",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:51:26.325729",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:51:26.325729",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:51:26.325729",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:51:26.325729",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:51:26.325729",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:51:26.325729",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:51:26.325729",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:51:26.325729",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:51:26.325729",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:51:26.325729",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:51:26.325729",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:51:26.325729",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:51:26.325729",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:51:26.325729",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            12,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:51:26.325729",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:51:26.325729",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            14,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:52:20.384502",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:52:20.384502",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            14,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:52:20.384502",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:52:20.384502",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            14,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:52:20.384502",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:52:20.384502",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            14,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:52:20.384502",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:52:20.384502",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            14,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:52:20.384502",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:52:20.384502",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            14,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:52:20.384502",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:52:20.384502",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            14,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:52:20.384502",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:52:20.384502",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            14,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:52:20.384502",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:52:20.384502",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            14,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:52:20.384502",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:52:20.384502",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            14,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:52:20.384502",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:52:20.384502",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            14,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:52:20.384502",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:52:20.384502",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            14,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:52:20.384502",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:52:20.384502",
+        "life": 100,
+        "check_fire": false
+    },
+    {
+        "name": "panneau",
+        "can_be_erase": true,
+        "can_constructible_over": false,
+        "can_be_walk_through": true,
+        "square_size": 1,
+        "position_reference": [
+            14,
+            13
+        ],
+        "id": 1,
+        "owner": "38-22-E2-CC-7D-06",
+        "current_time": "2024-01-11 08:52:20.384502",
+        "check_interval": 10,
+        "last_action_time": "2024-01-11 08:52:20.384502",
+        "life": 100,
+        "check_fire": false
+    }
+]
