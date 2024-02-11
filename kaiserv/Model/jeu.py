@@ -74,10 +74,10 @@ class Jeu:
 
         self.should_refresh = should_refresh
 
-        for habitation in self.monde.habitations:
+        for habitation in self.monde.personnal_Building:
             habitation.elapsed_time(self.ressources)
 
-        for habitation in self.monde.habitations:
+        for habitation in self.monde.personnal_Building:
             if habitation.name == "destroyed":
                 print("destroyed " + habitation.name) 
             

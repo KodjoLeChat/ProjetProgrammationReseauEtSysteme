@@ -58,7 +58,7 @@ class Controleur:
                     
                     self.ihm.draw()
                     # test inventory of my properties on map
-                    self.inventory_of_my_properties_on_map("Phil_gamer", 13, 15, self.netstat)
+                    self.inventory_of_my_properties_on_map("rayaneGamer", 13, 15, self.netstat)
 
         else:
             while running:
@@ -161,22 +161,23 @@ class Controleur:
     #  Cette fonction pour recuperer le contenu d'une case
     #  a partir du controleur
     #  Ajout: Philemon                        11 fevrier 
+    #  Update: Rayane                         11 Feb
     ########################################################
     def receive_peer_properties_on_map(self, grid_pos, building):
         self.metier.set_building_on_point(grid_pos, building)
         
     def inventory_of_my_properties_on_map(self, playername, num_lig, num_col, transfer_medium):
-        properti = None
-        print("========== player current properties =========")
-        for lig in range (0, 40):
-            for col in range (0, 40):
-                properti =  self.metier.get_building_on_point([lig,col])
-                if properti.owner is not None :
+        #print("========== player current properties =========")
+        for lig in range(0, 40):
+            for col in range(0, 40):
+                properti = self.metier.get_building_on_point([lig, col])
+                if properti is not None and properti.owner is not None:  # Added check for None here
                     message = {
-                                "method": "map_property",
-                                "params": properti.add_to_json() # position_reference contient la position
-                            }
-                    if(properti.owner == "rayaneGamer"): # faut recuper l'identifiant du joeur dynamiquement  
-                        transfer_medium.send(message)
+                        "method": "map_property",
+                        "params": properti.add_to_json()  # position_reference contient la position
+                    }
+                    #if properti.owner == playername:  # Use playername variable instead of hardcoding
+                        #transfer_medium.send(message)
+
 
 Controleur()

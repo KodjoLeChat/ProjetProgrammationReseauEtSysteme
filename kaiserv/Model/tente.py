@@ -4,10 +4,11 @@ import json
 
 # représente les tente dans lesquelles vont habiter les walkers
 class Tente(Building):
-    def __init__(self, name, can_be_erase, can_constructible_over, can_be_walk_through, square_size):
-        super().__init__(name, can_be_erase, can_constructible_over, can_be_walk_through, square_size)
+    def __init__(self, name, can_be_erase, can_constructible_over, can_be_walk_through, square_size,owner=None):
+        super().__init__(name, can_be_erase, can_constructible_over, can_be_walk_through, square_size,owner)
         self.collapsing_state = random.randint(25000, 40000) # pour estimer une durée avant effondrement 
         self.should_refresh = False
+        self.owner = owner
 
     # permet de remonter l'état d'éffondrement
     def reset_collapsing_state(self):

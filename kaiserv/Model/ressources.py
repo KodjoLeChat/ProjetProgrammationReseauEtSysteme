@@ -66,8 +66,6 @@ class Ressources:
         self.population = population
 
 
-    def __str__(self):
-        return f"food: {self.food} water: {self.water} pence: {self.pence} dinars: {self.dinars} workers: {self.workers} Population: {self.population}"
 
     '''check if enough ressources'''
     def enough_food(self, food):

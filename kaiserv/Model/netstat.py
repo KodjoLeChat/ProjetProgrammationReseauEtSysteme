@@ -13,11 +13,31 @@ class TcpClient:
 
         self.buffer_size = 1024
         self.connecting = connecting
-
+        self.seen = {} # Dictionnaire pour suivre les combinaisons de grid_pos et timestamps déjà vues
+        self.clear_data = []
         self.received_data = []  # List to store received data
         self.received_data_ADDING_BUILDING = []  # List to store received data ADDING BUILDING METHOD
         self.receiving_thread = None
 
+    def check_and_send_duplicates(self):
+        for item in self.received_data:
+            grid_pos = tuple(item['grid_pos'])  # Convertit en tuple pour l'utiliser comme clé de dictionnaire
+            timestamp = item['timestamp']  # 
+
+            # Vérifie si la combinaison existe déjà
+            if (grid_pos, timestamp) in self.seen:
+                # Construit le message d'erreur
+                message = {
+                    "method": "invalid_action",
+                    "grid_pos": grid_pos,
+                    "timestamps": timestamp,
+                    "Ressources": item['Ressources']  # Prend l'objet Ressources de l'élément actuel
+                }
+                self.send(message)  # Appelle la méthode send avec le message
+                return False
+            else:
+                self.seen[(grid_pos, timestamp)] = item  # Ajoute cette combinaison au dictionnaire seen
+                return True
 
     @staticmethod
     def read_config(config_file):
