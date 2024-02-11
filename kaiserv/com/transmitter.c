@@ -30,7 +30,7 @@ void send_after_delay(const char *message, int tcpClientSocket) {
 
 void send_udp_message_to_tcp_client(const char *message, int tcpClientSocket) {
     int message_length = strlen(message);
-
+    printf("Envoie en cours %s", message);
     send(tcpClientSocket, message, message_length, 0); // Puis envoyer le message
 }
 

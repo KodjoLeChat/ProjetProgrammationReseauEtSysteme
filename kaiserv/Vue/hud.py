@@ -249,6 +249,8 @@ class HUD:
                             if position_found==False:
                                 self.action.treat_event_local(name, grid, resources, action_data.get("method"))
                         except:
+                            self.action = Adding_Building(self.carriere, "assets/upscale_house/Housng1a_00045.png", self.netstat)
+
                             position_found = False
                             for building in self.action.carriere.controleur.metier.monde.personnal_Building:
                                 if tuple(building.position_reference) == tuple(grid):
@@ -256,7 +258,6 @@ class HUD:
                                     print("on touche pas")
                                     break
                             if position_found==False:
-                                self.action = Adding_Building(self.carriere, "assets/upscale_house/Housng1a_00045.png", self.netstat)
                                 self.action.treat_event_local(name, grid, resources, action_data.get("method"))
 
 
