@@ -8,7 +8,7 @@ import re
 class TcpClient:
     def __init__(self, connecting=False):
         self.server_address = "127.0.0.1"
-        self.port = 2024
+        self.port = 2023
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
         self.buffer_size = 1024

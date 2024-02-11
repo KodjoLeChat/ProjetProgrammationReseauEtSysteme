@@ -2,6 +2,7 @@ import psutil
 import json
 import datetime
 import random
+import pytz 
 # représente les bâtiments
 # tout ce qui fait partie de la carte, même l'herbe
 class Building:
@@ -16,12 +17,15 @@ class Building:
         self.position_reference = None                       # emplacement sur la carte
         self.id = Building.nbBuilding+1
         Building.nbBuilding = self.id
-        self.owner                  = None
-        self.current_time = datetime.datetime.now()
+        self.owner = None
+        gmt = pytz.timezone('GMT')
+        self.current_time = datetime.datetime.now().astimezone(gmt)
         self.check_interval = 10
         self.last_action_time = self.current_time
         self.life = 100                      # la vie du bâtiment
         self.check_fire = False
+    
+
 
     def lower_hp(self):
         # Reduce the HP of the building
