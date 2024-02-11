@@ -162,6 +162,14 @@ class Jeu:
     def add_building_on_point(self, grid_pos, path):
         self.monde.add_building_on_point(grid_pos, path,self.ressources)
 
+    ########################################################
+    #  get_building_on_point 
+    #  Cette fonction pour recuperer le contenu d'une case
+    #  a partir du controleur
+    #  Ajout: Philemon                        11 fevrier 
+    ########################################################
+    def get_building_on_point(self, grid_pos):
+        return self.monde.get_building_on_point(grid_pos)
 
     def init_board(self, file_name):
         return self.monde.init_board(file_name,self.ressources)

@@ -72,6 +72,12 @@ class Building:
     def add_to_json(self):
         # Serialize the current building to JSON
         building_json = self.to_json()
+        
+        ###########################################
+        # function commented Philemon         #####
+        # and add of print below
+        #                             11 fev 2024
+        ############################################
         print(f"building {self.name} to json is: {building_json}")
 
         ''''try:

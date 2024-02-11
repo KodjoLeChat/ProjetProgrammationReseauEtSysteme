@@ -418,6 +418,16 @@ class Monde:
                 self.building.owner = None
                 self.board[grid_pos[0]][grid_pos[1]]["building"] = self.building
                 #self.netstat.send(self.building.to_json())
+
+    ########################################################
+    #  get_building_on_point 
+    #  Cette fonction pour recuperer le contenu d'une case
+    #  a partir du controleur
+    #  Ajout: Philemon                        11 fevrier 
+    ########################################################
+    def get_building_on_point(self, grid_pos):
+        return self.board[grid_pos[0]][grid_pos[1]]["building"]
+
 '''
 
     def add_building_from_netstat(self):

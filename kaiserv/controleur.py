@@ -58,6 +58,8 @@ class Controleur:
                             self.ihm.update()
                     
                     self.ihm.draw()
+                    self.inventory_of_my_properties_on_map("Phil_gamer", 13, 15, self.netstat)
+
         else:
             while running:
                 # boucle du jeu
@@ -77,8 +79,7 @@ class Controleur:
                             
                     
                     self.ihm.draw()
-
-
+                   
         pygame.exit()
 
     def get_habitations(self):
@@ -154,4 +155,28 @@ class Controleur:
     def should_refresh_from_model(self):
         return self.metier.should_refresh
 
+    ########################################################
+    #  inventory_of_my_properties_on_map 
+    #  Cette fonction pour recuperer le contenu d'une case
+    #  a partir du controleur
+    #  Ajout: Philemon                        11 fevrier 
+    ########################################################
+    def receive_peer_properties_on_map(self, playername, num_lig, num_col, transfer_medium):
+        pass
+        
+    def inventory_of_my_properties_on_map(self, playername, num_lig, num_col, transfer_medium):
+        properti =  self.metier.get_building_on_point([num_lig,num_col])
+        print("========== Philemon ========")
+        print(f" le building trouve: {properti}")
+        '''for lig in range (0, num_lig):
+            for col in range (0, num_col):
+                properti =  self.metier.get_building_on_point([lig,col])
+                message = {
+                            "method": "map_property",
+                            "params": properti
+                        }   
+                transfer_medium.send(properti)'''
+
+        '''for num_lig in range(0, len(self.carriere.informations_tiles)):
+                for num_col in range(0, len(self.carriere.informations_tiles[num_lig])):'''
 Controleur()
