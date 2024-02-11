@@ -221,6 +221,16 @@ class Menu():
                         token_json = json.dumps(token_data)
                         self.controleur.netstat.send(token_json)
 
+                        # Attendre la réponse du serveur (ici, une réponse de taille maximale 1024 bytes)
+                        response = self.controleur.netstat.receive()
+                        
+                        # Traiter la réponse
+                        print("Réponse du serveur:", response)
+                        
+                        if response == "OK":
+                            print("Connexion résussie")
+                            self.controleur.create_new_game()
+
                         sys.stdout.flush()
 
 

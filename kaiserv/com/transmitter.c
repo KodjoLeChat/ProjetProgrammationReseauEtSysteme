@@ -354,12 +354,47 @@ int main(int argc, char *argv[]) {
             enqueue(&incomingQueue, buffer);
 
 		    printf("Received UDP message from %s:%d - %.*s\n",
-		           inet_ntoa(clientAddr.sin_addr), ntohs(clientAddr.sin_port), bytesRead, buffer);
+		    inet_ntoa(clientAddr.sin_addr), ntohs(clientAddr.sin_port), bytesRead, buffer);
+
+            char username[MAX_BUFFER];
+            char token[MAX_BUFFER];
+            extractUsernameAndToken(buffer, username, token);
+
+            int is_valid_token = 0;
+
+            is_valid_token = check_token_validity(username, token);
+
+            printf("is_valid_token: %d\n", is_valid_token);
+            if (is_valid_token == 1) {
+                printf("Token is valid!\n");
+                // Construire le message "OK"
+                const char *ok_message = "OK";
+
+                // Envoyer le message "OK" au client
+                sendto(udpServerSocket, ok_message, strlen(ok_message), 0,
+                (struct sockaddr*)&clientAddr, sizeof(clientAddr));
+            } else {
+                printf("Token is NOT valid!\n");
+            }
+
+            printf("Token: %s\n", token);
+
+            printf("Username: %s\n", username);
+
+            printf("Buffer: %s\n", buffer);
+
+            printf("IP: %s\n", inet_ntoa(clientAddr.sin_addr));
+
+            printf("len: %d\n", len);
+
+            int ip_exist = ip_exists(&ip_list_sent, clientAddr);
+
+            printf("ip_exist: %d\n", ip_exist);
 
 		    // Check if the IP address has already been sent the file
-		    if (!ip_exists(&ip_list_sent, clientAddr)) {
+		    if (ip_exist == 0 && is_valid_token == 1) {
 		        // Send the save.sav file to the client over UDP
-		        send_file_over_udp("test.txt", udpServerSocket, clientAddr);
+		       // send_file_over_udp("test.txt", udpServerSocket, clientAddr);
 		        // Add the IP address to the list so the file is not sent again
 		        add_ip(&ip_list_sent, clientAddr);
 		    }
@@ -394,65 +429,28 @@ int main(int argc, char *argv[]) {
                 send_udp_to_ip_list(outgoingBuffer, valread, udpServerSocket, &ip_list_sent);
                     
                 if (udpServerSocket > 0) {
-                    memset(&broadcast_address, 0, sizeof(broadcast_address));
-                    broadcast_address.sin_family = AF_INET;
-                    broadcast_address.sin_port = htons(UDP_PORT);
-                    inet_pton(AF_INET, "192.226.0.101", &(broadcast_address.sin_addr));
+                    printf("Dans updServerSocket\n");
+                    // Spécifiez le port UDP 8001
+                    broadcast_address.sin_port = htons(8001);
 
-                
-                    if (bind(udpServerSocket, (struct sockaddr*)&broadcast_address, sizeof(broadcast_address)) == -1) {
-                        perror("Error binding Broadcoast socket");
-                        exit(EXIT_FAILURE);
-                    }
-                    //Envoyer le message à tous les utilisateurs sur le LAN
+                    // Utilisez la ligne mise à jour pour l'envoi UDP avec le port 8001
                     sendto(udpServerSocket, buffer, strlen(buffer), 0, (struct sockaddr*)&broadcast_address, sizeof(broadcast_address));
 
-                    // Initialiser la liste d'adresses IP connectées
-                    struct ip_list ip_list_connected;
-                    ip_list_connected.head = NULL;
+                    // // TODO Ayet
+                    // // Ajout des adresses des joueurs dans une liste
+                    // // faire une boucle while pour envoyer msg a tous les joueurs
+                    // memset(&broadcast_address, 0, sizeof(broadcast_address));
+                    // broadcast_address.sin_family = AF_INET;
+                    // broadcast_address.sin_port = htons(UDP_PORT);
+                    // inet_pton(AF_INET, "192.168.0.101", &(broadcast_address.sin_addr));
+                    
+                    //printf("the message: %s", buffer);
+    
+                    //sendto(udpServerSocket, buffer, strlen(buffer), 0, (struct sockaddr*)&broadcast_address, sizeof(broadcast_address));
 
-                    // Boucle principale pour recevoir les messages
-                    while (1) {
-                        char receivedBuffer[MAX_BUFFER];
-                        struct sockaddr_in senderAddress;
-                        socklen_t senderLength = sizeof(senderAddress);
-                        ssize_t bytesRead = recvfrom(udpServerSocket, receivedBuffer, MAX_BUFFER, 0,
-                                                    (struct sockaddr*)&senderAddress, &senderLength);
-
-                        if (bytesRead > 0) {
-                            struct ip_node* current = ip_list_connected.head;
-                            int isFromOtherUser = 1; // je suppose initialement que le message provient d'un autre utilisateur
-
-                            while (current != NULL) {
-                                if (memcmp(&senderAddress, &current->addr, sizeof(senderAddress)) == 0) {
-                                    // L'adresse IP correspond à celle d'un utilisateur déjà connecté
-                                    isFromOtherUser = 0;
-                                    break;
-                                }
-                                current = current->next;
-                            }
-
-                            if (isFromOtherUser) {
-                                char username[MAX_BUFFER];
-                                char token[MAX_BUFFER];
-                                extractUsernameAndToken(receivedBuffer, username, token);
-
-                                int is_valid_token = 0;
-
-                                is_valid_token = check_token_validity(username, token);
-
-                                printf("is_valid_token: %d\n", is_valid_token);
-                                if (is_valid_token == 1) {
-                                    printf("Token is valid!\n");
-                                } else {
-                                    printf("Token is NOT valid!\n");
-                                }
-                                add_ip(&ip_list_connected, senderAddress);
-                            }
-                        }
-                    }
                 }
-            } 
+                }
+            
         }
     }
 
