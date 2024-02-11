@@ -31,8 +31,11 @@ class Controleur:
         self.TILE_SIZE = set_tile_size("./settings.txt")
 
         # initialisation des attributs
-        self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
-        self.clock  = pygame.time.Clock()
+        # Partie modifiée par Pérès pour ne pas avoirle jeu dans tout l'écran
+        self.screen_width = 800
+        self.screen_height = 600
+        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
+        self.clock = pygame.time.Clock()
 
         self.metier = None
         self.ihm    = IHM(self)

@@ -12,6 +12,9 @@ import multiprocessing
 import logging
 import subprocess  # Make sure to import subprocess at the beginning of your file
 import time
+import requests
+import json
+
 logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def join_server(ip_port, username, password):
@@ -175,83 +178,58 @@ class Menu():
     def display_settings_join(self):
         if self.displayed:
             pg.display.set_caption(' Romulus Online ')
-            print("test")
+
             # Input buttons
-            ip_port_input = InputButton(self.screen, self.mid_width, self.mid_height + (5*2), 'IP', '')
-            port_input = InputButton(self.screen, self.mid_width, self.mid_height + (8*20), 'PORT', '')
-            password_input = InputButton(self.screen, self.mid_width, self.mid_height + (11*30), 'Username', '')
+            username_input = InputButton(self.screen, self.mid_width, self.mid_height + (5 * 2), 'Username', '')
+            password_input = InputButton(self.screen, self.mid_width, self.mid_height + (8 * 15), 'Password', '')
+            ip_input = InputButton(self.screen, self.mid_width, self.mid_height + (11 * 20), 'IP', '')
 
             # Other buttons
             Return = Button_Menu(self.screen, self.mid_width, self.mid_height - GAP, 'Return')
-            Join = Button_Menu(self.screen, self.mid_width, self.mid_height - GAP * 2, 'Join')
+            ShowCredentials = Button_Menu(self.screen, self.mid_width, self.mid_height - GAP * 2, 'Join')
 
             run = True
             while run:
                 self.screen.blit(self.background, (0, 0))
-                self.screen.blit(self.font.render("Settings", True, RED, (249, 231, 159)), (self.mid_width + 30, self.mid_height - GAP*3.25))
+                self.screen.blit(self.font.render("Join Game", True, RED, (249, 231, 159)),
+                                (self.mid_width + 30, self.mid_height - GAP * 3.25))
 
                 for event in pg.event.get():
-                    if ip_port_input.check_button(event):
-                        # Handle IP:PORT input
-                        ip_port = ip_port_input.input_text
-                        # You may want to parse and store the IP:PORT somewhere
+                    # Gestion des événements pour les champs d'entrée
+                    username_input.check_button(event)
+                    password_input.check_button(event)
+                    ip_input.check_button(event)
 
-                    if port_input.check_button(event):
-                        # Handle username input
-                        username = port_input.input_text
-                        # You may want to store the username somewhere
-
-                    if password_input.check_button(event):
-                        # Handle password input
-                        password = password_input.input_text
-                        # You may want to store the password somewhere (consider security implications)
-           
                     if Return.check_button(event):
                         run = False
                         self.current = "Main"
                         self.display_main()
-                        
-                    if Join.check_button(event):
-                        ip = ip_port_input.input_text
-                        port = port_input.input_text
+
+                    if ShowCredentials.check_button(event):
+                        username = username_input.input_text
                         password = password_input.input_text
-                        print(f"Joining server with IP={ip}, PORT={port}, Password={password}")
-                        with open('config.txt', 'w') as config_file:
-                            config_file.write(f"{ip}\n{port}\n")  # IP and PORT are on separate lines
-                        # Execute the transmitter program
-                        try:
-                            subprocess.Popen(["./com/transmitter"])
-                        except Exception as e:
-                            print(f"Failed to execute sender: {e}")
-            
-                        self.Start_new_career.current_col = self.Start_new_career.button_col
-                        self.controleur.create_new_game()
-                        self.controleur.metier.init_board(reader_bmp_map(1, self.controleur))
-                        self.controleur.ihm.init_sprite()
-                        self.controleur.play()
-                        '''
-                        if os.path.exists("onlineWorld.sav") and os.path.getsize("onlineWorld.sav") > 0:
-                            with open("onlineWorld.sav", 'rb') as file:
-                                self.controleur.metier = pickle.load(file)                            # fixe la taille du plateau de jeu
-                            self.controleur.grid_height  = len(self.controleur.metier.monde.board)
-                            self.controleur.grid_width = len(self.controleur.metier.monde.board[0])
+                        ip_adress = ip_input.input_text
+                        print(f"Username: {username}, Password: {password}")
+                        api_url = 'http://localhost:5000/check_user'
+                        data = {'username': username, 'password': password, 'ip_adress': ip_adress}
+                        response = requests.post(api_url, json=data)
+                        result = response.json()
+                        token = result.get('token', None)
+                        print(f"Token: {token}")
 
-                            self.controleur.ihm.init_sprite()
-                            self.controleur.is_Joining=True
-                            self.controleur.play()
-                        else:
-                            print("onlineWorld.sav is empty or does not exist")
-                                '''
-                        run = False
-                        self.current = "Main"
-                        self.display_main()
+                        token_data = {"token": token, "username": username}
+                        token_json = json.dumps(token_data)
+                        self.controleur.netstat.send(token_json)
+
+                        sys.stdout.flush()
 
 
-                ip_port_input.draw()
-                port_input.draw()
+                # Dessiner les champs d'entrée
+                username_input.draw()
                 password_input.draw()
+                ip_input.draw()
                 Return.draw()
-                Join.draw()
+                ShowCredentials.draw()
                 pg.display.flip()
 
 
