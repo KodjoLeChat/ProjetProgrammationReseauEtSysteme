@@ -156,18 +156,19 @@ class Controleur:
         return self.metier.should_refresh
 
     ########################################################
-    #  inventory_of_my_properties_on_map 
+    #  inventory_of_my_properties_on_map and
+    # receive_peer_properties_on_map
     #  Cette fonction pour recuperer le contenu d'une case
     #  a partir du controleur
     #  Ajout: Philemon                        11 fevrier 
     ########################################################
-    def receive_peer_properties_on_map(self, playername, num_lig, num_col, transfer_medium):
-        pass
+    def receive_peer_properties_on_map(self, grid_pos, building):
+        self.metier.set_building_on_point(grid_pos, building)
         
     def inventory_of_my_properties_on_map(self, playername, num_lig, num_col, transfer_medium):
         properti =  self.metier.get_building_on_point([num_lig,num_col])
         print("========== Philemon ========")
-        print(f" le building trouve: {properti}")
+        print(f" le building trouve: {properti.add_to_json()}")
         '''for lig in range (0, num_lig):
             for col in range (0, num_col):
                 properti =  self.metier.get_building_on_point([lig,col])

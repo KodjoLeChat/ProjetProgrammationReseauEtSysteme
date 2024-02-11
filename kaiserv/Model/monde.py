@@ -420,13 +420,17 @@ class Monde:
                 #self.netstat.send(self.building.to_json())
 
     ########################################################
-    #  get_building_on_point 
+    #  get_building_on_point and set_building_on_point
     #  Cette fonction pour recuperer le contenu d'une case
     #  a partir du controleur
     #  Ajout: Philemon                        11 fevrier 
     ########################################################
     def get_building_on_point(self, grid_pos):
         return self.board[grid_pos[0]][grid_pos[1]]["building"]
+    
+    def set_building_on_point(self, grid_pos, building):
+        self.board[grid_pos[0]][grid_pos[1]]["building"] = building 
+    
 
 '''
 

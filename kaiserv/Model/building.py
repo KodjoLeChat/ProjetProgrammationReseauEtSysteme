@@ -78,8 +78,8 @@ class Building:
         # and add of print below
         #                             11 fev 2024
         ############################################
-        print(f"building {self.name} to json is: {building_json}")
-
+        #print(f"building {self.name} to json is: {building_json}")
+        return building_json
         ''''try:
             # Load existing data from "transfer.json" if it exists
             with open("transfer.json", "r") as file:
