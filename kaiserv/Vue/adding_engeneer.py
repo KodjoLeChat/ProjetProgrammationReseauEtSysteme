@@ -38,7 +38,7 @@ class AddingEngeneer(Basic_Action):
                                 method = "treat_event"
                                 event_data = {
                                     "method": method,
-                                    "name":"tente",
+                                    "name":"engeneer",
                                     "grid_pos": self.grid_position_start,
                                     "last_grid": "empty",
                                     "SelectionneurZone": "empty",
