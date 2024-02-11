@@ -152,11 +152,11 @@ class HUD:
 
             if action_data.get("method") == "Adding_Building":
                 # Pop the first item from the list as it's an 'Adding_Building' action
-                print("avant: AAAAAAAAAAAAAAAAA" + str(self.netstat.received_data_ADDING_BUILDING))
+                # print("avant: AAAAAAAAAAAAAAAAA" + str(self.netstat.received_data_ADDING_BUILDING))
                 action_data = self.netstat.received_data_ADDING_BUILDING.pop(0)
-                print("après: AAAAAAAAAAAAAAAAA" + str(self.netstat.received_data_ADDING_BUILDING))
+                # print("après: AAAAAAAAAAAAAAAAA" + str(self.netstat.received_data_ADDING_BUILDING))
                 # self.netstat.check_and_send_duplicates()
-                print(self.netstat.seen)
+                # print(self.netstat.seen)
                 self.execute_action(action_data)
                 #print(action_data)
             else:
@@ -165,7 +165,7 @@ class HUD:
 
 
     def execute_action(self, action_data):
-        print("TESTTTTTTTTTTTTTTTTTTTTT RAYANE")
+        # print("TESTTTTTTTTTTTTTTTTTTTTT RAYANE")
         if "method" in action_data and "params" in action_data:
             method = action_data["method"]
             params = action_data["params"]
@@ -244,7 +244,7 @@ class HUD:
                                 print(building.position_reference, grid)
                                 if tuple(building.position_reference) == tuple(grid):
                                     position_found = True
-                                    print("on touche pas")
+                                    # print("on touche pas")
                                     break
                             if position_found==False:
                                 self.action.treat_event_local(name, grid, resources, action_data.get("method"))
@@ -255,7 +255,7 @@ class HUD:
                             for building in self.action.carriere.controleur.metier.monde.personnal_Building:
                                 if tuple(building.position_reference) == tuple(grid):
                                     position_found = True
-                                    print("on touche pas")
+                                    # print("on touche pas")
                                     break
                             if position_found==False:
                                 self.action.treat_event_local(name, grid, resources, action_data.get("method"))

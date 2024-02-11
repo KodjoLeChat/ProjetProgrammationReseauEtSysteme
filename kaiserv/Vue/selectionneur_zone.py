@@ -15,7 +15,7 @@ class SelectionneurZone(Basic_Action):
             print("" + str(self.original_surface.get_size()))
             size_of_original_image = self.original_surface.get_size()
         except AttributeError as e:
-            print(f"Bringing building in progress: {e}")
+            #print(f"Bringing building in progress: {e}")
             size_of_original_image,self.original_surface = [116, 60]
         '''
         #self.image_to_draw = pygame.transform.scale(self.original_surface, (size_of_original_image[0]*self.carriere.zoom.multiplier, size_of_original_image[1]*self.carriere.zoom.multiplier))
@@ -41,7 +41,7 @@ class SelectionneurZone(Basic_Action):
             print("" + str(self.original_surface.get_size()))
             size_of_original_image = self.original_surface.get_size()
         except AttributeError as e:
-            print(f"AttributeError: {e}")
+            #print(f"AttributeError: {e}")
             size_of_original_image,self.original_surface = [116, 60]
             count = 2
 
