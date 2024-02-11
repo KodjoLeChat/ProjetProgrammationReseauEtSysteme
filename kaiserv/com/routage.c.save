@@ -1,0 +1,29 @@
+import socket
+from upnpclient import discover
+
+def setup_upnp(port):
+    # Découvrir les périphériques UPnP sur le réseau
+    devices = discover()
+
+    for d in devices:
+        # Recherchez les services de routage de ports UPnP
+        for service in d.services:
+            if 'WANIPConn1' in service.type:
+                # Demander au routeur de mapper le port spécifié
+                service.AddPortMapping(
+                    NewRemoteHost='', NewExternalPort=port,
+                    NewProtocol='TCP', NewInternalPort=port,
+                    NewInternalClient=socket.gethostbyname(socket.gethostname()),
+                    NewEnabled='1', NewPortMappingDescription='Game server'
+                )
+                print("Port {} mappé avec succès avec UPnP.".format(port))
+                return
+
+def main():
+    # Configurer le routage des ports UPnP pour le port TCP 2024
+    setup_upnp(2024)
+
+    # Votre code de jeu va ici
+
+if __name__ == "__main__":
+    main()
