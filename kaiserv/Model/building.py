@@ -17,8 +17,7 @@ class Building:
         self.position_reference = None                       # emplacement sur la carte
         self.id = Building.nbBuilding+1
         Building.nbBuilding = self.id
-        gmt = pytz.timezone('GMT')
-        self.current_time = datetime.datetime.now().astimezone(gmt)
+        self.current_time = datetime.datetime.now()
         self.check_interval = 1
         self.last_action_time = self.current_time
         self.life = 100                      # la vie du bâtiment
