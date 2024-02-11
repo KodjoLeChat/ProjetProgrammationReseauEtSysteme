@@ -6,12 +6,153 @@
 #include <errno.h>
 #include <sys/select.h>
 #include "queue.h"
+#include <curl/curl.h> // Ajouter par Pérès
+#include <jansson.h> // Ajouter par Pérès
+
+/*
+Il faut installer les dépendances suivantes :
+
+sudo apt-get install -y libcurl4-openssl-dev libjansson-dev
+
+Il faut compiler le programme de la manière suivante :
+
+gcc transmitter.c queue.c -o transmitter -lcurl -ljansson
+
+*/
+
 
 #define MAX_CLIENTS 10
 #define BUFFER_SIZE 1024
 //#define TCP_PORT 2024
 //#define UDP_PORT 8000
 #define MAX_BUFFER 1024
+
+
+// Fonction pour extraire le username et le token d'une chaîne JSON ajoutéé par Pérès
+void extractUsernameAndToken(const char *json_data, char *username, char *token) {
+    // Analyser la chaîne JSON
+    json_error_t error;
+    json_t *root = json_loads(json_data, 0, &error);
+
+    if (root == NULL) {
+        fprintf(stderr, "Erreur lors de l'analyse JSON : %s\n", error.text);
+        return;
+    }
+
+    // Récupérer le "username"
+    json_t *username_json = json_object_get(root, "username");
+    if (json_is_string(username_json)) {
+        const char *username_str = json_string_value(username_json);
+        strncpy(username, username_str, BUFFER_SIZE - 1);
+        username[BUFFER_SIZE - 1] = '\0';
+    } else {
+        fprintf(stderr, "Erreur lors de la récupération du 'username'.\n");
+    }
+
+    // Récupérer le "token"
+    json_t *token_json = json_object_get(root, "token");
+    if (json_is_string(token_json)) {
+        const char *token_str = json_string_value(token_json);
+        strncpy(token, token_str, BUFFER_SIZE - 1);
+        token[BUFFER_SIZE - 1] = '\0';
+    } else {
+        fprintf(stderr, "Erreur lors de la récupération du 'token'.\n");
+    }
+
+    // Libérer la mémoire
+    json_decref(root);
+}
+
+struct MemoryStruct {
+    char *memory;
+    size_t size;
+};
+
+size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp) {
+    size_t realsize = size * nmemb;
+    struct MemoryStruct *mem = (struct MemoryStruct *)userp;
+
+    mem->memory = realloc(mem->memory, mem->size + realsize + 1);
+    if (mem->memory == NULL) {
+        fprintf(stderr, "Pas assez de mémoire (realloc a returné NULL)\n");
+        return 0;
+    }
+
+    memcpy(&(mem->memory[mem->size]), contents, realsize);
+    mem->size += realsize;
+    mem->memory[mem->size] = 0;
+
+    return realsize;
+}
+
+int check_token_validity(const char *username, const char *token) {
+    CURL *curl;
+    CURLcode res;
+
+    struct MemoryStruct chunk;
+    chunk.memory = malloc(1); 
+    chunk.size = 0;
+
+    curl_global_init(CURL_GLOBAL_DEFAULT);
+
+    curl = curl_easy_init();
+    if (curl) {
+        char url[256];
+        snprintf(url, sizeof(url), "http://localhost:5000/check_token");
+
+        struct curl_slist *headers = NULL;
+        headers = curl_slist_append(headers, "Content-Type: application/json");
+
+        char post_fields[512];
+        snprintf(post_fields, sizeof(post_fields), "{\"username\":\"%s\",\"token\":\"%s\"}", username, token);
+
+        curl_easy_setopt(curl, CURLOPT_URL, url);
+        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post_fields);
+
+       
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
+
+        res = curl_easy_perform(curl);
+
+        if (res != CURLE_OK) {
+            fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
+            free(chunk.memory);
+            curl_easy_cleanup(curl);
+            curl_global_cleanup();
+            return 0;  // Échec de la requête
+        }
+
+        // Traitement de la réponse JSON
+        json_error_t error;
+        json_t *root = json_loads(chunk.memory, 0, &error);
+
+        if (root == NULL) {
+            fprintf(stderr, "Erreur lors de l'analyse JSON : %s\n", error.text);
+            free(chunk.memory);
+            curl_easy_cleanup(curl);
+            curl_global_cleanup();
+            return 0;  // Échec de l'analyse JSON
+        }
+
+        json_t *valid_json = json_object_get(root, "valid");
+        int is_valid = json_is_true(valid_json);
+
+        // Libération de la mémoire
+        json_decref(root);
+        free(chunk.memory);
+
+        curl_easy_cleanup(curl);
+        curl_global_cleanup();
+
+        printf("is_valid in fonction: %d\n", is_valid);
+
+        return is_valid;
+    }
+
+    return 0;  // Échec de l'initialisation de curl
+}
 
 
 
@@ -213,10 +354,24 @@ int main(int argc, char *argv[]) {
             enqueue(&incomingQueue, buffer);
 
 		    printf("Received UDP message from %s:%d - %.*s\n",
-		           inet_ntoa(clientAddr.sin_addr), ntohs(clientAddr.sin_port), bytesRead, buffer);
+		    inet_ntoa(clientAddr.sin_addr), ntohs(clientAddr.sin_port), bytesRead, buffer);
 
+            char username[MAX_BUFFER];
+            char token[MAX_BUFFER];
+            extractUsernameAndToken(buffer, username, token);
+
+            int is_valid_token = 0;
+
+            is_valid_token = check_token_validity(username, token);
+
+            printf("is_valid_token: %d\n", is_valid_token);
+            if (is_valid_token == 1) {
+                printf("Token is valid!\n");
+            } else {
+                printf("Token is NOT valid!\n");
+            }
 		    // Check if the IP address has already been sent the file
-		    if (!ip_exists(&ip_list_sent, clientAddr)) {
+		    if (!ip_exists(&ip_list_sent, clientAddr) && is_valid_token == 1) {
 		        // Send the save.sav file to the client over UDP
 		        send_file_over_udp("test.txt", udpServerSocket, clientAddr);
 		        // Add the IP address to the list so the file is not sent again

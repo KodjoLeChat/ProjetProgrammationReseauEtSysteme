@@ -1,0 +1,46 @@
+<!-- admin_dashboard.html -->
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+</head>
+
+<body>
+    <h1>Welcome, Admin!</h1>
+
+    <form method="post" action="{{ url_for('logout') }}">
+        <input type="submit" value="Logout">
+    </form>
+
+    <!-- Formulaire d'ajout de joueur -->
+    <form method="post" action="{{ url_for('add_player') }}">
+        <label for="new_username">New Username:</label>
+        <input type="text" id="new_username" name="new_username" required><br>
+        <label for="new_password">New Password:</label>
+        <input type="password" id="new_password" name="new_password" required><br>
+        <input type="submit" value="Add Player">
+    </form>
+
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Token</th>
+            <th>Actions</th>
+        </tr>
+        {% for player in players %}
+        <tr>
+            <td>{{ player[0] }}</td>
+            <td>{{ player[1] }}</td>
+            <td>{{ player[3] }}</td>
+            <td><a href="{{ url_for('delete_player', player_id=player[0]) }}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>
