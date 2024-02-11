@@ -1,9 +1,11 @@
 from .basic_action import Basic_Action
 import pygame
-
+import json
 class AddingEngeneer(Basic_Action):
-    def __init__(self, carriere):
+    def __init__(self, carriere,netstat,):
         super().__init__(carriere)
+        self.netstat = netstat
+
     
     # permet de draw soit une case de pre-build, soit le bâtiment de l'ingénieur
     def draw(self):
@@ -31,6 +33,25 @@ class AddingEngeneer(Basic_Action):
                     for num_col in range(0, len(self.carriere.informations_tiles[num_lig])):
                         if stop_loop == False and self.carriere.informations_tiles[num_lig][num_col]["building"].name[0:5] == "route" and \
                            self.calcul_distance_to_grid(self.grid_position_start, (num_lig, num_col)) <= 2:
+                                # Create a dictionary containing grid_pos and other information
+                                print('ENGEEEEEEEEEEEEEEENER ! ')
+                                method = "treat_event"
+                                event_data = {
+                                    "method": method,
+                                    "name":"engeneer",
+                                    "grid_pos": self.grid_position_start,
+                                    "last_grid": "empty",
+                                    "SelectionneurZone": "empty",
+                                    "pos": "empty",
+                                    "Ressources": self.carriere.controleur.metier.ressources.to_json()  # Conversion en JSON
+                                }
+        
+                                # Convert the dictionary to a JSON string
+                                event_json = json.dumps(event_data)
+
+                                # Send the JSON string over the network
+                                self.netstat.send(event_json)
+
                                 self.carriere.controleur.add_building_on_point(self.grid_position_start, "engeneer")
                                 # ajout de l'ingénieur
                                 self.carriere.controleur.add_engeneer(self.grid_position_start)

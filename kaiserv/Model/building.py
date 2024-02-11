@@ -7,7 +7,7 @@ import random
 class Building:
     nbBuilding = 0
     # on affecte des informations permettant d'ajuster le comportement dans le jeu
-    def __init__(self, name, can_be_erase, can_constructible_over, can_be_walk_through, square_size):
+    def __init__(self, name, can_be_erase, can_constructible_over, can_be_walk_through, square_size,owner=None):
         self.name                   = name                   # le nom du bâtiment représenté ( herbe, arbre, route, etc.)
         self.can_be_erase           = can_be_erase           # le bâtiment peut-il être effacer, action de clear
         self.can_constructible_over = can_constructible_over # peut-on construire par dessus le bâtiment, ( herbe )
@@ -16,12 +16,15 @@ class Building:
         self.position_reference = None                       # emplacement sur la carte
         self.id = Building.nbBuilding+1
         Building.nbBuilding = self.id
-        self.owner                  = None
         self.current_time = datetime.datetime.now()
-        self.check_interval = 10
+        self.check_interval = 1
         self.last_action_time = self.current_time
         self.life = 100                      # la vie du bâtiment
         self.check_fire = False
+        self.owner = owner
+        if self.owner is None:
+            self.owner = "rayaneGamer"
+
 
     def lower_hp(self):
         # Reduce the HP of the building
@@ -30,6 +33,8 @@ class Building:
             # Building is destroyed
             self.owner = None
             self.hp = 0
+    def set_username(self):
+        return "rayaneGamer"
 
     def elapsed_time(self, ressource):
         self.current_time = datetime.datetime.now()
@@ -53,15 +58,6 @@ class Building:
     def get_canbewalkthrough_into_integer(self):
         return 0 if self.can_be_walk_through else 1
     
-    def set_mac_address(self):
-        '''interfaces = psutil.net_if_addrs()
-        for interface, addrs in interfaces.items():
-            for addr in addrs:
-                if addr.family == psutil.AF_LINK:
-                    self.owner = addr.address
-                    #print(self.owner)
-                    return addr.address'''
-        return "rayaneGamer"
 
     def to_json(self):
         building_dict = self.__dict__.copy()
@@ -72,8 +68,15 @@ class Building:
     def add_to_json(self):
         # Serialize the current building to JSON
         building_json = self.to_json()
-
-        try:
+        
+        ###########################################
+        # function commented Philemon         #####
+        # and add of print below
+        #                             11 fev 2024
+        ############################################
+        #print(f"building {self.name} to json is: {building_json}")
+        return building_json
+        ''''try:
             # Load existing data from "transfer.json" if it exists
             with open("transfer.json", "r") as file:
                 data = json.load(file)
@@ -86,7 +89,7 @@ class Building:
 
         # Write the updated data back to "transfer.json"
         with open("transfer.json", "w") as file:
-            json.dump(data, file, indent=4)
+            json.dump(data, file, indent=4)'''
 
 
     @classmethod

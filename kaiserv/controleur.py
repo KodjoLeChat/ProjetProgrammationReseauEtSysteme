@@ -16,7 +16,6 @@ class Controleur:
         self.netstat.connect()
         self.netstat.send("Hello, server! from PLAYER2")
 
-
         # démarrage de pygame
         pygame.init()
 
@@ -58,6 +57,9 @@ class Controleur:
                             self.ihm.update()
                     
                     self.ihm.draw()
+                    # test inventory of my properties on map
+                    self.inventory_of_my_properties_on_map("rayaneGamer", 13, 15, self.netstat)
+
         else:
             while running:
                 # boucle du jeu
@@ -77,8 +79,7 @@ class Controleur:
                             
                     
                     self.ihm.draw()
-
-
+                   
         pygame.exit()
 
     def get_habitations(self):
@@ -153,5 +154,30 @@ class Controleur:
 
     def should_refresh_from_model(self):
         return self.metier.should_refresh
+
+    ########################################################
+    #  inventory_of_my_properties_on_map and
+    # receive_peer_properties_on_map
+    #  Cette fonction pour recuperer le contenu d'une case
+    #  a partir du controleur
+    #  Ajout: Philemon                        11 fevrier 
+    #  Update: Rayane                         11 Feb
+    ########################################################
+    def receive_peer_properties_on_map(self, grid_pos, building):
+        self.metier.set_building_on_point(grid_pos, building)
+        
+    def inventory_of_my_properties_on_map(self, playername, num_lig, num_col, transfer_medium):
+        #print("========== player current properties =========")
+        for lig in range(0, 40):
+            for col in range(0, 40):
+                properti = self.metier.get_building_on_point([lig, col])
+                if properti is not None and properti.owner is not None:  # Added check for None here
+                    message = {
+                        "method": "map_property",
+                        "params": properti.add_to_json()  # position_reference contient la position
+                    }
+                    #if properti.owner == playername:  # Use playername variable instead of hardcoding
+                        #transfer_medium.send(message)
+
 
 Controleur()

@@ -13,6 +13,7 @@ class Monde:
         self.information_for_each_tile = self.get_information_for_each_tile() # dictionnaire avec les infos pour la construction de batiment
         self.habitations = [] # bâtiment considérés comme habitation
         self.ingenieurs  = [] # bâtiment pour les ingénieurs
+        self.personnal_Building = []
 
 
 
@@ -336,11 +337,13 @@ class Monde:
             infos_building = self.information_for_each_tile[name]
             self.building = self.craft_building(infos_building,ressource)
             self.building.set_position_reference(grid_pos)
-            self.building.owner = self.building.set_mac_address()
+            self.building.owner = ressource.username
             self.board[grid_pos[0]][grid_pos[1]]["building"] = self.building
             print(f"Building Attributes: 1")
-            building = Tente(infos_building[0], infos_building[1], infos_building[2], infos_building[3], infos_building[4])
-            self.habitations.append(building)
+            self.building = Tente(infos_building[0], infos_building[1], infos_building[2], infos_building[3], infos_building[4])
+            #for key, value in self.building.__dict__.items():
+                #print(f"{key}: {value}")
+            self.habitations.append(self.building)
 
         if (name=="engeneer" and ressource.enough_dinars(2000)):
             #name = "engeneer"
@@ -348,24 +351,33 @@ class Monde:
             infos_building = self.information_for_each_tile[name]
             self.building = self.craft_building(infos_building,ressource)
             self.building.set_position_reference(grid_pos)
-            self.building.owner = self.building.set_mac_address()
+            self.building.owner = ressource.username
             self.board[grid_pos[0]][grid_pos[1]]["building"] = self.building
             print(f"Building Attributes: 1")
-            building = Building(infos_building[0], infos_building[1], infos_building[2], infos_building[3], infos_building[4])
-            self.ingenieurs.append(building)
+            self.building = Building(infos_building[0], infos_building[1], infos_building[2], infos_building[3], infos_building[4])
+            self.building.owner = ressource.username
+            self.ingenieurs.append(self.building)
+
         return Building(infos_building[0], infos_building[1], infos_building[2], infos_building[3], infos_building[4])
 
     # ajoute un bâtiment dans le plateau à une certaines coordonées
     def add_building_on_point(self, grid_pos, name, ressource=None):
         print("tu construits")
         if ressource != None:
+            print(ressource.username)
             if (name=="panneau" and ressource.enough_dinars(1000)):
                 print("tu construits pas mal 2")
                 infos_building = self.information_for_each_tile[name]
                 self.building = self.craft_building(infos_building,ressource)
                 self.building.set_position_reference(grid_pos)
-                self.building.owner = self.building.set_mac_address()
+                self.building.owner = ressource.username
                 self.board[grid_pos[0]][grid_pos[1]]["building"] = self.building
+                print(self.board[grid_pos[0]][grid_pos[1]]["building"])
+                ######################################
+                # test add_to_json (philemon)
+                self.building.add_to_json()
+
+                ######################################
                 print(f"Building Attributes: 2")
                 #for key, value in self.building.__dict__.items():
                     #print(f"{key}: {value}")
@@ -375,7 +387,7 @@ class Monde:
                 infos_building = self.information_for_each_tile[name]
                 self.building = self.craft_building(infos_building,ressource)
                 self.building.set_position_reference(grid_pos)
-                self.building.owner = self.building.set_mac_address()
+                self.building.owner = ressource.username
                 self.board[grid_pos[0]][grid_pos[1]]["building"] = self.building
                 print(f"Building Attributes:")
                 #for key, value in self.building.__dict__.items():
@@ -386,21 +398,24 @@ class Monde:
                 infos_building = self.information_for_each_tile[name]
                 self.building = self.craft_building(infos_building,ressource)
                 self.building.set_position_reference(grid_pos)
-                self.building.owner = self.building.set_mac_address()
+                self.building.owner = ressource.username
                 self.board[grid_pos[0]][grid_pos[1]]["building"] = self.building
                 print(f"Building Attributes:")
-                method = "treat_event_enge"
+                '''method = "treat_event"
                 event_data = {
-                                "method": method,
-                                "builds": self.building.to_json(),
-                                "ressource":ressource.to_json()
+                            "method": method,
+                            "name":"engeneer",
+                            "grid_pos": self.building.position_reference,
+                            "last_grid": "empty",
+                            "SelectionneurZone": "empty",
+                            "pos": "empty",
+                            "Ressources": ressource.to_json()  # Conversion en JSON
                 }
-    
                             # Convert the dictionary to a JSON string
                 event_json = json.dumps(event_data)
 
                             # Send the JSON string over the network
-                print(event_data)
+                print(event_data)'''
                 #for key, value in self.building.__dict__.items():
                     #print(f"{key}: {value}")
                     #self.netstat.send(self.building.to_json())
@@ -409,9 +424,31 @@ class Monde:
                 infos_building = self.information_for_each_tile[name]
                 self.building = self.craft_building(infos_building,ressource)
                 self.building.set_position_reference(grid_pos)
-                self.building.owner = None
+                self.building.owner = ressource.username
                 self.board[grid_pos[0]][grid_pos[1]]["building"] = self.building
                 #self.netstat.send(self.building.to_json())
+        self.personnal_Building.append(self.building)
+
+    ########################################################
+    #  get_building_on_point and set_building_on_point
+    #  Cette fonction pour recuperer le contenu d'une case
+    #  a partir du controleur
+    #  Ajout: Philemon                        11 fevrier 
+    ########################################################
+    def get_building_on_point(self, grid_pos):
+        if self.personnal_Building:
+            # Check if the building exists at the specified grid position
+            building = self.board[grid_pos[0]][grid_pos[1]].get("building", None)
+            
+            # Check if the building is in personal_Building
+            if building and building in self.personnal_Building:
+                return building
+
+        
+    def set_building_on_point(self, grid_pos, building):
+        self.board[grid_pos[0]][grid_pos[1]]["building"] = building 
+    
+
 '''
 
     def add_building_from_netstat(self):

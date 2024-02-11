@@ -1,8 +1,7 @@
 import pygame
 import json
-
 from .selectionneur_zone import SelectionneurZone
-
+from datetime import datetime
 # classe permettant d'ajouter des bâtiments
 class Adding_Building(SelectionneurZone):
     def __init__(self, surface, path, netstat,):
@@ -43,11 +42,13 @@ class Adding_Building(SelectionneurZone):
                         method = "treat_event"
                         event_data = {
                             "method": method,
+                            "name":"tente",
                             "grid_pos": grid,
                             "last_grid": last_grid,
                             "SelectionneurZone": self.original_surface.get_size(),
                             "pos": self.pos_start,
-                            "Ressources": self.carriere.controleur.metier.ressources.to_json()  # Conversion en JSON
+                            "Ressources": self.carriere.controleur.metier.ressources.to_json(),  # Conversion en JSON
+                            "timestamp": datetime.now().isoformat()
                         }
   
                         # Convert the dictionary to a JSON string
@@ -93,8 +94,8 @@ class Adding_Building(SelectionneurZone):
 
 
 
-    def treat_event_local(self, grid, ressource,method):
-        name = "tente"
+    def treat_event_local(self, name, grid, ressource,method):
+        name = name
         food = ressource.get("food")
         water = ressource.get("water")
         dinars = ressource.get("dinars")

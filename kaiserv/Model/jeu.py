@@ -74,10 +74,10 @@ class Jeu:
 
         self.should_refresh = should_refresh
 
-        for habitation in self.monde.habitations:
+        for habitation in self.monde.personnal_Building:
             habitation.elapsed_time(self.ressources)
 
-        for habitation in self.monde.habitations:
+        for habitation in self.monde.personnal_Building:
             if habitation.name == "destroyed":
                 print("destroyed " + habitation.name) 
             
@@ -162,6 +162,17 @@ class Jeu:
     def add_building_on_point(self, grid_pos, path):
         self.monde.add_building_on_point(grid_pos, path,self.ressources)
 
+    ########################################################
+    #  get_building_on_point and set_building_on_port
+    #  Cette fonction pour recuperer le contenu d'une case
+    #  a partir du controleur
+    #  Ajout: Philemon                        11 fevrier 
+    ########################################################
+    def get_building_on_point(self, grid_pos):
+        return self.monde.get_building_on_point(grid_pos)
+    
+    def set_building_on_point(self, grid_pos, building):
+        self.monde.set_building_on_point(grid_pos, building)
 
     def init_board(self, file_name):
         return self.monde.init_board(file_name,self.ressources)
