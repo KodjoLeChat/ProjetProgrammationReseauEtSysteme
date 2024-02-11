@@ -72,8 +72,9 @@ class Building:
     def add_to_json(self):
         # Serialize the current building to JSON
         building_json = self.to_json()
+        print(f"building {self.name} to json is: {building_json}")
 
-        try:
+        ''''try:
             # Load existing data from "transfer.json" if it exists
             with open("transfer.json", "r") as file:
                 data = json.load(file)
@@ -86,7 +87,7 @@ class Building:
 
         # Write the updated data back to "transfer.json"
         with open("transfer.json", "w") as file:
-            json.dump(data, file, indent=4)
+            json.dump(data, file, indent=4)'''
 
 
     @classmethod

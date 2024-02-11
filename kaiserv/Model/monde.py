@@ -366,6 +366,12 @@ class Monde:
                 self.building.set_position_reference(grid_pos)
                 self.building.owner = self.building.set_mac_address()
                 self.board[grid_pos[0]][grid_pos[1]]["building"] = self.building
+                
+                ######################################
+                # test add_to_json (philemon)
+                self.building.add_to_json()
+
+                ######################################
                 print(f"Building Attributes: 2")
                 #for key, value in self.building.__dict__.items():
                     #print(f"{key}: {value}")
