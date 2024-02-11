@@ -16,7 +16,6 @@ class Controleur:
         self.netstat.connect()
         self.netstat.send("Hello, server! from PLAYER2")
 
-
         # démarrage de pygame
         pygame.init()
 
@@ -58,6 +57,7 @@ class Controleur:
                             self.ihm.update()
                     
                     self.ihm.draw()
+                    # test inventory of my properties on map
                     self.inventory_of_my_properties_on_map("Phil_gamer", 13, 15, self.netstat)
 
         else:
@@ -166,18 +166,17 @@ class Controleur:
         self.metier.set_building_on_point(grid_pos, building)
         
     def inventory_of_my_properties_on_map(self, playername, num_lig, num_col, transfer_medium):
-        properti =  self.metier.get_building_on_point([num_lig,num_col])
-        print("========== Philemon ========")
-        print(f" le building trouve: {properti.add_to_json()}")
-        '''for lig in range (0, num_lig):
-            for col in range (0, num_col):
+        properti = None
+        print("========== player current properties =========")
+        for lig in range (0, 40):
+            for col in range (0, 40):
                 properti =  self.metier.get_building_on_point([lig,col])
-                message = {
-                            "method": "map_property",
-                            "params": properti
-                        }   
-                transfer_medium.send(properti)'''
+                if properti.owner is not None :
+                    message = {
+                                "method": "map_property",
+                                "params": properti.add_to_json() # position_reference contient la position
+                            }
+                    if(properti.owner == "rayaneGamer"): # faut recuper l'identifiant du joeur dynamiquement  
+                        transfer_medium.send(message)
 
-        '''for num_lig in range(0, len(self.carriere.informations_tiles)):
-                for num_col in range(0, len(self.carriere.informations_tiles[num_lig])):'''
 Controleur()
