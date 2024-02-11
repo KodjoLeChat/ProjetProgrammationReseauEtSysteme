@@ -8,7 +8,7 @@ import re
 class TcpClient:
     def __init__(self, connecting=False):
         self.server_address = "127.0.0.1"
-        self.port = 2024
+        self.port = 2027
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
         self.buffer_size = 1024
@@ -33,7 +33,7 @@ class TcpClient:
                     "timestamps": timestamp,
                     "Ressources": item['Ressources']  # Prend l'objet Ressources de l'élément actuel
                 }
-                self.send(message)  # Appelle la méthode send avec le message
+                #self.send(message)  # Appelle la méthode send avec le message
                 return False
             else:
                 self.seen[(grid_pos, timestamp)] = item  # Ajoute cette combinaison au dictionnaire seen

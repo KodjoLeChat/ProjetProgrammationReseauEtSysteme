@@ -6,14 +6,27 @@
 #include <errno.h>
 #include <sys/select.h>
 #include "queue.h"
-
+#include <time.h> // Pour time et clock_gettime
 #define MAX_CLIENTS 10
 #define BUFFER_SIZE 1024
 //#define TCP_PORT 2024
 //#define UDP_PORT 8000
 #define MAX_BUFFER 1024
 
+void send_after_delay(const char *message, int tcpClientSocket) {
+    struct timespec start, now;
+    double elapsed;
+    clock_gettime(CLOCK_REALTIME, &start);
 
+    do {
+        clock_gettime(CLOCK_REALTIME, &now);
+        elapsed = (now.tv_sec - start.tv_sec);
+        elapsed += (now.tv_nsec - start.tv_nsec) / 1000000000.0;
+        usleep(1000); // Petit sommeil pour éviter une utilisation élevée du CPU
+    } while (elapsed < 4.0);
+
+    send_udp_message_to_tcp_client(message, tcpClientSocket);
+}
 
 void send_udp_message_to_tcp_client(const char *message, int tcpClientSocket) {
     int message_length = strlen(message);
@@ -200,36 +213,36 @@ int main(int argc, char *argv[]) {
         }
 
         if (FD_ISSET(udpServerSocket, &readfds)) {
-		struct sockaddr_in clientAddr;
-		socklen_t len = sizeof(clientAddr);
+            struct sockaddr_in clientAddr;
+            socklen_t len = sizeof(clientAddr);
             memset(buffer, 0, BUFFER_SIZE); // Effacer le buffer avant de recevoir
             
-		    int bytesRead = recvfrom(udpServerSocket, buffer, BUFFER_SIZE, 0, (struct sockaddr*)&clientAddr, &len);
-		    if (bytesRead == -1) {
-		        perror("UDP Recvfrom failed");
-		        exit(EXIT_FAILURE);
-		    }
+            int bytesRead = recvfrom(udpServerSocket, buffer, BUFFER_SIZE, 0, (struct sockaddr*)&clientAddr, &len);
+            if (bytesRead == -1) {
+                perror("UDP Recvfrom failed");
+                exit(EXIT_FAILURE);
+            }
 
-            enqueue(&incomingQueue, buffer);
+            printf("Received UDP message from %s:%d - %.*s\n",
+                inet_ntoa(clientAddr.sin_addr), ntohs(clientAddr.sin_port), bytesRead, buffer);
 
-		    printf("Received UDP message from %s:%d - %.*s\n",
-		           inet_ntoa(clientAddr.sin_addr), ntohs(clientAddr.sin_port), bytesRead, buffer);
+            // Vérifie si le message reçu est du JSON avant de l'envoyer
+            if (buffer[0] == '{') { // Simple vérification pour voir si c'est potentiellement du JSON
+                // Envoyer instantanément le message JSON au client TCP
+                if (python_client_socket > 0) {
+                    send_udp_message_to_tcp_client(buffer, python_client_socket);
+                }
+            } else {
+                // Traiter les autres types de messages selon les besoins
+            }
 
-		    // Check if the IP address has already been sent the file
-		    if (!ip_exists(&ip_list_sent, clientAddr)) {
-		        // Send the save.sav file to the client over UDP
-		        send_file_over_udp("test.txt", udpServerSocket, clientAddr);
-		        // Add the IP address to the list so the file is not sent again
-		        add_ip(&ip_list_sent, clientAddr);
-		    }
-
-            memset(incomingBuffer, 0, BUFFER_SIZE); // Effacer incomingbuffer avant de defiler
-            strncpy(incomingBuffer, dequeue(&incomingQueue), BUFFER_SIZE);
-
-		    // Send the UDP message to the TCP client
-		    if (python_client_socket > 0) {
-		        send_udp_message_to_tcp_client(incomingBuffer, python_client_socket);
-		    }
+            // Vérification si l'adresse IP a déjà reçu le fichier, et envoi si nécessaire
+            if (!ip_exists(&ip_list_sent, clientAddr)) {
+                // Envoyer le fichier au client via UDP
+                send_file_over_udp("test.txt", udpServerSocket, clientAddr);
+                // Ajouter l'adresse IP à la liste pour éviter les envois répétés
+                add_ip(&ip_list_sent, clientAddr);
+            }
         }
 
 

@@ -13,12 +13,14 @@ import json
 # permet de gerer les HUD du haut et de la droite
 class HUD:
     def __init__(self, screen, carriere, netstat):
+        self.thread_limit = threading.Semaphore(1)
         self.screen   = screen
         self.carriere = carriere
         self.longueur = self.screen.get_width() 
         self.hauteur = self.screen.get_height()
         self.action = None
         self.netstat = netstat
+        self.ready = False
         #dimension image
         REFERENCE_SIZE_X = 1920
         REFERENCE_SIZE_Y = 1080
@@ -35,7 +37,7 @@ class HUD:
         self.hud_top = pg.image.load("./assets/hud/hud_top.png").convert_alpha()
         size_hud_top = (self.hud_top.get_width()*self.longueur/REFERENCE_SIZE_X, self.hud_top.get_height()*self.hauteur/REFERENCE_SIZE_Y)
         self.hud_top =  pg.transform.scale(self.hud_top, size_hud_top)
-
+        self.treatment_in_progress = {}
         # double boucle, pour pouvoir rajouter de future action
         # permet de gérer ensuite les evenements
         actions = ["build", "clear", "road", "", "", "", "", "", "", "engeneer", "attack", ""]
@@ -81,7 +83,7 @@ class HUD:
                                     "method": method,
                                     "params": params
                                 }                                
-                                self.netstat.send(message)
+                                # self.netstat.send(message)
                             if not self.action.is_progress:
                                 self.action.is_progress = True
                                 image = pg.image.load("assets/upscale_land/Land2a_00001.png")
@@ -115,7 +117,7 @@ class HUD:
                                     "method": method,
                                     "params": params
                                 }      
-                                self.netstat.send(message)
+                                # self.netstat.send(message)
                         case "stats":
                             if self.action == None: self.action = AddingEngeneer(self.carriere)
                             if not self.action.is_progress:
@@ -128,8 +130,8 @@ class HUD:
             else:
                 self.button_hud_right[button].who_is_visible = ""
         
-        # if self.count2 == 0:  # pour test, à supprimer
-            # self.netstat.received_data_ADDING_BUILDING.append({"method": "Adding_Building", "params": {"image_path": "assets/upscale_house/Housng1a_00045.png"}})
+        if self.count2 == 0:  # pour test, à supprimer
+            self.netstat.received_data_ADDING_BUILDING.append({"method": "Adding_Building", "params": {"image_path": "assets/upscale_house/Housng1a_00045.png"}})
             # self.netstat.received_data_ADDING_BUILDING.append({"method": "Adding_Building", "params": {"image_path": "assets/upscale_house/Housng1a_00045.png"}})
             # self.netstat.received_data_ADDING_BUILDING.append({"method": "Adding_Building", "params": {"image_path": "assets/upscale_house/Housng1a_00045.png"}})
             # self.netstat.received_data_ADDING_BUILDING.append({"method": "Adding_Building", "params": {"image_path": "assets/upscale_house/Housng1a_00045.png"}})
@@ -138,7 +140,7 @@ class HUD:
             # self.netstat.received_data.append({'method': 'treat_event', 'name': 'engeneer', 'grid_pos': (15, 13), 'last_grid': 'empty', 'SelectionneurZone': 'empty', 'pos': 'empty', 'Ressources': '{"food": 0, "water": 0, "dinars": 4000, "population": 0, "username": "rayaneGamer"}',"timestamp": "2024-02-11T15:32:25.494026"})
 
             #self.netstat.received_data.append()
-            # self.count2+=1
+            self.count2+=1
         #print("avant TOUT: AAAAAAAAAAAAAAAAA" + str(self.netstat.received_data))
 
         # Check if there is any data received
@@ -153,9 +155,9 @@ class HUD:
                 print("avant: AAAAAAAAAAAAAAAAA" + str(self.netstat.received_data_ADDING_BUILDING))
                 action_data = self.netstat.received_data_ADDING_BUILDING.pop(0)
                 print("après: AAAAAAAAAAAAAAAAA" + str(self.netstat.received_data_ADDING_BUILDING))
-                if self.netstat.check_and_send_duplicates():
-                    print(self.netstat.seen)
-                    self.execute_action(action_data)
+                # self.netstat.check_and_send_duplicates()
+                print(self.netstat.seen)
+                self.execute_action(action_data)
                 #print(action_data)
             else:
                 # Handle other methods or leave the item in the list
@@ -167,26 +169,26 @@ class HUD:
         if "method" in action_data and "params" in action_data:
             method = action_data["method"]
             params = action_data["params"]
+
+            def thread_function():
+                with self.thread_limit:
+                    self.wait_for_treat_event()
             
             match method:
                 case "Adding_Building":
-                    # Handle 'build' action
                     print("constructing building")
-
                     if self.action is None:
-                        # Create the action and start the waiting thread
                         self.action = Adding_Building(self.carriere, "assets/upscale_house/Housng1a_00045.png", self.netstat)
-                        threading.Thread(target=self.wait_for_treat_event, daemon=True).start()
+                        if self.ready == False:
+                            threading.Thread(target=thread_function, daemon=True).start()
+                            self.ready = True
 
                 case "AddingEngeneer":
-                    # Handle 'clear' action
                     print("constructing engeneer")
-
                     if self.action is None:
-                        # Create the action and start the waiting thread
                         self.action = Adding_Building(self.carriere, "assets/upscale_house/Housng1a_00045.png", self.netstat)
-                        threading.Thread(target=self.wait_for_treat_event, daemon=True).start()
-    '''def wait_for_treat_event(self):
+                        threading.Thread(target=thread_function, daemon=True).start()    
+        '''def wait_for_treat_event(self):
         while True:
             print(self.netstat.received_data)
             # Use a thread lock if needed to safely access self.netstat.received_data
@@ -218,6 +220,7 @@ class HUD:
             # Optionally, add a small delay here to prevent high CPU usage
 '''
     def wait_for_treat_event(self):
+        self.ready=True
         while True:
             # S'assurer que la liste n'est pas vide
             if not self.netstat.received_data:
@@ -233,13 +236,23 @@ class HUD:
                         resources_json = action_data.get("Ressources")
                         resources = json.loads(resources_json)  # Parse le string JSON en dictionnaire
                         # Plus de logique ici si nécessaire
-                        
+                        print(name, grid, resources, action_data.get("method"))
                         # Appeler la fonction de traitement
-                        self.action.treat_event_local(name, grid, resources, action_data.get("method"))
+                        try:
+                            self.action.treat_event_local(name, grid, resources, action_data.get("method"))
+                        except:
+                            self.action = Adding_Building(self.carriere, "assets/upscale_house/Housng1a_00045.png", self.netstat)
+                            self.action.treat_event_local(name, grid, resources, action_data.get("method"))
 
                         # Supprimer l'élément traité de la liste originale
-                        del self.netstat.received_data[index]
-
+                        try:
+                            del self.netstat.received_data[index]
+                        except IndexError:
+                            # Si l'index n'est plus valide, ignorer et continuer
+                            print("Erreur lors de la suppression de l'élément, index invalide. Possible modification concurrente.")
+                            return  # Sortir si nécessaire, ou passer pour continuer le traitement                        
+                        self.count2 = 0
+                        self.ready=False
                         return  # Sortie après le traitement pour éviter de modifier la liste pendant la boucle
                 elif action_data.get("method") == "treat_event_enge":
                     # Traiter les autres cas si nécessaire
